@@ -1,5 +1,5 @@
 /* ============================================
-   PÁGINA CONTACTO - DISEÑO PROFESIONAL
+   PÁGINA CONTACTO - DISEÑO COMPACTO
    ============================================ */
 
 .contacto-contenido {
@@ -8,11 +8,11 @@
 }
 
 /* ============================================
-   HERO
+   HERO COMPACTO
    ============================================ */
 .contacto-hero {
     position: relative;
-    padding: 100px 50px;
+    padding: 60px 50px;
     background: linear-gradient(135deg, #8B1538 0%, #5a0f28 100%);
     text-align: center;
     color: white;
@@ -37,75 +37,22 @@
 }
 
 .contacto-hero h1 {
-    font-size: 3.5rem;
-    margin-bottom: 15px;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
     font-weight: 700;
 }
 
 .contacto-hero p {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     opacity: 0.95;
-}
-
-/* ============================================
-   INFORMACIÓN DE CONTACTO
-   ============================================ */
-.contacto-info {
-    padding: 60px 50px;
-    background: white;
-    display: block;
-    width: 100%;
-}
-
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.info-card {
-    background: linear-gradient(135deg, #f0f4f8 0%, #d9e9f5 100%);
-    padding: 40px;
-    border-radius: 15px;
-    text-align: center;
-    border-left: 5px solid #8B1538;
-    transition: all 0.3s ease;
-    display: block;
-}
-
-.info-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 30px rgba(139, 21, 56, 0.15);
-}
-
-.info-icono {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-    display: block;
-}
-
-.info-card h3 {
-    color: #8B1538;
-    font-size: 1.3rem;
-    margin-bottom: 12px;
-    display: block;
-}
-
-.info-card p {
-    color: #555;
-    font-size: 1rem;
-    margin: 5px 0;
-    display: block;
 }
 
 /* ============================================
    CONTENEDOR PRINCIPAL
    ============================================ */
 .contacto-principal {
-    padding: 80px 50px;
-    background: #f8f9fa;
+    padding: 60px 50px;
+    background: white;
     display: block;
     width: 100%;
 }
@@ -113,26 +60,25 @@
 .contacto-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 50px;
-    max-width: 1400px;
+    gap: 40px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
 /* ============================================
-   FORMULARIO
+   FORMULARIO COMPACTO
    ============================================ */
 .formulario-container {
-    background: white;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 12px;
     display: block;
 }
 
 .formulario-container h2 {
     color: #333;
-    font-size: 2rem;
-    margin-bottom: 30px;
+    font-size: 1.5rem;
+    margin-bottom: 25px;
     display: block;
 }
 
@@ -141,7 +87,7 @@
 }
 
 .form-grupo {
-    margin-bottom: 25px;
+    margin-bottom: 18px;
     display: block;
 }
 
@@ -149,18 +95,18 @@
     display: block;
     color: #333;
     font-weight: 600;
-    margin-bottom: 8px;
-    font-size: 1rem;
+    margin-bottom: 6px;
+    font-size: 0.95rem;
 }
 
 .form-grupo input,
 .form-grupo select,
 .form-grupo textarea {
     width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 1rem;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.95rem;
     font-family: 'Poppins', sans-serif;
     transition: all 0.3s ease;
     box-sizing: border-box;
@@ -172,21 +118,22 @@
 .form-grupo textarea:focus {
     outline: none;
     border-color: #8B1538;
-    box-shadow: 0 0 0 3px rgba(139, 21, 56, 0.1);
+    box-shadow: 0 0 0 2px rgba(139, 21, 56, 0.1);
 }
 
 .form-grupo textarea {
     resize: vertical;
+    min-height: 120px;
 }
 
 .btn-enviar {
     width: 100%;
-    padding: 14px;
+    padding: 11px;
     background: #8B1538;
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
+    border-radius: 6px;
+    font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -196,37 +143,37 @@
 .btn-enviar:hover {
     background: #D64A4A;
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(139, 21, 56, 0.3);
+    box-shadow: 0 5px 15px rgba(139, 21, 56, 0.2);
 }
 
 /* ============================================
-   MAPA
+   MAPA COMPACTO
    ============================================ */
 .mapa-container {
-    background: white;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 12px;
     display: block;
 }
 
 .mapa-container h2 {
     color: #333;
-    font-size: 2rem;
-    margin-bottom: 30px;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
     display: block;
 }
 
 .mapa-iframe {
     border-radius: 8px;
+    border: none;
 }
 
 /* ============================================
    REDES SOCIALES
    ============================================ */
 .contacto-redes {
-    padding: 80px 50px;
-    background: white;
+    padding: 60px 50px;
+    background: #f8f9fa;
     text-align: center;
     display: block;
     width: 100%;
@@ -234,50 +181,51 @@
 
 .contacto-redes h2 {
     color: #333;
-    font-size: 2.5rem;
-    margin-bottom: 60px;
+    font-size: 2rem;
+    margin-bottom: 40px;
     display: block;
 }
 
 .redes-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
 .red-card {
-    background: linear-gradient(135deg, #f0f4f8 0%, #d9e9f5 100%);
-    padding: 40px;
-    border-radius: 12px;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
     text-decoration: none;
     transition: all 0.3s ease;
     display: block;
-    border-top: 4px solid #8B1538;
+    border-top: 3px solid #8B1538;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .red-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(139, 21, 56, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(139, 21, 56, 0.15);
 }
 
 .red-icono {
-    font-size: 3rem;
-    margin-bottom: 15px;
+    font-size: 2.5rem;
+    margin-bottom: 12px;
     display: block;
 }
 
 .red-card h3 {
     color: #8B1538;
-    font-size: 1.3rem;
-    margin-bottom: 8px;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
     display: block;
 }
 
 .red-card p {
     color: #666;
-    font-size: 1rem;
+    font-size: 0.95rem;
     display: block;
 }
 
@@ -286,64 +234,57 @@
    ============================================ */
 @media (max-width: 768px) {
     .contacto-hero {
-        padding: 80px 30px;
-    }
-
-    .contacto-hero h1 {
-        font-size: 2.5rem;
-    }
-
-    .contacto-principal {
-        padding: 60px 30px;
-    }
-
-    .contacto-container {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    .info-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-}
-
-@media (max-width: 480px) {
-    .contacto-hero {
-        padding: 60px 20px;
+        padding: 50px 30px;
     }
 
     .contacto-hero h1 {
         font-size: 2rem;
     }
 
-    .contacto-hero p {
-        font-size: 1.1rem;
+    .contacto-principal {
+        padding: 40px 30px;
     }
 
-    .contacto-info {
+    .contacto-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contacto-hero {
         padding: 40px 20px;
+    }
+
+    .contacto-hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .contacto-hero p {
+        font-size: 1rem;
     }
 
     .contacto-principal {
-        padding: 40px 20px;
+        padding: 30px 20px;
     }
 
     .formulario-container,
     .mapa-container {
-        padding: 30px 20px;
+        padding: 20px;
     }
 
     .formulario-container h2,
     .mapa-container h2 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 
     .contacto-redes {
-        padding: 60px 20px;
+        padding: 40px 20px;
     }
 
     .contacto-redes h2 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
+        margin-bottom: 30px;
     }
 
     .redes-grid {
@@ -354,25 +295,8 @@
 /* ============================================
    DARK MODE - CONTACTO
    ============================================ */
-body.dark-mode .contacto-info {
-    background: #1a1a1c;
-}
-
-body.dark-mode .info-card {
-    background: linear-gradient(135deg, #2a3f5a 0%, #1f2a3a 100%);
-    border-left-color: #D64A4A;
-}
-
-body.dark-mode .info-card h3 {
-    color: #D64A4A;
-}
-
-body.dark-mode .info-card p {
-    color: #a8a8aa;
-}
-
 body.dark-mode .contacto-principal {
-    background: #0f0f10;
+    background: #1a1a1c;
 }
 
 body.dark-mode .formulario-container,
@@ -401,7 +325,7 @@ body.dark-mode .form-grupo input:focus,
 body.dark-mode .form-grupo select:focus,
 body.dark-mode .form-grupo textarea:focus {
     border-color: #D64A4A;
-    box-shadow: 0 0 0 3px rgba(214, 74, 74, 0.1);
+    box-shadow: 0 0 0 2px rgba(214, 74, 74, 0.1);
 }
 
 body.dark-mode .btn-enviar {
@@ -413,7 +337,7 @@ body.dark-mode .btn-enviar:hover {
 }
 
 body.dark-mode .contacto-redes {
-    background: #1a1a1c;
+    background: #0f0f10;
 }
 
 body.dark-mode .contacto-redes h2 {
@@ -421,7 +345,7 @@ body.dark-mode .contacto-redes h2 {
 }
 
 body.dark-mode .red-card {
-    background: linear-gradient(135deg, #2a3f5a 0%, #1f2a3a 100%);
+    background: #232325;
     border-top-color: #D64A4A;
 }
 
