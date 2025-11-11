@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Noticias y Eventos | Colegio Trinity School</title>
+    <link rel="stylesheet" href="../css/Estilo.css">
+    <link rel="stylesheet" href="../css/darkmode.css">
+    <link rel="stylesheet" href="../css/noticias.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../index.html" class="logo-link">
+                    <img src="../img/logo.png" alt="Logo Colegio Trinity School" />
+                    <div class="logo-text">
+                        <h1>Colegio<br>Trinity School</h1>
+                        <p>Chincha Alta</p>
+                    </div>
+                </a>
+            </div>
+
+            <button class="menu-toggle" aria-label="Abrir menú de navegación">☰</button>
+
+            <ul class="nav-links">
+                <li><a href="Nosotros.html">Nosotros</a></li>
+                <li>
+                    <a href="Oferta.html" class="has-submenu">Oferta educativa</a>
+                    <ul class="submenu">
+                        <li><a href="Inicial.html">Nivel Inicial</a></li>
+                        <li><a href="Primaria.html">Nivel Primaria</a></li>
+                        <li><a href="Secundaria.html">Nivel Secundaria</a></li>
+                        <li><a href="Talleres.html">Talleres</a></li>
+                    </ul>
+                </li>
+                <li><a href="Noticias.html">Noticias y Eventos</a></li>
+                <li><a href="Galeria.html">Galería</a></li>
+                <li><a href="Contacto.html">Contacto</a></li>
+                <li><a href="#" class="btn-admisiones">Admisiones</a></li>
+            </ul>
+
+            <div class="darkmode-toggle">
+                <button id="darkModeBtn" aria-label="Cambiar modo oscuro">🌙</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="noticias-contenido">
+        <!-- Hero -->
+        <section class="noticias-hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1>Noticias y Eventos</h1>
+                <p>Entérate de las últimas actividades, logros y acontecimientos de nuestra comunidad educativa.</p>
+            </div>
+        </section>
+
+        <!-- Sección de Noticias -->
+        <section class="seccion-noticias" id="noticias">
+            <div class="contenedor-seccion">
+                <div class="seccion-header">
+                    <h2>Noticias</h2>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="noticias-grid">
+                    <!-- Noticia 1 -->
+                    <article class="noticia-card">
+                        <div class="noticia-imagen">
+                            <img src="../img/noticia1.jpg" alt="Día de la Educación">
+                            <span class="noticia-categoria">Celebración</span>
+                        </div>
+                        <div class="noticia-contenido">
+                            <span class="noticia-fecha">15 de Marzo, 2025</span>
+                            <h3>Día de la Educación en el Perú celebrado</h3>
+                            <p>Celebramos el Día de la Educación con diversas actividades que resaltaron la importancia de la educación en nuestra comunidad. Estudiantes y docentes participaron activamente.</p>
+                        </div>
+                    </article>
+
+                    <!-- Noticia 2 -->
+                    <article class="noticia-card">
+                        <div class="noticia-imagen">
+                            <img src="../img/noticia2.jpg" alt="Reconocimiento Santa Rosa">
+                            <div class="noticia-badge">Logro</div>
+                        </div>
+                        <div class="noticia-contenido">
+                            <span class="noticia-fecha">28 de Febrero, 2025</span>
+                            <h3>Reconocimiento en Feria Santa Rosa</h3>
+                            <p>Nuestros estudiantes obtuvieron reconocimiento en la Feria de Ciencias Santa Rosa por sus proyectos innovadores en ciencia y tecnología.</p>
+                        </div>
+                    </article>
+
+                    <!-- Noticia 3 -->
+                    <article class="noticia-card">
+                        <div class="noticia-imagen">
+                            <img src="../img/noticia3.jpg" alt="Formación Cívica">
+                            <span class="noticia-categoria">Formación</span>
+                        </div>
+                        <div class="noticia-contenido">
+                            <span class="noticia-fecha">20 de Febrero, 2025</span>
+                            <h3>Charla sobre Formación en Valores Cívicos</h3>
+                            <p>Realizamos una charla formativa sobre valores cívicos y ciudadanía para estudiantes de secundaria, fortaleciendo su compromiso con la sociedad.</p>
+                        </div>
+                    </article>
+
+                    <!-- Noticia 4 -->
+                    <article class="noticia-card">
+                        <div class="noticia-imagen">
+                            <img src="../img/noticia4.jpg" alt="Inicio de clases">
+                            <span class="noticia-categoria">Institucional</span>
+                        </div>
+                        <div class="noticia-contenido">
+                            <span class="noticia-fecha">10 de Marzo, 2025</span>
+                            <h3>Inicio del Año Escolar 2025</h3>
+                            <p>Dimos la bienvenida a nuestros estudiantes para iniciar un nuevo año escolar lleno de aprendizaje y oportunidades de crecimiento.</p>
+                        </div>
+                    </article>
+
+                    <!-- Noticia 5 -->
+                    <article class="noticia-card">
+                        <div class="noticia-imagen">
+                            <img src="../img/noticia5.jpg" alt="Día del Maestro">
+                            <span class="noticia-categoria">Celebración</span>
+                        </div>
+                        <div class="noticia-contenido">
+                            <span class="noticia-fecha">6 de Julio, 2024</span>
+                            <h3>Homenaje a Nuestros Docentes</h3>
+                            <p>Celebramos el Día del Maestro reconociendo la dedicación y compromiso de nuestros docentes con la educación de calidad.</p>
+                        </div>
+                    </article>
+
+                    <!-- Noticia 6 -->
+                    <article class="noticia-card">
+                        <div class="noticia-imagen">
+                            <img src="../img/noticia6.jpg" alt="Clausura 2024">
+                            <span class="noticia-categoria">Ceremonia</span>
+                        </div>
+                        <div class="noticia-contenido">
+                            <span class="noticia-fecha">20 de Diciembre, 2024</span>
+                            <h3>Clausura del Año Escolar 2024</h3>
+                            <p>Culminamos exitosamente el año escolar 2024 con una ceremonia de clausura donde celebramos los logros de nuestros estudiantes.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Eventos -->
+        <section class="seccion-eventos" id="eventos">
+            <div class="contenedor-seccion">
+                <div class="seccion-header">
+                    <h2>Eventos</h2>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="eventos-grid">
+                    <!-- Evento 1 -->
+                    <article class="evento-card">
+                        <div class="evento-imagen">
+                            <img src="../img/evento1.jpg" alt="Día del Logro">
+                            <div class="evento-fecha-badge">
+                                <span class="dia">25</span>
+                                <span class="mes">Julio</span>
+                            </div>
+                        </div>
+                        <div class="evento-contenido">
+                            <h3>Día del Logro 2025</h3>
+                            <p>Presentación de los logros académicos de nuestros estudiantes en todas las áreas curriculares. Padres de familia y comunidad están invitados.</p>
+                            <div class="evento-detalles">
+                                <span class="detalle">📍 Instalaciones del colegio</span>
+                                <span class="detalle">🕐 9:00 AM - 1:00 PM</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Evento 2 -->
+                    <article class="evento-card">
+                        <div class="evento-imagen">
+                            <img src="../img/evento2.jpg" alt="Aniversario">
+                            <div class="evento-fecha-badge">
+                                <span class="dia">15</span>
+                                <span class="mes">Agosto</span>
+                            </div>
+                        </div>
+                        <div class="evento-contenido">
+                            <h3>Aniversario del Colegio</h3>
+                            <p>Celebración del aniversario de Trinity School con actividades deportivas, culturales y artísticas para toda la comunidad educativa.</p>
+                            <div class="evento-detalles">
+                                <span class="detalle">📍 Instalaciones del colegio</span>
+                                <span class="detalle">🕐 Todo el día</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Evento 3 -->
+                    <article class="evento-card">
+                        <div class="evento-imagen">
+                            <img src="../img/evento3.jpg" alt="Feria de Ciencias">
+                            <div class="evento-fecha-badge">
+                                <span class="dia">10</span>
+                                <span class="mes">Sept</span>
+                            </div>
+                        </div>
+                        <div class="evento-contenido">
+                            <h3>Feria de Ciencias Escolar</h3>
+                            <p>Nuestros estudiantes presentarán sus proyectos científicos y tecnológicos desarrollados durante el año escolar.</p>
+                            <div class="evento-detalles">
+                                <span class="detalle">📍 Patio principal</span>
+                                <span class="detalle">🕐 8:00 AM - 12:00 PM</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Evento 4 -->
+                    <article class="evento-card">
+                        <div class="evento-imagen">
+                            <img src="../img/evento4.jpg" alt="Día de la Familia">
+                            <div class="evento-fecha-badge">
+                                <span class="dia">20</span>
+                                <span class="mes">Oct</span>
+                            </div>
+                        </div>
+                        <div class="evento-contenido">
+                            <h3>Día de la Familia Trinity</h3>
+                            <p>Jornada especial para compartir con las familias, incluyendo actividades recreativas, talleres y presentaciones artísticas.</p>
+                            <div class="evento-detalles">
+                                <span class="detalle">📍 Instalaciones del colegio</span>
+                                <span class="detalle">🕐 9:00 AM - 2:00 PM</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Evento 5 -->
+                    <article class="evento-card">
+                        <div class="evento-imagen">
+                            <img src="../img/evento5.jpg" alt="Actuación Navideña">
+                            <div class="evento-fecha-badge">
+                                <span class="dia">18</span>
+                                <span class="mes">Dic</span>
+                            </div>
+                        </div>
+                        <div class="evento-contenido">
+                            <h3>Actuación Navideña</h3>
+                            <p>Presentación artística navideña con villancicos, danzas y obras teatrales preparadas por nuestros estudiantes.</p>
+                            <div class="evento-detalles">
+                                <span class="detalle">📍 Auditorio del colegio</span>
+                                <span class="detalle">🕐 6:00 PM - 8:00 PM</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Evento 6 -->
+                    <article class="evento-card">
+                        <div class="evento-imagen">
+                            <img src="../img/evento6.jpg" alt="Clausura">
+                            <div class="evento-fecha-badge">
+                                <span class="dia">22</span>
+                                <span class="mes">Dic</span>
+                            </div>
+                        </div>
+                        <div class="evento-contenido">
+                            <h3>Ceremonia de Clausura 2025</h3>
+                            <p>Ceremonia oficial de clausura del año escolar 2025 con entrega de diplomas y reconocimientos a estudiantes destacados.</p>
+                            <div class="evento-detalles">
+                                <span class="detalle">📍 Instalaciones del colegio</span>
+                                <span class="detalle">🕐 10:00 AM</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="noticias-cta">
+            <div class="cta-contenido">
+                <h2>¿Quieres saber más?</h2>
+                <p>Síguenos en nuestras redes sociales para estar al tanto de todas nuestras actividades</p>
+                <a href="Contacto.html" class="btn-cta">Contáctanos</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-contenido">
+            <div class="footer-seccion">
+                <div class="footer-logo">
+                    <img src="../img/logo.png" alt="Logo Trinity">
+                    <p>Colegio Trinity School<br>Chincha Alta</p>
+                </div>
+            </div>
+
+            <div class="footer-seccion">
+                <h4>Enlaces rápidos</h4>
+                <ul>
+                    <li><a href="Nosotros.html">Nosotros</a></li>
+                    <li><a href="Oferta.html">Oferta Educativa</a></li>
+                    <li><a href="Noticias.html">Noticias</a></li>
+                    <li><a href="Galeria.html">Galería</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-seccion">
+                <h4>Niveles</h4>
+                <ul>
+                    <li><a href="Inicial.html">Inicial</a></li>
+                    <li><a href="Primaria.html">Primaria</a></li>
+                    <li><a href="Secundaria.html">Secundaria</a></li>
+                    <li><a href="Talleres.html">Talleres</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-seccion">
+                <h4>Contacto</h4>
+                <div class="footer-info">
+                    <p>📍 Jr. Educación 123, Chincha Alta</p>
+                    <p>📞 (056) 123456</p>
+                    <p>✉️ contacto@trinityschool.edu.pe</p>
+                </div>
+            </div>
+        </div>
+        <p class="footer-copy">© 2025 Colegio Trinity School. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/darkmode.js"></script>
+</body>
+
+</html>

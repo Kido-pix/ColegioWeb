@@ -1,0 +1,536 @@
+/* ============================================
+   DARK MODE - VARIABLES Y BASE
+   ============================================ */
+body.dark-mode {
+    --bg-primary: #0f0f10;
+    --bg-secondary: #1a1a1c;
+    --bg-tertiary: #232325;
+    --text-primary: #e8e8e9;
+    --text-secondary: #a8a8aa;
+    --border: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* ============================================
+   TRANSICIONES SUAVES
+   ============================================ */
+* {
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+/* ============================================
+   DARK MODE - NAVBAR
+   ============================================ */
+body.dark-mode .navbar {
+    background-color: var(--rojo-principal);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .logo-text h1,
+body.dark-mode .logo-text p {
+    color: var(--blanco);
+}
+
+body.dark-mode .nav-links a {
+    color: var(--blanco);
+}
+
+body.dark-mode .nav-links a:hover {
+    color: var(--dorado);
+}
+
+body.dark-mode .darkmode-toggle button {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--blanco);
+}
+
+body.dark-mode .darkmode-toggle button:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--dorado);
+}
+
+/* ============================================
+   DARK MODE - SUBMENU
+   ============================================ */
+body.dark-mode .submenu {
+    background-color: rgba(139, 21, 56, 0.98) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+body.dark-mode .submenu a {
+    color: var(--blanco);
+}
+
+body.dark-mode .submenu a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-left-color: var(--dorado);
+}
+
+body.dark-mode .submenu li:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ============================================
+   DARK MODE - HERO
+   ============================================ */
+body.dark-mode .principal-overlay {
+    background: linear-gradient(to bottom, rgba(15, 15, 16, 0.3), rgba(15, 15, 16, 0.8)) !important;
+}
+
+body.dark-mode .principal-text h2,
+body.dark-mode .principal-text p {
+    color: #ffffff;
+}
+
+/* ============================================
+   DARK MODE - BOTONES
+   ============================================ */
+body.dark-mode .btn,
+body.dark-mode .btn-conocer,
+body.dark-mode .btn-nivel,
+body.dark-mode .btn-admisiones,
+body.dark-mode .btn-admisiones-cta {
+    background-color: var(--rojo-principal);
+    color: #ffffff;
+    border: 1px solid var(--dorado);
+}
+
+body.dark-mode .btn:hover,
+body.dark-mode .btn-conocer:hover,
+body.dark-mode .btn-nivel:hover,
+body.dark-mode .btn-admisiones:hover,
+body.dark-mode .btn-admisiones-cta:hover {
+    background-color: #A91D45;
+    border-color: var(--dorado);
+    transform: translateY(-1px);
+}
+
+/* ============================================
+   DARK MODE - SECCIONES
+   ============================================ */
+body.dark-mode .bienvenida,
+body.dark-mode .niveles,
+body.dark-mode .noticias {
+    background-color: var(--bg-secondary) !important;
+}
+
+body.dark-mode .valores,
+body.dark-mode .logros {
+    background-color: var(--bg-primary) !important;
+}
+
+body.dark-mode h2,
+body.dark-mode h3 {
+    color: var(--text-primary);
+}
+
+body.dark-mode p {
+    color: var(--text-secondary);
+}
+
+/* ============================================
+   DARK MODE - ACENTOS
+   ============================================ */
+body.dark-mode .section-label {
+    color: var(--dorado);
+    background-color: rgba(212, 175, 55, 0.1);
+}
+
+body.dark-mode .divider,
+body.dark-mode .divider-center {
+    background: var(--dorado);
+}
+
+/* ============================================
+   DARK MODE - TARJETAS
+   ============================================ */
+body.dark-mode .valor-card,
+body.dark-mode .noticia-card {
+    background-color: var(--bg-tertiary) !important;
+    border: 1px solid var(--border);
+}
+
+body.dark-mode .valor-card:hover,
+body.dark-mode .noticia-card:hover {
+    border-color: var(--dorado);
+    transform: translateY(-2px);
+}
+
+body.dark-mode .valor-card h3,
+body.dark-mode .valor-card p,
+body.dark-mode .noticia-card h3,
+body.dark-mode .noticia-card p {
+    color: var(--text-primary);
+}
+
+/* ============================================
+   DARK MODE - NIVELES
+   ============================================ */
+body.dark-mode .nivel {
+    background-color: var(--bg-tertiary) !important;
+    border: 1px solid var(--border) !important;
+}
+
+body.dark-mode .nivel-contenido {
+    background-color: var(--bg-tertiary) !important;
+}
+
+body.dark-mode .nivel-overlay {
+    background: linear-gradient(to bottom, rgba(15, 15, 16, 0.2), rgba(15, 15, 16, 0.7)) !important;
+}
+
+body.dark-mode .nivel h3 {
+    color: var(--dorado) !important;
+}
+
+body.dark-mode .nivel p {
+    color: var(--text-secondary) !important;
+}
+
+/* ============================================
+   DARK MODE - CARRUSEL Y LOGROS
+   ============================================ */
+body.dark-mode .logro-item {
+    background-color: var(--bg-tertiary) !important;
+    border: 1px solid var(--border) !important;
+}
+
+body.dark-mode .logro-item.center {
+    border-color: var(--dorado) !important;
+}
+
+body.dark-mode .logro-item h3 {
+    color: var(--dorado) !important;
+}
+
+body.dark-mode .logro-descripcion {
+    color: var(--text-secondary) !important;
+}
+
+body.dark-mode .carousel-indicators .indicator {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .carousel-indicators .indicator.active {
+    background-color: var(--dorado);
+}
+
+/* ============================================
+   DARK MODE - NOTICIAS
+   ============================================ */
+body.dark-mode .noticia-fecha {
+    color: var(--dorado);
+    background-color: rgba(212, 175, 55, 0.1);
+}
+
+body.dark-mode .noticia-overlay {
+    background: linear-gradient(to bottom, rgba(15, 15, 16, 0.2), rgba(15, 15, 16, 0.7)) !important;
+}
+
+body.dark-mode .noticia-contenido {
+    background-color: var(--bg-tertiary) !important;
+}
+
+/* ============================================
+   DARK MODE - ADMISIONES
+   ============================================ */
+body.dark-mode .admisiones {
+    background-color: var(--azul-petroleo) !important;
+}
+
+body.dark-mode .admisiones h1,
+body.dark-mode .admisiones h2,
+body.dark-mode .admisiones p {
+    color: #ffffff;
+}
+
+/* ============================================
+   DARK MODE - FOOTER
+   ============================================ */
+body.dark-mode footer {
+    background-color: var(--bg-primary) !important;
+    border-top: 1px solid var(--border);
+}
+
+body.dark-mode footer h4 {
+    color: var(--dorado);
+}
+
+body.dark-mode footer p,
+body.dark-mode footer a {
+    color: var(--text-secondary);
+}
+
+body.dark-mode footer a:hover {
+    color: var(--text-primary);
+}
+
+body.dark-mode .footer-copy {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* ============================================
+   DARK MODE - SCROLLBAR
+   ============================================ */
+body.dark-mode::-webkit-scrollbar {
+    width: 10px;
+    background-color: var(--bg-primary);
+}
+
+body.dark-mode::-webkit-scrollbar-track {
+    background-color: var(--bg-secondary);
+}
+
+body.dark-mode::-webkit-scrollbar-thumb {
+    background-color: var(--bg-tertiary);
+    border-radius: 5px;
+}
+
+body.dark-mode::-webkit-scrollbar-thumb:hover {
+    background-color: #2a2a2c;
+}
+
+body.dark-mode ::selection {
+    background-color: var(--rojo-principal);
+    color: #ffffff;
+}
+
+/* ============================================
+   DARK MODE - PÁGINA NOSOTROS
+   ============================================ */
+body.dark-mode .nosotros-contenido {
+    background-color: var(--bg-primary);
+}
+
+body.dark-mode .nosotros-seccion {
+    background-color: var(--bg-secondary) !important;
+}
+
+body.dark-mode .nosotros-seccion.seccion-gris {
+    background-color: var(--bg-primary) !important;
+}
+
+body.dark-mode .contenedor-seccion h2 {
+    color: var(--text-primary);
+}
+
+body.dark-mode .contenedor-seccion p {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .texto-destacado {
+    background-color: rgba(139, 21, 56, 0.2);
+    border-left-color: var(--dorado);
+    color: var(--text-primary);
+}
+
+body.dark-mode .valor-item-nosotros {
+    background-color: var(--bg-tertiary) !important;
+    border-color: var(--border);
+}
+
+body.dark-mode .valor-item-nosotros:hover {
+    border-color: var(--dorado);
+    transform: translateY(-8px);
+}
+
+body.dark-mode .valor-item-nosotros h3 {
+    color: var(--dorado);
+}
+
+body.dark-mode .valor-item-nosotros p {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .organigrama-container {
+    background-color: var(--bg-tertiary);
+}
+
+body.dark-mode .organigrama-img {
+    border: 2px solid var(--border);
+}
+
+body.dark-mode .organigrama-descripcion {
+    background-color: rgba(139, 21, 56, 0.2);
+    border-left-color: var(--dorado);
+}
+
+body.dark-mode .organigrama-descripcion p {
+    color: var(--text-primary);
+}
+
+body.dark-mode .nosotros-cta {
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--rojo-principal) 100%);
+}
+
+body.dark-mode .cta-contenido h2,
+body.dark-mode .cta-contenido p {
+    color: var(--text-primary);
+}
+
+/* ============================================
+   DARK MODE - PÁGINA OFERTA EDUCATIVA
+   ============================================ */
+body.dark-mode .oferta-contenido {
+    background-color: var(--bg-primary);
+}
+
+body.dark-mode .oferta-banner {
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+}
+
+body.dark-mode .banner-contenido h1,
+body.dark-mode .banner-contenido p {
+    color: var(--text-primary);
+}
+
+body.dark-mode .banner-tag {
+    background-color: rgba(212, 175, 55, 0.2);
+    color: var(--dorado);
+    border-color: var(--dorado);
+}
+
+body.dark-mode .metodologia-seccion {
+    background-color: var(--bg-secondary) !important;
+}
+
+body.dark-mode .texto-intro {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .metodologia-card {
+    background-color: var(--bg-tertiary);
+    border-color: var(--border);
+}
+
+body.dark-mode .metodologia-card:hover {
+    background-color: var(--bg-secondary);
+    border-color: var(--dorado);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .metodologia-card h3 {
+    color: var(--dorado);
+}
+
+body.dark-mode .metodologia-card p {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .niveles-formacion {
+    background-color: var(--bg-primary) !important;
+}
+
+body.dark-mode .nivel-imagen-grande {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .nivel-badge {
+    background: var(--azul-petroleo);
+}
+
+body.dark-mode .nivel-info h3 {
+    color: var(--dorado);
+}
+
+body.dark-mode .nivel-descripcion {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .caracteristica-item {
+    color: var(--text-primary);
+}
+
+body.dark-mode .caracteristica-icon {
+    background: var(--azul-petroleo);
+}
+
+body.dark-mode .btn-nivel-info {
+    background-color: var(--rojo-principal);
+    color: var(--text-primary);
+    border: 1px solid var(--dorado);
+}
+
+body.dark-mode .btn-nivel-info:hover {
+    background-color: #A91D45;
+    border-color: var(--dorado);
+}
+
+body.dark-mode .ventajas-seccion {
+    background-color: var(--bg-secondary) !important;
+}
+
+body.dark-mode .ventaja-card {
+    background-color: var(--bg-tertiary);
+    border-color: var(--border);
+}
+
+body.dark-mode .ventaja-card::before {
+    background: linear-gradient(90deg, var(--rojo-principal), var(--dorado));
+}
+
+body.dark-mode .ventaja-card:hover {
+    background-color: var(--bg-secondary);
+    border-color: var(--dorado);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .ventaja-numero {
+    color: var(--dorado);
+}
+
+body.dark-mode .ventaja-card h3 {
+    color: var(--dorado);
+}
+
+body.dark-mode .ventaja-card p {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .oferta-cta {
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--rojo-principal) 100%);
+}
+
+body.dark-mode .oferta-cta h2,
+body.dark-mode .oferta-cta p {
+    color: var(--text-primary);
+}
+
+body.dark-mode .btn-admisiones-cta {
+    background-color: var(--rojo-principal);
+    color: var(--text-primary);
+    border: 2px solid var(--dorado);
+}
+
+body.dark-mode .btn-admisiones-cta:hover {
+    background-color: var(--dorado);
+    color: var(--bg-primary);
+    border-color: var(--dorado);
+}
+
+body.dark-mode .btn-secundario-cta {
+    background-color: transparent;
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+}
+
+body.dark-mode .btn-secundario-cta:hover {
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
+}
+
+/* ============================================
+   RESPONSIVE - DARK MODE
+   ============================================ */
+@media (max-width: 768px) {
+    body.dark-mode .submenu {
+        background-color: rgba(212, 175, 55, 0.08);
+        border-left-color: var(--dorado);
+    }
+}

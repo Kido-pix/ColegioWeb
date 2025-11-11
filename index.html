@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Colegio Trinity School</title>
+    <link rel="stylesheet" href="css/Estilo.css">
+    <link rel="stylesheet" href="css/darkmode.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html" class="logo-link">
+                    <img src="img/logo.png" alt="Logo Colegio Trinity School" />
+                    <div class="logo-text">
+                        <h1>Colegio<br>Trinity School</h1>
+                        <p>Chincha Alta</p>
+                    </div>
+                </a>
+            </div>
+
+            <button class="menu-toggle" aria-label="Abrir menú de navegación">
+                ☰
+            </button>
+
+            <ul class="nav-links">
+                <li><a href="pages/Nosotros.html">Nosotros</a></li>
+                <li>
+                    <a href="pages/Oferta.html" class="has-submenu">Oferta educativa</a>
+                    <ul class="submenu">
+                        <li><a href="pages/Inicial.html">Nivel Inicial</a></li>
+                        <li><a href="pages/Primaria.html">Nivel Primaria</a></li>
+                        <li><a href="pages/Secundaria.html">Nivel Secundaria</a></li>
+                        <li><a href="pages/Talleres.html">Talleres</a></li>
+                    </ul>
+                </li>
+                <li><a href="pages/Noticias.html">Noticias y Eventos</a></li>
+                <li><a href="pages/Galeria.html">Galería</a></li>
+                <li><a href="pages/Contacto.html">Contacto</a></li>
+                <li><a href="#" class="btn-admisiones">Admisiones</a></li>
+            </ul>
+            <!-- Botón modo oscuro -->
+            <div class="darkmode-toggle">
+                <button id="darkModeBtn" aria-label="Cambiar modo oscuro">🌙</button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="principal">
+        <img src="img/imagen principal.jpg" alt="Estudiantes" />
+        <div class="principal-overlay"></div>
+        <div class="principal-text">
+            <h2>Formando líderes con valores para el futuro</h2>
+            <p class="principal-subtitle">Educación de excelencia con más de 20 años de experiencia</p>
+            <a href="#bienvenida" class="btn-conocer">Conócenos más</a>
+        </div>
+    </section>
+
+    <section class="bienvenida" id="bienvenida">
+        <div class="texto">
+            <span class="section-label">Quiénes Somos</span>
+            <h2>Bienvenidos a Trinity School</h2>
+            <div class="divider"></div>
+            <p>Somos una Institución Educativa Privada de prestigio, basada al 100% en la enseñanza personalizada.
+                Nuestros alumnos brillan con una educación en valores.</p>
+            <a href="Nosotros.html" class="btn">Leer más</a>
+        </div>
+        <div class="imagen-container">
+            <img src="img/bienvenida.jpg" alt="Estudiantes Trinity" />
+        </div>
+    </section>
+
+    <section class="valores">
+        <div class="valores-grid">
+            <div class="valor-card">
+                <div class="valor-icon">
+                    <img src="img/experiencia.png" alt="Experiencia Educativa">
+                </div>
+                <h3>+20 años</h3>
+                <p>de experiencia educativa</p>
+            </div>
+
+            <div class="valor-card">
+                <div class="valor-icon">
+                    <img src="img/bilingue.png" alt="Educación Bilingüe">
+                </div>
+                <h3>Educación bilingüe</h3>
+                <p>con valores cristianos</p>
+            </div>
+
+            <div class="valor-card">
+                <div class="valor-icon">
+                    <img src="img/excelencia.png" alt="Excelencia Académica">
+                </div>
+                <h3>Comprometidos</h3>
+                <p>con la excelencia académica</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="niveles">
+        <div class="section-header">
+            <span class="section-label">Nuestros Niveles</span>
+            <h2>Niveles de Formación</h2>
+            <div class="divider-center"></div>
+        </div>
+        <div class="niveles-educativos">
+            <div class="nivel">
+                <div class="nivel-imagen">
+                    <img src="img/inicial.jpg" alt="Inicial" />
+                    <div class="nivel-overlay"></div>
+                </div>
+                <div class="nivel-contenido">
+                    <h3>Inicial</h3>
+                    <p>Acompañamos el crecimiento académico y personal de nuestros estudiantes desde los primeros años,
+                        fortaleciendo su curiosidad y aprendizaje.</p>
+                    <a href="#" class="btn-nivel">Ver más</a>
+                </div>
+            </div>
+            <div class="nivel">
+                <div class="nivel-imagen">
+                    <img src="img/primaria.jpg" alt="Primaria" />
+                    <div class="nivel-overlay"></div>
+                </div>
+                <div class="nivel-contenido">
+                    <h3>Primaria</h3>
+                    <p>Promovemos una educación activa con valores, fomentando el pensamiento crítico y el trabajo
+                        colaborativo en cada niño.</p>
+                    <a href="#" class="btn-nivel">Ver más</a>
+                </div>
+            </div>
+            <div class="nivel">
+                <div class="nivel-imagen">
+                    <img src="img/secundaria.jpg" alt="Secundaria" />
+                    <div class="nivel-overlay"></div>
+                </div>
+                <div class="nivel-contenido">
+                    <h3>Secundaria</h3>
+                    <p>Preparamos a nuestros estudiantes para enfrentar nuevos retos académicos y personales,
+                        desarrollando líderes para el futuro.</p>
+                    <a href="#" class="btn-nivel">Ver más</a>
+                </div>
+            </div>
+            <div class="nivel">
+                <div class="nivel-imagen">
+                    <img src="img/talleres.jpg" alt="Talleres" />
+                    <div class="nivel-overlay"></div>
+                </div>
+                <div class="nivel-contenido">
+                    <h3>Talleres</h3>
+                    <p>Fomentamos el aprendizaje activo a través de talleres artísticos, deportivos y tecnológicos.</p>
+                    <a href="#" class="btn-nivel">Ver más</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="logros">
+        <div class="section-header">
+            <span class="section-label">Nuestros Logros</span>
+            <h2>Logros Destacados</h2>
+            <div class="divider-center"></div>
+        </div>
+
+        <div class="carousel">
+            <div class="carousel-track">
+                <div class="carousel-container" id="carouselLogros">
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-indicators" id="carouselIndicators">
+        </div>
+    </section>
+
+    <section class="noticias">
+        <div class="section-header">
+            <span class="section-label">Actualidad</span>
+            <h2>Noticias Recientes</h2>
+            <div class="divider-center"></div>
+        </div>
+        <div class="noticias-grid">
+            <div class="noticia-card">
+                <div class="noticia-imagen">
+                    <img src="img/talleres.jpg" alt="Navidad 2024">
+                    <div class="noticia-overlay"></div>
+                </div>
+                <div class="noticia-contenido">
+                    <span class="noticia-fecha">Diciembre 2024</span>
+                    <h3>Celebración Navideña 2024</h3>
+                    <p>Alumnos de inicial y secundaria participaron en nuestra presentación especial de Navidad.</p>
+                </div>
+            </div>
+
+            <div class="noticia-card">
+                <div class="noticia-imagen">
+                    <img src="img/Noticias.jpg" alt="Clausura 2024">
+                    <div class="noticia-overlay"></div>
+                </div>
+                <div class="noticia-contenido">
+                    <span class="noticia-fecha">Diciembre 2024</span>
+                    <h3>Ceremonia de clausura</h3>
+                    <p>Finalizamos un año lleno de logros académicos y momentos memorables.</p>
+                </div>
+            </div>
+
+            <div class="noticia-card">
+                <div class="noticia-imagen">
+                    <img src="img/aniversario.jpg" alt="Aniversario">
+                    <div class="noticia-overlay"></div>
+                </div>
+                <div class="noticia-contenido">
+                    <span class="noticia-fecha">Noviembre 2024</span>
+                    <h3>24° Aniversario Trinity School</h3>
+                    <p>Celebramos nuestro aniversario con actividades especiales para toda la comunidad educativa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="admisiones">
+        <div class="admisiones-contenido">
+            <h2>Proceso de Admisión 2025</h2>
+            <h1>¿Quieres formar parte de nuestra familia?</h1>
+            <p>Inicia el proceso de admisión y descubre todo lo que Trinity School tiene para ofrecer</p>
+            <a href="#" class="btn-admisiones-cta">Iniciar admisión</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-contenido">
+            <div class="footer-seccion">
+                <div class="footer-logo">
+                    <img src="img/logo.png" alt="Logo Trinity">
+                    <p>Colegio Trinity School<br>Chincha Alta</p>
+                </div>
+            </div>
+
+            <div class="footer-seccion">
+                <h4>Enlaces rápidos</h4>
+                <ul>
+                    <li><a href="Nosotros.html">Nosotros</a></li>
+                    <li><a href="#">Oferta Educativa</a></li>
+                    <li><a href="#">Noticias</a></li>
+                    <li><a href="#">Galería</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-seccion">
+                <h4>Niveles</h4>
+                <ul>
+                    <li><a href="#">Inicial</a></li>
+                    <li><a href="#">Primaria</a></li>
+                    <li><a href="#">Secundaria</a></li>
+                    <li><a href="#">Talleres</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-seccion">
+                <h4>Contacto</h4>
+                <div class="footer-info">
+                    <p>📍 Jr. Educación 123, Chincha Alta</p>
+                    <p>📞 (056) 123456</p>
+                    <p>✉️ contacto@trinityschool.edu.pe</p>
+                </div>
+            </div>
+        </div>
+        <p class="footer-copy">© 2025 Colegio Trinity School. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/darkmode.js"></script>
+
+</body>
+
+</html>

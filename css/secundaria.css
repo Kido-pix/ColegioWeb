@@ -1,0 +1,877 @@
+/* ============================================
+   PÁGINA SECUNDARIA - DISEÑO PROFESIONAL
+   ============================================ */
+
+.secundaria-contenido {
+    margin-top: 80px;
+    min-height: 100vh;
+}
+
+/* ============================================
+   HERO MODERNO
+   ============================================ */
+.secundaria-hero {
+    position: relative;
+    padding: 100px 50px;
+    background: linear-gradient(135deg, #1a1a1c 0%, #2a2a2e 100%);
+    text-align: center;
+    overflow: hidden;
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 80px;
+}
+
+.hero-decorativo {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.decorativo-1 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: rgba(139, 29, 56, 0.1);
+    border-radius: 50%;
+    top: -100px;
+    right: -100px;
+}
+
+.decorativo-2 {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: rgba(139, 29, 56, 0.08);
+    border-radius: 50%;
+    bottom: -50px;
+    left: 50px;
+}
+
+.decorativo-3 {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: rgba(139, 29, 56, 0.05);
+    border-radius: 50%;
+    top: 100px;
+    left: -100px;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px;
+    animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(139, 29, 56, 0.2);
+    color: #D64A4A;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    border: 2px solid #D64A4A;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    color: white;
+    margin-bottom: 20px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.btn-secundaria {
+    display: inline-block;
+    background: #8B1538;
+    color: white;
+    padding: 16px 45px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-secundaria:hover {
+    background: #D64A4A;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(139, 29, 56, 0.4);
+}
+
+.btn-secundaria.btn-grande {
+    padding: 18px 50px;
+    font-size: 1.1rem;
+}
+
+/* ============================================
+   STATS
+   ============================================ */
+.secundaria-stats {
+    padding: 80px 50px;
+    background: white;
+    display: block;
+    width: 100%;
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    display: block;
+    border-left: 5px solid #8B1538;
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(139, 29, 56, 0.15);
+}
+
+.stat-numero {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #8B1538;
+    margin-bottom: 10px;
+}
+
+.stat-card p {
+    color: #555;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* ============================================
+   PILARES
+   ============================================ */
+.secundaria-pilares {
+    padding: 80px 50px;
+    background: #f8f9fa;
+    display: block;
+    width: 100%;
+}
+
+.secundaria-pilares h2 {
+    text-align: center;
+    font-size: 2.8rem;
+    color: #333;
+    margin-bottom: 60px;
+}
+
+.pilares-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.pilar-card {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    display: block;
+    border-top: 5px solid #8B1538;
+}
+
+.pilar-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 35px rgba(139, 29, 56, 0.2);
+}
+
+.pilar-numero {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: #8B1538;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.pilar-icono {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.pilar-icono img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+.pilar-card h3 {
+    color: #8B1538;
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.pilar-card p {
+    color: #666;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.pilar-lista {
+    list-style: none;
+    padding: 0;
+}
+
+.pilar-lista li {
+    color: #555;
+    font-size: 1rem;
+    padding: 8px 0;
+    padding-left: 25px;
+    position: relative;
+}
+
+.pilar-lista li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #8B1538;
+    font-weight: 700;
+}
+
+/* ============================================
+   PROGRAMAS ESPECIALES
+   ============================================ */
+.secundaria-programas {
+    padding: 80px 50px;
+    background: white;
+    display: block;
+    width: 100%;
+}
+
+.secundaria-programas h2 {
+    text-align: center;
+    font-size: 2.8rem;
+    color: #333;
+    margin-bottom: 60px;
+}
+
+.programas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.programa-card {
+    background: linear-gradient(135deg, #fff5f7 0%, #f5f9ff 100%);
+    padding: 35px;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    display: block;
+    border: 2px solid transparent;
+}
+
+.programa-card:hover {
+    border-color: #8B1538;
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(139, 29, 56, 0.15);
+}
+
+.programa-icono {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.programa-icono img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+.programa-card h3 {
+    color: #8B1538;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.programa-card p {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.6;
+    display: block;
+}
+
+/* ============================================
+   ASIGNATURAS
+   ============================================ */
+.secundaria-asignaturas {
+    padding: 80px 50px;
+    background: #f8f9fa;
+    display: block;
+    width: 100%;
+}
+
+.secundaria-asignaturas h2 {
+    text-align: center;
+    font-size: 2.8rem;
+    color: #333;
+    margin-bottom: 60px;
+}
+
+.asignaturas-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 25px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.asignatura-item {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    display: block;
+    border-bottom: 4px solid #8B1538;
+}
+
+.asignatura-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(139, 29, 56, 0.15);
+}
+
+.asignatura-icono {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.asignatura-icono img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.asignatura-item h3 {
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* ============================================
+   OPORTUNIDADES
+   ============================================ */
+.secundaria-oportunidades {
+    padding: 80px 50px;
+    background: white;
+    display: block;
+    width: 100%;
+}
+
+.secundaria-oportunidades h2 {
+    text-align: center;
+    font-size: 2.8rem;
+    color: #333;
+    margin-bottom: 60px;
+}
+
+.oportunidades-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.oportunidad-card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    display: block;
+    border-left: 5px solid #8B1538;
+}
+
+.oportunidad-card:hover {
+    transform: translateX(10px);
+    box-shadow: 0 10px 30px rgba(139, 29, 56, 0.15);
+}
+
+.oportunidad-numero {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background: #8B1538;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+.oportunidad-card h3 {
+    color: #8B1538;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.oportunidad-card p {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.6;
+    display: block;
+}
+
+/* ============================================
+   GALERÍA
+   ============================================ */
+.secundaria-galeria {
+    padding: 80px 50px;
+    background: #f8f9fa;
+    display: block;
+    width: 100%;
+}
+
+.secundaria-galeria h2 {
+    text-align: center;
+    font-size: 2.8rem;
+    color: #333;
+    margin-bottom: 60px;
+}
+
+.galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.galeria-item {
+    position: relative;
+    height: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    display: block;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.galeria-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    display: block;
+}
+
+.galeria-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(139, 29, 56, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.galeria-overlay p {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    display: block;
+}
+
+.galeria-item:hover img {
+    transform: scale(1.1);
+}
+
+.galeria-item:hover .galeria-overlay {
+    opacity: 1;
+}
+
+/* ============================================
+   TESTIMONIOS
+   ============================================ */
+.secundaria-testimonios {
+    padding: 80px 50px;
+    background: white;
+    display: block;
+    width: 100%;
+}
+
+.secundaria-testimonios h2 {
+    text-align: center;
+    font-size: 2.8rem;
+    color: #333;
+    margin-bottom: 60px;
+}
+
+.testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.testimonio-card {
+    background: #f8f9fa;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    text-align: center;
+    display: block;
+}
+
+.testimonio-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(139, 29, 56, 0.15);
+}
+
+.testimonio-avatar {
+    width: 60px;
+    height: 60px;
+    background: #8B1538;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin: 0 auto 20px;
+}
+
+.testimonio-card p {
+    color: #666;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-style: italic;
+    display: block;
+}
+
+.testimonio-autor {
+    color: #8B1538;
+    font-weight: 700;
+    display: block;
+}
+
+/* ============================================
+   CTA FINAL
+   ============================================ */
+.secundaria-cta {
+    position: relative;
+    padding: 120px 50px;
+    background: linear-gradient(135deg, #8B1538 0%, #5a0f28 100%);
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    display: block;
+    width: 100%;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cta-content h2 {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+    line-height: 1.2;
+    display: block;
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    opacity: 0.95;
+    display: block;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .secundaria-hero {
+        padding: 80px 30px;
+        min-height: 400px;
+        margin-bottom: 60px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .pilares-grid,
+    .programas-grid,
+    .asignaturas-container,
+    .oportunidades-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .secundaria-hero {
+        padding: 60px 20px;
+        margin-bottom: 40px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+
+    .secundaria-pilares h2,
+    .secundaria-programas h2,
+    .secundaria-asignaturas h2,
+    .secundaria-oportunidades h2,
+    .secundaria-galeria h2,
+    .secundaria-testimonios h2 {
+        font-size: 2rem;
+    }
+
+    .cta-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .secundaria-hero,
+    .secundaria-stats,
+    .secundaria-pilares,
+    .secundaria-programas,
+    .secundaria-asignaturas,
+    .secundaria-oportunidades,
+    .secundaria-galeria,
+    .secundaria-testimonios,
+    .secundaria-cta {
+        padding: 60px 20px;
+    }
+}
+
+/* ============================================
+   DARK MODE - SECUNDARIA
+   ============================================ */
+body.dark-mode .secundaria-hero {
+    background: linear-gradient(135deg, #0f0f10 0%, #1a1a1c 100%);
+}
+
+body.dark-mode .secundaria-stats {
+    background: #1a1a1c;
+}
+
+body.dark-mode .stat-card {
+    background: linear-gradient(135deg, #2a2a2e 0%, #232325 100%);
+    border-left-color: #D64A4A;
+}
+
+body.dark-mode .stat-numero {
+    color: #D64A4A;
+}
+
+body.dark-mode .stat-card p {
+    color: #a8a8aa;
+}
+
+body.dark-mode .secundaria-pilares {
+    background: #0f0f10;
+}
+
+body.dark-mode .secundaria-pilares h2 {
+    color: #e8e8e9;
+}
+
+body.dark-mode .pilar-card {
+    background: #232325;
+    border-top-color: #D64A4A;
+}
+
+body.dark-mode .pilar-numero {
+    background: #8B1538;
+}
+
+body.dark-mode .pilar-card h3 {
+    color: #D64A4A;
+}
+
+body.dark-mode .pilar-card p,
+body.dark-mode .pilar-lista li {
+    color: #a8a8aa;
+}
+
+body.dark-mode .pilar-lista li::before {
+    color: #D64A4A;
+}
+
+body.dark-mode .secundaria-programas {
+    background: #1a1a1c;
+}
+
+body.dark-mode .secundaria-programas h2 {
+    color: #e8e8e9;
+}
+
+body.dark-mode .programa-card {
+    background: linear-gradient(135deg, #2a1f3a, #1f2a3a);
+    border-color: #D64A4A;
+}
+
+body.dark-mode .programa-card h3 {
+    color: #D64A4A;
+}
+
+body.dark-mode .programa-card p {
+    color: #a8a8aa;
+}
+
+body.dark-mode .secundaria-asignaturas {
+    background: #0f0f10;
+}
+
+body.dark-mode .secundaria-asignaturas h2 {
+    color: #e8e8e9;
+}
+
+body.dark-mode .asignatura-item {
+    background: #232325;
+    border-bottom-color: #D64A4A;
+}
+
+body.dark-mode .asignatura-item h3 {
+    color: #e8e8e9;
+}
+
+body.dark-mode .secundaria-oportunidades {
+    background: #1a1a1c;
+}
+
+body.dark-mode .secundaria-oportunidades h2 {
+    color: #e8e8e9;
+}
+
+body.dark-mode .oportunidad-card {
+    background: #232325;
+    border-left-color: #D64A4A;
+}
+
+body.dark-mode .oportunidad-numero {
+    background: #8B1538;
+}
+
+body.dark-mode .oportunidad-card h3 {
+    color: #D64A4A;
+}
+
+body.dark-mode .oportunidad-card p {
+    color: #a8a8aa;
+}
+
+body.dark-mode .secundaria-galeria {
+    background: #0f0f10;
+}
+
+body.dark-mode .secundaria-galeria h2 {
+    color: #e8e8e9;
+}
+
+body.dark-mode .secundaria-testimonios {
+    background: #1a1a1c;
+}
+
+body.dark-mode .secundaria-testimonios h2 {
+    color: #e8e8e9;
+}
+
+body.dark-mode .testimonio-card {
+    background: #232325;
+}
+
+body.dark-mode .testimonio-card p {
+    color: #a8a8aa;
+}
+
+body.dark-mode .testimonio-avatar {
+    background: #8B1538;
+}
+
+body.dark-mode .testimonio-autor {
+    color: #D64A4A;
+}
+
+body.dark-mode .secundaria-cta {
+    background: linear-gradient(135deg, #5a0f28 0%, #2a0514 100%);
+}
+
+body.dark-mode .cta-content h2,
+body.dark-mode .cta-content p {
+    color: white;
+}
+
+body.dark-mode .btn-secundaria {
+    background: white;
+    color: #8B1538;
+}
+
+body.dark-mode .btn-secundaria:hover {
+    background: #D64A4A;
+    color: white;
+}

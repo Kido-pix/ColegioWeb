@@ -1,0 +1,562 @@
+/* ============================================
+   PÁGINA NOTICIAS Y EVENTOS - DISEÑO PROFESIONAL
+   ============================================ */
+
+.noticias-contenido {
+    margin-top: 80px;
+    min-height: 100vh;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.noticias-hero {
+    position: relative;
+    height: 400px;
+    background: linear-gradient(135deg, #8B1538 0%, #1B4B5A 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../img/hero-pattern.png') repeat;
+    opacity: 0.1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 30px;
+    color: white;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    opacity: 0.95;
+}
+
+/* ============================================
+   SECCIONES GENERALES
+   ============================================ */
+.seccion-noticias,
+.seccion-eventos {
+    padding: 80px 50px;
+}
+
+.seccion-noticias {
+    background: #f8f9fa;
+}
+
+.seccion-eventos {
+    background: white;
+}
+
+.contenedor-seccion {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.seccion-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.seccion-header h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.divider {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #8B1538, #D4AF37);
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
+/* ============================================
+   GRID DE NOTICIAS
+   ============================================ */
+.noticias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.noticia-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #e8e8e8;
+}
+
+.noticia-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    border-color: #8B1538;
+}
+
+.noticia-imagen {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+}
+
+.noticia-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.noticia-card:hover .noticia-imagen img {
+    transform: scale(1.08);
+}
+
+.noticia-categoria {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(139, 21, 56, 0.9);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(5px);
+}
+
+.noticia-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(212, 175, 55, 0.9);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(5px);
+}
+
+.noticia-contenido {
+    padding: 25px;
+}
+
+.noticia-fecha {
+    display: inline-block;
+    color: #1B4B5A;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    letter-spacing: 0.3px;
+}
+
+.noticia-contenido h3 {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.noticia-contenido p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ============================================
+   GRID DE EVENTOS
+   ============================================ */
+.eventos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.evento-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #e8e8e8;
+}
+
+.evento-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    border-color: #1B4B5A;
+}
+
+.evento-imagen {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+}
+
+.evento-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.evento-card:hover .evento-imagen img {
+    transform: scale(1.08);
+}
+
+.evento-fecha-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    width: 70px;
+    height: 70px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    border: 2px solid #D4AF37;
+}
+
+.evento-fecha-badge .dia {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #8B1538;
+    line-height: 1;
+}
+
+.evento-fecha-badge .mes {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #1B4B5A;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+.evento-contenido {
+    padding: 25px;
+}
+
+.evento-contenido h3 {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.evento-contenido p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.evento-detalles {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.detalle {
+    font-size: 0.9rem;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+.noticias-cta {
+    background: linear-gradient(135deg, #8B1538 0%, #1B4B5A 100%);
+    padding: 80px 50px;
+    text-align: center;
+    color: white;
+}
+
+.cta-contenido h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.cta-contenido p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.95;
+}
+
+.btn-cta {
+    display: inline-block;
+    background: white;
+    color: #8B1538;
+    padding: 16px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+    background: #D4AF37;
+    color: white;
+}
+
+/* ============================================
+   ANIMACIONES
+   ============================================ */
+.noticia-card,
+.evento-card {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.noticia-card:nth-child(1) { animation-delay: 0.1s; }
+.noticia-card:nth-child(2) { animation-delay: 0.2s; }
+.noticia-card:nth-child(3) { animation-delay: 0.3s; }
+.noticia-card:nth-child(4) { animation-delay: 0.4s; }
+.noticia-card:nth-child(5) { animation-delay: 0.5s; }
+.noticia-card:nth-child(6) { animation-delay: 0.6s; }
+
+.evento-card:nth-child(1) { animation-delay: 0.1s; }
+.evento-card:nth-child(2) { animation-delay: 0.2s; }
+.evento-card:nth-child(3) { animation-delay: 0.3s; }
+.evento-card:nth-child(4) { animation-delay: 0.4s; }
+.evento-card:nth-child(5) { animation-delay: 0.5s; }
+.evento-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 1024px) {
+    .noticias-grid,
+    .eventos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    .noticias-hero {
+        height: 350px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .seccion-noticias,
+    .seccion-eventos {
+        padding: 60px 30px;
+    }
+
+    .seccion-header h2 {
+        font-size: 2rem;
+    }
+
+    .noticias-grid,
+    .eventos-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .cta-contenido h2 {
+        font-size: 2rem;
+    }
+
+    .cta-contenido p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .noticias-hero {
+        height: 300px;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 0.95rem;
+    }
+
+    .seccion-noticias,
+    .seccion-eventos {
+        padding: 50px 20px;
+    }
+
+    .seccion-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .noticia-contenido,
+    .evento-contenido {
+        padding: 20px;
+    }
+
+    .noticia-contenido h3,
+    .evento-contenido h3 {
+        font-size: 1.1rem;
+    }
+
+    .evento-fecha-badge {
+        width: 60px;
+        height: 60px;
+    }
+
+    .evento-fecha-badge .dia {
+        font-size: 1.5rem;
+    }
+
+    .evento-fecha-badge .mes {
+        font-size: 0.75rem;
+    }
+
+    .noticias-cta {
+        padding: 60px 20px;
+    }
+}
+
+/* ============================================
+   DARK MODE - NOTICIAS Y EVENTOS
+   ============================================ */
+body.dark-mode .noticias-hero {
+    background: linear-gradient(135deg, #5a0f28 0%, #0f2b35 100%);
+}
+
+body.dark-mode .seccion-noticias {
+    background: #0f0f10;
+}
+
+body.dark-mode .seccion-eventos {
+    background: #1a1a1c;
+}
+
+body.dark-mode .seccion-header h2 {
+    color: #e8e8e9;
+}
+
+body.dark-mode .noticia-card,
+body.dark-mode .evento-card {
+    background: #232325;
+    border-color: #2a2a2c;
+}
+
+body.dark-mode .noticia-card:hover,
+body.dark-mode .evento-card:hover {
+    border-color: #8B1538;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .noticia-contenido h3,
+body.dark-mode .evento-contenido h3 {
+    color: #e8e8e9;
+}
+
+body.dark-mode .noticia-contenido p,
+body.dark-mode .evento-contenido p {
+    color: #a8a8aa;
+}
+
+body.dark-mode .noticia-fecha {
+    color: #D4AF37;
+}
+
+body.dark-mode .detalle {
+    color: #a8a8aa;
+}
+
+body.dark-mode .evento-fecha-badge {
+    background: rgba(35, 35, 37, 0.95);
+    border-color: #D4AF37;
+}
+
+body.dark-mode .evento-fecha-badge .dia {
+    color: #D4AF37;
+}
+
+body.dark-mode .evento-fecha-badge .mes {
+    color: #a8a8aa;
+}
+
+body.dark-mode .noticias-cta {
+    background: linear-gradient(135deg, #5a0f28 0%, #0f2b35 100%);
+}
+
+body.dark-mode .btn-cta {
+    background: #232325;
+    color: #D4AF37;
+}
+
+body.dark-mode .btn-cta:hover {
+    background: #D4AF37;
+    color: #0f0f10;
+}

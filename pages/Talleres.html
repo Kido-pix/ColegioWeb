@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Talleres de Refuerzo | Colegio Trinity School</title>
+    <link rel="stylesheet" href="../css/Estilo.css">
+    <link rel="stylesheet" href="../css/darkmode.css">
+    <link rel="stylesheet" href="../css/talleres.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../index.html" class="logo-link">
+                    <img src="../img/logo.png" alt="Logo Colegio Trinity School" />
+                    <div class="logo-text">
+                        <h1>Colegio<br>Trinity School</h1>
+                        <p>Chincha Alta</p>
+                    </div>
+                </a>
+            </div>
+
+            <button class="menu-toggle" aria-label="Abrir menú de navegación">☰</button>
+
+            <ul class="nav-links">
+                <li><a href="Nosotros.html">Nosotros</a></li>
+                <li>
+                    <a href="Oferta.html" class="has-submenu">Oferta educativa</a>
+                    <ul class="submenu">
+                        <li><a href="Inicial.html">Nivel Inicial</a></li>
+                        <li><a href="Primaria.html">Nivel Primaria</a></li>
+                        <li><a href="Secundaria.html">Nivel Secundaria</a></li>
+                        <li><a href="Talleres.html">Talleres</a></li>
+                    </ul>
+                </li>
+                <li><a href="Noticias.html">Noticias y Eventos</a></li>
+                <li><a href="Galeria.html">Galería</a></li>
+                <li><a href="Contacto.html">Contacto</a></li>
+                <li><a href="#" class="btn-admisiones">Admisiones</a></li>
+            </ul>
+
+            <div class="darkmode-toggle">
+                <button id="darkModeBtn" aria-label="Cambiar modo oscuro">🌙</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="talleres-contenido">
+        <!-- Hero Dinámico -->
+        <section class="talleres-hero">
+            <div class="hero-shapes">
+                <div class="shape-taller shape-1"></div>
+                <div class="shape-taller shape-2"></div>
+                <div class="shape-taller shape-3"></div>
+                <div class="shape-taller shape-4"></div>
+            </div>
+            <div class="hero-content">
+                <span class="hero-badge">REFUERZO ACADÉMICO</span>
+                <h1>Talleres de Refuerzo</h1>
+                <p>Apoyo adicional en los cursos más importantes para nuestros estudiantes</p>
+                <a href="#horarios" class="btn-talleres">Ver Horarios</a>
+            </div>
+        </section>
+
+        <!-- Introducción -->
+        <section class="talleres-intro">
+            <div class="intro-contenedor">
+                <span class="section-label">Refuerzo Académico</span>
+                <h2>Apoyo para Nuestros Estudiantes</h2>
+                <div class="divider-center"></div>
+                <p class="intro-texto">
+                    En Trinity School ofrecemos talleres de refuerzo académico en las áreas fundamentales del currículo.
+                    Los estudiantes se quedan después de clases para resolver ejercicios de sus libros y reforzar los temas 
+                    más importantes, asegurando que completen sus materiales al finalizar el año escolar.
+                </p>
+                <div class="intro-nota">
+                    <strong>Importante:</strong> Los talleres son exclusivos para estudiantes matriculados en Trinity School 
+                    y forman parte de nuestro programa de apoyo académico.
+                </div>
+            </div>
+        </section>
+
+        <!-- Categorías de Talleres -->
+        <section class="talleres-categorias">
+            <div class="categoria-header">
+                <h2>Áreas de Refuerzo</h2>
+                <p>Talleres disponibles para fortalecer el aprendizaje</p>
+            </div>
+
+            <!-- COMUNICACIÓN -->
+            <div class="categoria-seccion deportes">
+                <div class="categoria-titulo">
+                    <div class="categoria-icono">
+                        <img src="../img/icono-comunicacion.png" alt="Comunicación">
+                    </div>
+                    <h3>Comunicación</h3>
+                </div>
+                
+                <div class="talleres-grid">
+                    <div class="taller-card">
+                        <div class="taller-imagen">
+                            <img src="../img/taller-lectura.jpg" alt="Lectura">
+                            <div class="taller-badge deportes-badge">COMUNICACIÓN</div>
+                        </div>
+                        <div class="taller-info">
+                            <h4>Comprensión Lectora y Redacción</h4>
+                            <p class="taller-descripcion">Refuerzo en lectura, comprensión de textos y redacción. Los estudiantes completan ejercicios de su libro de trabajo.</p>
+                            <div class="taller-detalles">
+                                <span class="detalle-item"><span class="detalle-icono"></span>Todos los niveles</span>
+                                <span class="detalle-item"><span class="detalle-icono"></span>Después de clases</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MATEMÁTICA -->
+            <div class="categoria-seccion artes">
+                <div class="categoria-titulo">
+                    <div class="categoria-icono">
+                        <img src="../img/icono-matematica.png" alt="Matemática">
+                    </div>
+                    <h3>Matemática</h3>
+                </div>
+                
+                <div class="talleres-grid">
+                    <div class="taller-card">
+                        <div class="taller-imagen">
+                            <img src="../img/taller-aritmetica.jpg" alt="Aritmética">
+                            <div class="taller-badge artes-badge">MATEMÁTICA</div>
+                        </div>
+                        <div class="taller-info">
+                            <h4>Aritmética y Álgebra</h4>
+                            <p class="taller-descripcion">Resolución de ejercicios matemáticos, operaciones y problemas del libro de trabajo.</p>
+                            <div class="taller-detalles">
+                                <span class="detalle-item"><span class="detalle-icono"></span>Primaria y Secundaria</span>
+                                <span class="detalle-item"><span class="detalle-icono"></span>Después de clases</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="taller-card">
+                        <div class="taller-imagen">
+                            <img src="../img/taller-geometria.jpg" alt="Geometría">
+                            <div class="taller-badge artes-badge">MATEMÁTICA</div>
+                        </div>
+                        <div class="taller-info">
+                            <h4>Geometría</h4>
+                            <p class="taller-descripcion">Refuerzo en figuras geométricas, áreas, perímetros y resolución de problemas.</p>
+                            <div class="taller-detalles">
+                                <span class="detalle-item"><span class="detalle-icono"></span>Primaria y Secundaria</span>
+                                <span class="detalle-item"><span class="detalle-icono"></span>Después de clases</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CIENCIAS -->
+            <div class="categoria-seccion musica">
+                <div class="categoria-titulo">
+                    <div class="categoria-icono">
+                        <img src="../img/icono-ciencias.png" alt="Ciencias">
+                    </div>
+                    <h3>Ciencia y Tecnología</h3>
+                </div>
+                
+                <div class="talleres-grid">
+                    <div class="taller-card">
+                        <div class="taller-imagen">
+                            <img src="../img/taller-biologia.jpg" alt="Ciencias">
+                            <div class="taller-badge musica-badge">CIENCIAS</div>
+                        </div>
+                        <div class="taller-info">
+                            <h4>Ciencias Naturales</h4>
+                            <p class="taller-descripcion">Refuerzo en temas de ciencias, resolución de cuestionarios y completar el libro de trabajo.</p>
+                            <div class="taller-detalles">
+                                <span class="detalle-item"><span class="detalle-icono"></span>Primaria y Secundaria</span>
+                                <span class="detalle-item"><span class="detalle-icono"></span>Después de clases</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INGLÉS -->
+            <div class="categoria-seccion tecnologia">
+                <div class="categoria-titulo">
+                    <div class="categoria-icono">
+                        <img src="../img/icono-ingles.png" alt="Inglés">
+                    </div>
+                    <h3>Inglés</h3>
+                </div>
+                
+                <div class="talleres-grid">
+                    <div class="taller-card">
+                        <div class="taller-imagen">
+                            <img src="../img/taller-ingles-basico.jpg" alt="Inglés">
+                            <div class="taller-badge tecnologia-badge">INGLÉS</div>
+                        </div>
+                        <div class="taller-info">
+                            <h4>Refuerzo de Inglés</h4>
+                            <p class="taller-descripcion">Práctica de gramática, vocabulario y ejercicios del libro de trabajo.</p>
+                            <div class="taller-detalles">
+                                <span class="detalle-item"><span class="detalle-icono"></span>Todos los niveles</span>
+                                <span class="detalle-item"><span class="detalle-icono"></span>Después de clases / Sábados</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CIENCIAS SOCIALES -->
+            <div class="categoria-seccion academicos">
+                <div class="categoria-titulo">
+                    <div class="categoria-icono">
+                        <img src="../img/icono-sociales.png" alt="Ciencias Sociales">
+                    </div>
+                    <h3>Ciencias Sociales</h3>
+                </div>
+                
+                <div class="talleres-grid">
+                    <div class="taller-card">
+                        <div class="taller-imagen">
+                            <img src="../img/taller-historia.jpg" alt="Historia">
+                            <div class="taller-badge academicos-badge">SOCIALES</div>
+                        </div>
+                        <div class="taller-info">
+                            <h4>Historia y Geografía</h4>
+                            <p class="taller-descripcion">Refuerzo en temas de historia del Perú, geografía y completar actividades del libro.</p>
+                            <div class="taller-detalles">
+                                <span class="detalle-item"><span class="detalle-icono"></span>Primaria y Secundaria</span>
+                                <span class="detalle-item"><span class="detalle-icono"></span>Después de clases</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Beneficios -->
+        <section class="talleres-beneficios">
+            <h2>Beneficios del Refuerzo</h2>
+            <div class="beneficios-grid">
+                <div class="beneficio-card">
+                    <div class="beneficio-icono">
+                        <img src="../img/icono-mejora.png" alt="Mejora">
+                    </div>
+                    <h3>Refuerzo Personalizado</h3>
+                    <p>Apoyo en las áreas donde cada estudiante necesita más práctica.</p>
+                </div>
+
+                <div class="beneficio-card">
+                    <div class="beneficio-icono">
+                        <img src="../img/icono-base.png" alt="Libros">
+                    </div>
+                    <h3>Completar Libros</h3>
+                    <p>Los estudiantes avanzan y completan sus libros de trabajo antes de fin de año.</p>
+                </div>
+
+                <div class="beneficio-card">
+                    <div class="beneficio-icono">
+                        <img src="../img/icono-docentes.png" alt="Docentes">
+                    </div>
+                    <h3>Profesores del Colegio</h3>
+                    <p>Los talleres son dirigidos por los propios docentes de la institución.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Horarios -->
+        <section class="talleres-horarios" id="horarios">
+            <div class="horarios-contenedor">
+                <h2>Horarios de Talleres</h2>
+                <p class="horarios-intro">Los estudiantes se quedan después de su horario regular</p>
+                
+                <div class="horarios-info">
+                    <div class="horario-turno">
+                        <div class="horario-icono">
+                            <img src="../img/icono-inicial-primaria.png" alt="Inicial y Primaria">
+                        </div>
+                        <h3>Inicial y Primaria</h3>
+                        <p>Después de su hora de salida</p>
+                        <span class="horario-nota">Los estudiantes se quedan para completar ejercicios y avanzar en sus libros</span>
+                    </div>
+
+                    <div class="horario-turno destacado">
+                        <div class="horario-icono">
+                            <img src="../img/icono-secundaria.png" alt="Secundaria">
+                        </div>
+                        <h3>Secundaria</h3>
+                        <p>Después de clases y sábados</p>
+                        <span class="horario-nota">Horario extendido entre semana y algunos sábados según el curso</span>
+                    </div>
+                </div>
+
+                <div class="horarios-nota-importante">
+                    <strong>📌 Nota Importante:</strong> Los talleres son exclusivos para estudiantes matriculados en Trinity School. 
+                    No aceptamos inscripciones externas. La asignación de talleres se realiza según las necesidades académicas de cada estudiante.
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Final -->
+        <section class="talleres-cta">
+            <div class="cta-shapes-talleres">
+                <div class="cta-shape-t cta-shape-t1"></div>
+                <div class="cta-shape-t cta-shape-t2"></div>
+                <div class="cta-shape-t cta-shape-t3"></div>
+            </div>
+            <div class="cta-content">
+                <h2>Refuerzo Académico Trinity School</h2>
+                <p>Apoyo continuo para que nuestros estudiantes alcancen sus metas académicas</p>
+                <div class="cta-botones">
+                    <a href="Contacto.html" class="btn-talleres btn-grande">Más Información</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-contenido">
+            <div class="footer-seccion">
+                <div class="footer-logo">
+                    <img src="../img/logo.png" alt="Logo Trinity">
+                    <p>Colegio Trinity School<br>Chincha Alta</p>
+                </div>
+            </div>
+
+            <div class="footer-seccion">
+                <h4>Enlaces rápidos</h4>
+                <ul>
+                    <li><a href="Nosotros.html">Nosotros</a></li>
+                    <li><a href="Oferta.html">Oferta Educativa</a></li>
+                    <li><a href="Noticias.html">Noticias</a></li>
+                    <li><a href="Galeria.html">Galería</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-seccion">
+                <h4>Niveles</h4>
+                <ul>
+                    <li><a href="Inicial.html">Inicial</a></li>
+                    <li><a href="Primaria.html">Primaria</a></li>
+                    <li><a href="Secundaria.html">Secundaria</a></li>
+                    <li><a href="Talleres.html">Talleres</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-seccion">
+                <h4>Contacto</h4>
+                <div class="footer-info">
+                    <p>📍 Jr. Educación 123, Chincha Alta</p>
+                    <p>📞 (056) 123456</p>
+                    <p>✉️ contacto@trinityschool.edu.pe</p>
+                </div>
+            </div>
+        </div>
+        <p class="footer-copy">© 2025 Colegio Trinity School. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/darkmode.js"></script>
+</body>
+
+</html>

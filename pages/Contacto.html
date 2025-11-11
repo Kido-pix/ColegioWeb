@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contacto | Colegio Trinity School</title>
+    <link rel="stylesheet" href="../css/Estilo.css">
+    <link rel="stylesheet" href="../css/darkmode.css">
+    <link rel="stylesheet" href="../css/contacto.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../index.html" class="logo-link">
+                    <img src="../img/logo.png" alt="Logo Colegio Trinity School" />
+                    <div class="logo-text">
+                        <h1>Colegio<br>Trinity School</h1>
+                        <p>Chincha Alta</p>
+                    </div>
+                </a>
+            </div>
+
+            <button class="menu-toggle" aria-label="Abrir menú de navegación">☰</button>
+
+            <ul class="nav-links">
+                <li><a href="Nosotros.html">Nosotros</a></li>
+                <li>
+                    <a href="Oferta.html" class="has-submenu">Oferta educativa</a>
+                    <ul class="submenu">
+                        <li><a href="Inicial.html">Nivel Inicial</a></li>
+                        <li><a href="Primaria.html">Nivel Primaria</a></li>
+                        <li><a href="Secundaria.html">Nivel Secundaria</a></li>
+                        <li><a href="Talleres.html">Talleres</a></li>
+                    </ul>
+                </li>
+                <li><a href="Noticias.html">Noticias y Eventos</a></li>
+                <li><a href="Galeria.html">Galería</a></li>
+                <li><a href="Contacto.html">Contacto</a></li>
+                <li><a href="#" class="btn-admisiones">Admisiones</a></li>
+            </ul>
+
+            <div class="darkmode-toggle">
+                <button id="darkModeBtn" aria-label="Cambiar modo oscuro">🌙</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="contacto-contenido">
+        <!-- Hero -->
+        <section class="contacto-hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1>Contacto</h1>
+                <p>Estamos aquí para ayudarte. ¡Comunícate con nosotros!</p>
+            </div>
+        </section>
+
+        <!-- Información de Contacto -->
+        <section class="contacto-info">
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-icono">📍</div>
+                    <h3>Ubicación</h3>
+                    <p>Jr. Educación 123</p>
+                    <p>Chincha Alta, Ica - Perú</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icono">📞</div>
+                    <h3>Teléfono</h3>
+                    <p>(056) 123456</p>
+                    <p>Lunes a Viernes: 8:00 - 17:00</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icono">✉️</div>
+                    <h3>Email</h3>
+                    <p>contacto@trinityschool.edu.pe</p>
+                    <p>admisiones@trinityschool.edu.pe</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icono">🕐</div>
+                    <h3>Horario</h3>
+                    <p>Lunes a Viernes: 7:45 - 14:30</p>
+                    <p>Sábado: Previa coordinación</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contenedor Principal -->
+        <section class="contacto-principal">
+            <div class="contacto-container">
+                <!-- Formulario -->
+                <div class="formulario-container">
+                    <h2>Envíanos un Mensaje</h2>
+                    <form class="contacto-form" id="contactoForm">
+                        <div class="form-grupo">
+                            <label for="nombre">Nombre Completo *</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="telefono">Teléfono</label>
+                            <input type="tel" id="telefono" name="telefono">
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="asunto">Asunto *</label>
+                            <select id="asunto" name="asunto" required>
+                                <option value="">Selecciona un asunto</option>
+                                <option value="admisiones">Información sobre Admisiones</option>
+                                <option value="programa">Consulta sobre Programas</option>
+                                <option value="actividades">Actividades Extracurriculares</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="mensaje">Mensaje *</label>
+                            <textarea id="mensaje" name="mensaje" rows="6" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-enviar">Enviar Mensaje</button>
+                    </form>
+                </div>
+
+                <!-- Mapa -->
+                <div class="mapa-container">
+                    <h2>Ubicación</h2>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3903.5471819726603!2d-76.14866!3d-13.40365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x910d8b5a5a5a5a5d%3A0x5a5a5a5a5a5a5a5a!2sChincha%20Alta!5e0!3m2!1ses!2spe!4v1234567890" 
+                        width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="mapa-iframe">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Redes Sociales -->
+        <section class="contacto-redes">
+            <h2>Síguenos en Nuestras Redes Sociales</h2>
+            <div class="redes-grid">
+                <a href="#" class="red-card">
+                    <div class="red-icono">f</div>
+                    <h3>Facebook</h3>
+                    <p>Trinity School Chincha</p>
+                </a>
+
+                <a href="#" class="red-card">
+                    <div class="red-icono">📷</div>
+                    <h3>Instagram</h3>
+                    <p>@trinityschoolchincha</p>
+                </a>
+
+                <a href="#" class="red-card">
+                    <div class="red-icono">𝕏</div>
+                    <h3>Twitter</h3>
+                    <p>@TrinitySchool</p>
+                </a>
+
+                <a href="#" class="red-card">
+                    <div class="red-icono">▶️</div>
+                    <h3>YouTube</h3>
+                    <p>Trinity School Oficial</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-contenido">
+            <div class="footer-seccion">
+                <div class="footer-logo">
+                    <img src="../img/logo.png" alt="Logo Trinity">
+                    <p>Colegio Trinity School<br>Chincha Alta</p>
+                </div>
+            </div>
+
+            <div class="footer-seccion">
+                <h4>Enlaces rápidos</h4>
+                <ul>
+                    <li><a href="Nosotros.html">Nosotros</a></li>
+                    <li><a href="Oferta.html">Oferta Educativa</a></li>
+                    <li><a href="Noticias.html">Noticias</a></li>
+                    <li><a href="Galeria.html">Galería</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-seccion">
+                <h4>Niveles</h4>
+                <ul>
+                    <li><a href="Inicial.html">Inicial</a></li>
+                    <li><a href="Primaria.html">Primaria</a></li>
+                    <li><a href="Secundaria.html">Secundaria</a></li>
+                    <li><a href="Talleres.html">Talleres</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-seccion">
+                <h4>Contacto</h4>
+                <div class="footer-info">
+                    <p>📍 Jr. Educación 123, Chincha Alta</p>
+                    <p>📞 (056) 123456</p>
+                    <p>✉️ contacto@trinityschool.edu.pe</p>
+                </div>
+            </div>
+        </div>
+        <p class="footer-copy">© 2025 Colegio Trinity School. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/darkmode.js"></script>
+</body>
+
+</html>

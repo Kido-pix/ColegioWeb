@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galería | Colegio Trinity School</title>
+    <link rel="stylesheet" href="../css/Estilo.css">
+    <link rel="stylesheet" href="../css/darkmode.css">
+    <link rel="stylesheet" href="../css/galeria.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../index.html" class="logo-link">
+                    <img src="../img/logo.png" alt="Logo Colegio Trinity School" />
+                    <div class="logo-text">
+                        <h1>Colegio<br>Trinity School</h1>
+                        <p>Chincha Alta</p>
+                    </div>
+                </a>
+            </div>
+
+            <button class="menu-toggle" aria-label="Abrir menú de navegación">☰</button>
+
+            <ul class="nav-links">
+                <li><a href="Nosotros.html">Nosotros</a></li>
+                <li>
+                    <a href="Oferta.html" class="has-submenu">Oferta educativa</a>
+                    <ul class="submenu">
+                        <li><a href="Inicial.html">Nivel Inicial</a></li>
+                        <li><a href="Primaria.html">Nivel Primaria</a></li>
+                        <li><a href="Secundaria.html">Nivel Secundaria</a></li>
+                        <li><a href="Talleres.html">Talleres</a></li>
+                    </ul>
+                </li>
+                <li><a href="Noticias.html">Noticias y Eventos</a></li>
+                <li><a href="Galeria.html">Galería</a></li>
+                <li><a href="Contacto.html">Contacto</a></li>
+                <li><a href="#" class="btn-admisiones">Admisiones</a></li>
+            </ul>
+
+            <div class="darkmode-toggle">
+                <button id="darkModeBtn" aria-label="Cambiar modo oscuro">🌙</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="galeria-contenido">
+        <!-- Hero con Imagen y Texto GALERÍA -->
+        <section class="galeria-hero">
+            <img src="../img/galeria-hero.jpg" alt="Galería Trinity School" class="hero-imagen">
+            <div class="hero-overlay"></div>
+            <div class="hero-text">
+                <h1>GALERÍA</h1>
+            </div>
+        </section>
+
+        <!-- Filtros -->
+        <section class="galeria-filtros">
+            <div class="filtros-container">
+                <button class="filtro-btn activo" data-filtro="todos">Todos</button>
+                <button class="filtro-btn" data-filtro="academico">Académico</button>
+                <button class="filtro-btn" data-filtro="deportes">Deportes</button>
+                <button class="filtro-btn" data-filtro="eventos">Eventos</button>
+                <button class="filtro-btn" data-filtro="cultura">Cultura</button>
+                <button class="filtro-btn" data-filtro="comunidad">Comunidad</button>
+            </div>
+        </section>
+
+        <!-- Galería de Fotos -->
+        <section class="galeria-grid-section">
+            <div class="galeria-grid">
+                <!-- Académico -->
+                <div class="galeria-foto" data-filtro="academico">
+                    <img src="../img/foto-1.jpg" alt="Clase de Matemática">
+                    <div class="foto-overlay">
+                        <div class="foto-info">
+                            <h3>Clase de Matemática</h3>
+                            <p>Académico</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="galeria-foto" data-filtro="academico">
+                    <img src="../img/foto-2.jpg" alt="Laboratorio Científico">
+                    <div class="foto-overlay">
+                        <div class="foto-info">
+                            <h3>Laboratorio Científico</h3>
+                            <p>Académico</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="galeria-foto" data-filtro="academico">
+                    <img src="../img/foto-3.jpg" alt="Biblioteca">
+                    <div class="foto-overlay">
+                        <div class="foto-info">
+                            <h3>Biblioteca</h3>
+                            <p>Académico</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deportes -->
+                <div class="galeria-foto" data-filtro="deportes">
+                    <img src="../img/foto-4.jpg" alt="Fútbol">
+                    <div class="foto-overlay">
+                        <div class="foto-info">
+                            <h3>Partido de Fútbol</h3>
+                            <p>Deportes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="galeria-foto" data-filtro="deportes">
+                    <img src="../img/foto-5.jpg" alt="Voleibol">
+                    <div class="foto-overlay">
+                        <div class="foto-info">
+                            <h3>Voleibol</h3>
+                            <p>Deportes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="galeria-foto" data-filtro="deportes">
+                    <img src="../img/foto-6.jpg" alt="Natación">
+                    <div class="foto-overlay">
+                        <div class="foto-info">
+                            <h3>Competencia de Natación</h3>
+                            <p>Deportes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Eventos -->
+                <div class="galeria-foto" data-filtro="eventos">
+                    <img src="../img/foto-7.jpg" alt="Acto de Graduación">
+                    <div class="foto-overlay">
+                        <div class="foto-info">
+                            <h3>Acto de Graduación</h3>
+                            <p>Eventos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="galeria-foto" data-filtro="eventos">
+                    <img src="../img/foto-8.jpg" alt="Feria Científica">
+                    <div class="foto-overlay">
+                        <div class="foto-info">
+                            <h3>Feria Científica</h3>
+                            <p>Eventos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="galeria-foto" data-filtro="eventos">
+                    <img src="../img/foto-9.jpg" alt="Festival de Talentos">
+                    <div class="foto-overlay">
+                        <div class="foto-info">
+                            <h3>Festival de Talentos</h3>
+                            <p>Eventos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cultura -->
+                <div class="galeria-foto" data-filtro="cultura">
+                    <img src="../img/foto-10.jpg" alt="Presentación de Danza">
+                    <div class="foto-overlay">
+                        <div class="foto-info">
+                            <h3>Presentación de Danza</h3>
+                            <p>Cultura</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="galeria-foto" data-filtro="cultura">
+                    <img src="../img/foto-11.jpg" alt="Teatro Escolar">
+                    <div class="foto-overlay">
+                        <div class="foto-info">
+                            <h3>Teatro Escolar</h3>
+                            <p>Cultura</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="galeria-foto" data-filtro="cultura">
+                    <img src="../img/foto-12.jpg" alt="Concierto Musical">
+                    <div class="foto-overlay">
+                        <div class="foto-info">
+                            <h3>Concierto Musical</h3>
+                            <p>Cultura</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comunidad -->
+                <div class="galeria-foto" data-filtro="comunidad">
+                    <img src="../img/foto-13.jpg" alt="Voluntariado">
+                    <div class="foto-overlay">
+                        <div class="foto-info">
+                            <h3>Voluntariado Comunitario</h3>
+                            <p>Comunidad</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="galeria-foto" data-filtro="comunidad">
+                    <img src="../img/foto-14.jpg" alt="Día de Puertas Abiertas">
+                    <div class="foto-overlay">
+                        <div class="foto-info">
+                            <h3>Día de Puertas Abiertas</h3>
+                            <p>Comunidad</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="galeria-foto" data-filtro="comunidad">
+                    <img src="../img/foto-15.jpg" alt="Encuentro Familiar">
+                    <div class="foto-overlay">
+                        <div class="foto-info">
+                            <h3>Encuentro Familiar</h3>
+                            <p>Comunidad</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal para ver imagen en detalle -->
+        <div id="imagenModal" class="modal-imagen">
+            <span class="cerrar-modal">&times;</span>
+            <button class="modal-anterior">&#10094;</button>
+            <img class="modal-contenido" id="imagenModal-img">
+            <button class="modal-siguiente">&#10095;</button>
+            <div class="modal-titulo">
+                <h3 id="modalTitulo"></h3>
+                <p id="modalCategoria"></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-contenido">
+            <div class="footer-seccion">
+                <div class="footer-logo">
+                    <img src="../img/logo.png" alt="Logo Trinity">
+                    <p>Colegio Trinity School<br>Chincha Alta</p>
+                </div>
+            </div>
+
+            <div class="footer-seccion">
+                <h4>Enlaces rápidos</h4>
+                <ul>
+                    <li><a href="Nosotros.html">Nosotros</a></li>
+                    <li><a href="Oferta.html">Oferta Educativa</a></li>
+                    <li><a href="Noticias.html">Noticias</a></li>
+                    <li><a href="Galeria.html">Galería</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-seccion">
+                <h4>Niveles</h4>
+                <ul>
+                    <li><a href="Inicial.html">Inicial</a></li>
+                    <li><a href="Primaria.html">Primaria</a></li>
+                    <li><a href="Secundaria.html">Secundaria</a></li>
+                    <li><a href="Talleres.html">Talleres</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-seccion">
+                <h4>Contacto</h4>
+                <div class="footer-info">
+                    <p>📍 Jr. Educación 123, Chincha Alta</p>
+                    <p>📞 (056) 123456</p>
+                    <p>✉️ contacto@trinityschool.edu.pe</p>
+                </div>
+            </div>
+        </div>
+        <p class="footer-copy">© 2025 Colegio Trinity School. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/darkmode.js"></script>
+    <script src="../js/galeria.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,809 @@
+/* ============================================
+   PÁGINA PRIMARIA - DISEÑO ACADÉMICO
+   ============================================ */
+
+.primaria-contenido {
+    margin-top: 80px;
+    min-height: 100vh;
+}
+
+/* ============================================
+   HERO ACADÉMICO
+   ============================================ */
+.primaria-hero {
+    position: relative;
+    padding: 120px 50px;
+    background: linear-gradient(135deg, #8B1538 0%, #5a0f28 100%);
+    text-align: center;
+    overflow: hidden;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 80px;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+.hero-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.hero-pattern {
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 30%, rgba(255, 255, 255, 0.1) 60%, transparent 60%),
+        linear-gradient(-45deg, transparent 30%, rgba(255, 255, 255, 0.1) 30%, rgba(255, 255, 255, 0.1) 60%, transparent 60%);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    color: white;
+    margin-bottom: 20px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.btn-primaria {
+    display: inline-block;
+    background: white;
+    color: #8B1538;
+    padding: 16px 45px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primaria:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primaria.btn-grande {
+    padding: 18px 50px;
+    font-size: 1.1rem;
+}
+
+/* ============================================
+   INFORMACIÓN RÁPIDA
+   ============================================ */
+.primaria-info {
+    padding: 80px 50px;
+    background: white;
+    display: block;
+    width: 100%;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.info-card {
+    background: linear-gradient(135deg, #f0f4f8 0%, #d9e9f5 100%);
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    border-left: 5px solid #8B1538;
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.info-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 102, 204, 0.15);
+}
+
+.info-icon {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.info-icon img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+.info-card h3 {
+    color: #8B1538;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.info-card p {
+    color: #555;
+    font-size: 1rem;
+    display: block;
+}
+
+/* ============================================
+   ÁREAS ACADÉMICAS
+   ============================================ */
+.primaria-areas {
+    padding: 80px 50px;
+    background: #f8f9fa;
+    display: block;
+    width: 100%;
+}
+
+.areas-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.areas-header h2 {
+    font-size: 2.8rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.areas-header p {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.areas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.area-card {
+    background: white;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    display: block;
+    border-top: 4px solid #8B1538;
+}
+
+.area-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 102, 204, 0.2);
+}
+
+.area-numero {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: #8B1538;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.area-icono {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.area-icono img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.area-card h3 {
+    color: #8B1538;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.area-card p {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.6;
+    display: block;
+}
+
+/* ============================================
+   METODOLOGÍA
+   ============================================ */
+.primaria-metodologia {
+    padding: 80px 50px;
+    background: white;
+    display: block;
+    width: 100%;
+}
+
+.primaria-metodologia h2 {
+    text-align: center;
+    font-size: 2.8rem;
+    color: #333;
+    margin-bottom: 60px;
+}
+
+.metodologia-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.metodologia-texto h3 {
+    color: #8B1538;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.metodologia-texto p {
+    color: #666;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.metodologia-lista {
+    list-style: none;
+    padding: 0;
+}
+
+.metodologia-lista li {
+    color: #333;
+    font-size: 1.05rem;
+    padding: 10px 0;
+    padding-left: 30px;
+    position: relative;
+}
+
+.metodologia-lista li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #8B1538;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.metodologia-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.metodologia-card-grande {
+    background: linear-gradient(135deg, #8B1538 0%, #5a0f28 100%);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 102, 204, 0.2);
+    transition: all 0.3s ease;
+}
+
+.metodologia-card-grande:hover {
+    transform: translateX(-10px);
+    box-shadow: 0 12px 30px rgba(0, 102, 204, 0.3);
+}
+
+.card-contenido {
+    color: white;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.card-numero {
+    font-size: 2.5rem;
+    font-weight: 700;
+    min-width: 50px;
+}
+
+.card-contenido h4 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+}
+
+.card-contenido p {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+}
+
+/* ============================================
+   VENTAJAS
+   ============================================ */
+.primaria-ventajas {
+    padding: 80px 50px;
+    background: #f8f9fa;
+    display: block;
+    width: 100%;
+}
+
+.primaria-ventajas h2 {
+    text-align: center;
+    font-size: 2.8rem;
+    color: #333;
+    margin-bottom: 60px;
+}
+
+.ventajas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.ventaja-item {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.ventaja-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 102, 204, 0.2);
+}
+
+.ventaja-icono {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.ventaja-icono img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+.ventaja-item h3 {
+    color: #8B1538;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.ventaja-item p {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.6;
+    display: block;
+}
+
+/* ============================================
+   GALERÍA
+   ============================================ */
+.primaria-galeria {
+    padding: 80px 50px;
+    background: white;
+    display: block;
+    width: 100%;
+}
+
+.primaria-galeria h2 {
+    text-align: center;
+    font-size: 2.8rem;
+    color: #333;
+    margin-bottom: 60px;
+}
+
+.galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.galeria-item {
+    position: relative;
+    height: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    display: block;
+}
+
+.galeria-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    display: block;
+}
+
+.galeria-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 102, 204, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.galeria-overlay p {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    display: block;
+}
+
+.galeria-item:hover img {
+    transform: scale(1.1);
+}
+
+.galeria-item:hover .galeria-overlay {
+    opacity: 1;
+}
+
+/* ============================================
+   TESTIMONIOS
+   ============================================ */
+.primaria-testimonios {
+    padding: 80px 50px;
+    background: #f8f9fa;
+    display: block;
+    width: 100%;
+}
+
+.primaria-testimonios h2 {
+    text-align: center;
+    font-size: 2.8rem;
+    color: #333;
+    margin-bottom: 60px;
+}
+
+.testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.testimonio-card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border-top: 4px solid #8B1538;
+    display: block;
+}
+
+.testimonio-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0, 102, 204, 0.2);
+}
+
+.testimonio-stars {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.testimonio-card p {
+    color: #666;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-style: italic;
+    display: block;
+}
+
+.testimonio-autor {
+    color: #8B1538;
+    font-weight: 700;
+    display: block;
+}
+
+/* ============================================
+   CTA FINAL
+   ============================================ */
+.primaria-cta {
+    position: relative;
+    padding: 100px 50px;
+    background: linear-gradient(135deg, #8B1538 0%, #5a0f28 100%);
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    display: block;
+    width: 100%;
+}
+
+.cta-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 0;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cta-content h2 {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+    line-height: 1.2;
+    display: block;
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    opacity: 0.95;
+    display: block;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .primaria-hero {
+        padding: 80px 30px;
+        min-height: 350px;
+        margin-bottom: 60px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .metodologia-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .areas-grid,
+    .ventajas-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .primaria-hero {
+        padding: 60px 20px;
+        margin-bottom: 40px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+
+    .areas-header h2,
+    .primaria-metodologia h2,
+    .primaria-ventajas h2,
+    .primaria-galeria h2,
+    .primaria-testimonios h2 {
+        font-size: 2rem;
+    }
+
+    .cta-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .primaria-info,
+    .primaria-areas,
+    .primaria-metodologia,
+    .primaria-ventajas,
+    .primaria-galeria,
+    .primaria-testimonios,
+    .primaria-cta {
+        padding: 60px 20px;
+    }
+}
+
+/* ============================================
+   DARK MODE - PRIMARIA
+   ============================================ */
+body.dark-mode .primaria-hero {
+    background: linear-gradient(135deg, #5a0f28 0%, #00264d 100%);
+}
+
+body.dark-mode .primaria-info {
+    background: #1a1a1c;
+}
+
+body.dark-mode .info-card {
+    background: linear-gradient(135deg, #2a3f5a 0%, #1f2a3a 100%);
+}
+
+body.dark-mode .info-card h3 {
+    color: #D64A4A;
+}
+
+body.dark-mode .info-card p {
+    color: #a8a8aa;
+}
+
+body.dark-mode .primaria-areas {
+    background: #0f0f10;
+}
+
+body.dark-mode .areas-header h2 {
+    color: #e8e8e9;
+}
+
+body.dark-mode .areas-header p {
+    color: #a8a8aa;
+}
+
+body.dark-mode .area-card {
+    background: #232325;
+    border-top-color: #D64A4A;
+}
+
+body.dark-mode .area-numero {
+    background: #8B1538;
+}
+
+body.dark-mode .area-card h3 {
+    color: #D64A4A;
+}
+
+body.dark-mode .area-card p {
+    color: #a8a8aa;
+}
+
+body.dark-mode .primaria-metodologia {
+    background: #1a1a1c;
+}
+
+body.dark-mode .primaria-metodologia h2 {
+    color: #e8e8e9;
+}
+
+body.dark-mode .metodologia-texto h3 {
+    color: #D64A4A;
+}
+
+body.dark-mode .metodologia-texto p {
+    color: #a8a8aa;
+}
+
+body.dark-mode .metodologia-lista li {
+    color: #e8e8e9;
+}
+
+body.dark-mode .metodologia-lista li::before {
+    color: #D64A4A;
+}
+
+body.dark-mode .primaria-ventajas {
+    background: #0f0f10;
+}
+
+body.dark-mode .primaria-ventajas h2 {
+    color: #e8e8e9;
+}
+
+body.dark-mode .ventaja-item {
+    background: #232325;
+}
+
+body.dark-mode .ventaja-item h3 {
+    color: #D64A4A;
+}
+
+body.dark-mode .ventaja-item p {
+    color: #a8a8aa;
+}
+
+body.dark-mode .primaria-galeria {
+    background: #1a1a1c;
+}
+
+body.dark-mode .primaria-galeria h2 {
+    color: #e8e8e9;
+}
+
+body.dark-mode .primaria-testimonios {
+    background: #0f0f10;
+}
+
+body.dark-mode .primaria-testimonios h2 {
+    color: #e8e8e9;
+}
+
+body.dark-mode .testimonio-card {
+    background: #232325;
+    border-top-color: #D64A4A;
+}
+
+body.dark-mode .testimonio-card p {
+    color: #a8a8aa;
+}
+
+body.dark-mode .testimonio-autor {
+    color: #D64A4A;
+}
+
+body.dark-mode .primaria-cta {
+    background: linear-gradient(135deg, #5a0f28 0%, #00264d 100%);
+}
+
+body.dark-mode .cta-content h2,
+body.dark-mode .cta-content p {
+    color: white;
+}
+
+body.dark-mode .btn-primaria {
+    background: white;
+    color: #8B1538;
+}
