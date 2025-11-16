@@ -487,105 +487,135 @@
                             </div>
                         </div>
 
-                        <!-- PASO 4: DOCUMENTOS -->
-                        <div class="paso-contenido" data-paso="4">
-                            <h3 class="paso-titulo">
-                                <span class="paso-icon">📎</span>
-                                Documentos Requeridos
-                            </h3>
+<!-- PASO 4: DOCUMENTOS -->
+<div class="paso-contenido" data-paso="4">
+    <h3 class="paso-titulo">
+        <span class="paso-icon">📎</span>
+        Documentos Requeridos
+    </h3>
 
-                            <div class="documentos-upload">
-                                <!-- Partida de nacimiento -->
-                                <div class="upload-item">
-                                    <div class="upload-header">
-                                        <h4>📄 Partida de Nacimiento</h4>
-                                        <span class="doc-badge obligatorio">Obligatorio</span>
-                                    </div>
-                                    <input type="file" id="doc_partida" name="doc_partida" accept=".pdf,.jpg,.jpeg,.png" required>
-                                    <label for="doc_partida" class="upload-label">
-                                        <span class="upload-icon">☁️</span>
-                                        <span class="upload-text">Clic para subir archivo</span>
-                                        <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
-                                    </label>
-                                    <div class="archivo-preview" id="preview_partida"></div>
-                                </div>
+    <div class="documentos-upload">
+        <!-- Partida de nacimiento -->
+        <div class="upload-item">
+            <div class="upload-header">
+                <h4>📄 Partida de Nacimiento</h4>
+                <span class="doc-badge obligatorio">Obligatorio</span>
+            </div>
+            <input type="file" id="doc_partida" name="doc_partida" accept=".pdf,.jpg,.jpeg,.png" required>
+            <label for="doc_partida" class="upload-label">
+                <span class="upload-icon">☁️</span>
+                <span class="upload-text">Clic para subir archivo</span>
+                <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
+            </label>
+            <div class="archivo-preview" id="preview_partida"></div>
+        </div>
 
-                                <!-- DNI Estudiante -->
-                                <div class="upload-item">
-                                    <div class="upload-header">
-                                        <h4>🪪 DNI del Estudiante</h4>
-                                        <span class="doc-badge obligatorio">Obligatorio</span>
-                                    </div>
-                                    <input type="file" id="doc_dni_estudiante" name="doc_dni_estudiante" accept=".pdf,.jpg,.jpeg,.png" required>
-                                    <label for="doc_dni_estudiante" class="upload-label">
-                                        <span class="upload-icon">☁️</span>
-                                        <span class="upload-text">Clic para subir archivo</span>
-                                        <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
-                                    </label>
-                                    <div class="archivo-preview" id="preview_dni_estudiante"></div>
-                                </div>
+        <!-- DNI Estudiante -->
+        <div class="upload-item">
+            <div class="upload-header">
+                <h4>🪪 DNI del Estudiante</h4>
+                <span class="doc-badge obligatorio">Obligatorio</span>
+            </div>
+            <input type="file" id="doc_dni_estudiante" name="doc_dni_estudiante" accept=".pdf,.jpg,.jpeg,.png" required>
+            <label for="doc_dni_estudiante" class="upload-label">
+                <span class="upload-icon">☁️</span>
+                <span class="upload-text">Clic para subir archivo</span>
+                <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
+            </label>
+            <div class="archivo-preview" id="preview_dni_estudiante"></div>
+        </div>
 
-                                <!-- DNI Apoderado -->
-                                <div class="upload-item">
-                                    <div class="upload-header">
-                                        <h4>🪪 DNI del Apoderado</h4>
-                                        <span class="doc-badge obligatorio">Obligatorio</span>
-                                    </div>
-                                    <input type="file" id="doc_dni_apoderado" name="doc_dni_apoderado" accept=".pdf,.jpg,.jpeg,.png" required>
-                                    <label for="doc_dni_apoderado" class="upload-label">
-                                        <span class="upload-icon">☁️</span>
-                                        <span class="upload-text">Clic para subir archivo</span>
-                                        <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
-                                    </label>
-                                    <div class="archivo-preview" id="preview_dni_apoderado"></div>
-                                </div>
+        <!-- DNI Apoderado -->
+        <div class="upload-item">
+            <div class="upload-header">
+                <h4>🪪 DNI del Apoderado</h4>
+                <span class="doc-badge obligatorio">Obligatorio</span>
+            </div>
+            <input type="file" id="doc_dni_apoderado" name="doc_dni_apoderado" accept=".pdf,.jpg,.jpeg,.png" required>
+            <label for="doc_dni_apoderado" class="upload-label">
+                <span class="upload-icon">☁️</span>
+                <span class="upload-text">Clic para subir archivo</span>
+                <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
+            </label>
+            <div class="archivo-preview" id="preview_dni_apoderado"></div>
+        </div>
 
-                                <!-- Libreta de notas -->
-                                <div class="upload-item">
-                                    <div class="upload-header">
-                                        <h4>📚 Libreta de Notas</h4>
-                                        <span class="doc-badge obligatorio">Obligatorio</span>
-                                    </div>
-                                    <input type="file" id="doc_libreta" name="doc_libreta" accept=".pdf,.jpg,.jpeg,.png" required>
-                                    <label for="doc_libreta" class="upload-label">
-                                        <span class="upload-icon">☁️</span>
-                                        <span class="upload-text">Clic para subir archivo</span>
-                                        <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
-                                    </label>
-                                    <div class="archivo-preview" id="preview_libreta"></div>
-                                </div>
+        <!-- Libreta de notas -->
+        <div class="upload-item">
+            <div class="upload-header">
+                <h4>📚 Libreta de Notas</h4>
+                <span class="doc-badge obligatorio">Obligatorio</span>
+            </div>
+            <input type="file" id="doc_libreta" name="doc_libreta" accept=".pdf,.jpg,.jpeg,.png" required>
+            <label for="doc_libreta" class="upload-label">
+                <span class="upload-icon">☁️</span>
+                <span class="upload-text">Clic para subir archivo</span>
+                <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
+            </label>
+            <div class="archivo-preview" id="preview_libreta"></div>
+        </div>
 
-                                <!-- Certificado (opcional) -->
-                                <div class="upload-item">
-                                    <div class="upload-header">
-                                        <h4>📜 Certificado de Estudios</h4>
-                                        <span class="doc-badge opcional">Opcional</span>
-                                    </div>
-                                    <input type="file" id="doc_certificado" name="doc_certificado" accept=".pdf,.jpg,.jpeg,.png">
-                                    <label for="doc_certificado" class="upload-label">
-                                        <span class="upload-icon">☁️</span>
-                                        <span class="upload-text">Clic para subir archivo</span>
-                                        <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
-                                    </label>
-                                    <div class="archivo-preview" id="preview_certificado"></div>
-                                </div>
+        <!-- Certificado (opcional) -->
+        <div class="upload-item">
+            <div class="upload-header">
+                <h4>📜 Certificado de Estudios</h4>
+                <span class="doc-badge opcional">Opcional</span>
+            </div>
+            <input type="file" id="doc_certificado" name="doc_certificado" accept=".pdf,.jpg,.jpeg,.png">
+            <label for="doc_certificado" class="upload-label">
+                <span class="upload-icon">☁️</span>
+                <span class="upload-text">Clic para subir archivo</span>
+                <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
+            </label>
+            <div class="archivo-preview" id="preview_certificado"></div>
+        </div>
 
-                                <!-- Foto del estudiante -->
-                                <div class="upload-item">
-                                    <div class="upload-header">
-                                        <h4>📸 Foto del Estudiante</h4>
-                                        <span class="doc-badge obligatorio">Obligatorio</span>
-                                    </div>
-                                    <input type="file" id="doc_foto" name="doc_foto" accept=".jpg,.jpeg,.png" required>
-                                    <label for="doc_foto" class="upload-label">
-                                        <span class="upload-icon">☁️</span>
-                                        <span class="upload-text">Clic para subir foto</span>
-                                        <span class="upload-info">JPG o PNG - Máx. 5MB</span>
-                                    </label>
-                                    <div class="archivo-preview" id="preview_foto"></div>
-                                </div>
-                            </div>
-                        </div>
+        <!-- Foto del estudiante -->
+        <div class="upload-item">
+            <div class="upload-header">
+                <h4>📸 Foto del Estudiante</h4>
+                <span class="doc-badge obligatorio">Obligatorio</span>
+            </div>
+            <input type="file" id="doc_foto" name="doc_foto" accept=".jpg,.jpeg,.png" required>
+            <label for="doc_foto" class="upload-label">
+                <span class="upload-icon">☁️</span>
+                <span class="upload-text">Clic para subir foto</span>
+                <span class="upload-info">JPG o PNG - Máx. 5MB</span>
+            </label>
+            <div class="archivo-preview" id="preview_foto"></div>
+        </div>
+
+        <!-- NUEVO: Voucher de Pago -->
+        <div class="upload-item" style="grid-column: 1 / -1; border: 3px solid #D4AF37; background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(139, 21, 56, 0.05));">
+            <div class="upload-header">
+                <h4>💳 Comprobante de Pago</h4>
+                <span class="doc-badge obligatorio">Obligatorio</span>
+            </div>
+            
+            <div class="info-box" style="margin: 15px 0; background: rgba(255, 243, 205, 0.5); border-left-color: #D4AF37;">
+                <strong style="color: #8B1538;">💰 REALIZAR PAGO DE S/. 150.00</strong><br>
+                Antes de subir el comprobante, realiza el pago del derecho de admisión mediante:<br><br>
+                📱 <strong>Yape:</strong> 987 654 321 - Trinity School<br>
+                📱 <strong>Plin:</strong> 987 654 321 - Trinity School<br>
+                🏦 <strong>Transferencia BCP:</strong> 191-1234567890-123<br>
+                <small style="margin-left: 25px; display: block; margin-top: 5px;">CCI: 00219100123456789012</small><br><br>
+                <strong style="color: #8B1538;">⚠️ Importante:</strong> Después de realizar el pago, sube tu comprobante aquí.
+            </div>
+            
+            <input type="file" id="doc_voucher_pago" name="doc_voucher_pago" accept=".pdf,.jpg,.jpeg,.png" required>
+            <label for="doc_voucher_pago" class="upload-label">
+                <span class="upload-icon">💳</span>
+                <span class="upload-text">Subir comprobante de pago</span>
+                <span class="upload-info">Captura de Yape/Plin o comprobante de transferencia<br>PDF, JPG o PNG - Máx. 5MB</span>
+            </label>
+            <div class="archivo-preview" id="preview_voucher_pago"></div>
+        </div>
+    </div>
+
+    <div class="info-box" style="margin-top: 30px;">
+        <strong>📌 Siguiente paso:</strong> Después de enviar tu solicitud, nuestro equipo verificará tu pago en un plazo máximo de 24 horas hábiles. Una vez verificado, te contactaremos para coordinar la entrevista de admisión.
+    </div>
+</div>
 
                         <!-- PASO 5: CONFIRMACIÓN -->
                         <div class="paso-contenido" data-paso="5">

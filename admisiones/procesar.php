@@ -2,11 +2,10 @@
 /**
  * =====================================================
  * PROCESAR FORMULARIO DE ADMISIONES
- * COLEGIO TRINITY SCHOOL
+ * COLEGIO TRINITY SCHOOL - VERSION CON BASE DE DATOS
  * =====================================================
  */
 
-// Iniciar sesión y configuración
 session_start();
 header('Content-Type: application/json; charset=utf-8');
 
@@ -14,7 +13,7 @@ header('Content-Type: application/json; charset=utf-8');
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'trinity_admisiones');
 define('DB_USER', 'root');
-define('DB_PASS', 'liznadine'); // En XAMPP por defecto es vacío
+define('DB_PASS', '');
 
 // Configuración de archivos
 define('UPLOAD_DIR', __DIR__ . '/uploads/');
@@ -22,7 +21,7 @@ define('MAX_FILE_SIZE', 5 * 1024 * 1024); // 5MB
 define('ALLOWED_EXTENSIONS', ['pdf', 'jpg', 'jpeg', 'png']);
 
 // ============================================
-// CLASE DE RESPUESTA
+// CLASE DE RESPUESTA JSON
 // ============================================
 class Response {
     public static function success($message, $data = []) {
@@ -64,7 +63,7 @@ class Database {
                 ]
             );
         } catch(PDOException $e) {
-            Response::error("Error de conexión a la base de datos: " . $e->getMessage(), 500);
+            Response::error("Error de conexión a la base de datos. Por favor, contacte al administrador.", 500);
         }
     }
     
@@ -86,17 +85,14 @@ class Database {
 class FileUploader {
     
     public static function validateFile($file) {
-        // Verificar si hay error en la subida
         if ($file['error'] !== UPLOAD_ERR_OK) {
             return ['success' => false, 'message' => 'Error al subir el archivo'];
         }
         
-        // Verificar tamaño
         if ($file['size'] > MAX_FILE_SIZE) {
             return ['success' => false, 'message' => 'El archivo excede el tamaño máximo de 5MB'];
         }
         
-        // Verificar extensión
         $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         if (!in_array($extension, ALLOWED_EXTENSIONS)) {
             return ['success' => false, 'message' => 'Formato de archivo no permitido'];
@@ -111,17 +107,14 @@ class FileUploader {
             return $validation;
         }
         
-        // Crear directorio si no existe
         if (!file_exists(UPLOAD_DIR)) {
             mkdir(UPLOAD_DIR, 0777, true);
         }
         
-        // Generar nombre único
         $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         $filename = $prefix . '_' . uniqid() . '_' . time() . '.' . $extension;
         $filepath = UPLOAD_DIR . $filename;
         
-        // Mover archivo
         if (move_uploaded_file($file['tmp_name'], $filepath)) {
             return [
                 'success' => true,
@@ -148,11 +141,32 @@ class AdmisionesController {
      * Generar código de postulante único
      */
     private function generarCodigoPostulante($nivel) {
-        $stmt = $this->db->prepare("CALL generar_codigo_postulante(:nivel, @codigo)");
-        $stmt->execute(['nivel' => $nivel]);
-        
-        $result = $this->db->query("SELECT @codigo as codigo")->fetch();
-        return $result['codigo'];
+        try {
+            $stmt = $this->db->prepare("CALL generar_codigo_postulante(:nivel, @codigo)");
+            $stmt->execute(['nivel' => $nivel]);
+            
+            $result = $this->db->query("SELECT @codigo as codigo")->fetch();
+            return $result['codigo'];
+        } catch(PDOException $e) {
+            // Si falla el procedimiento, generar manualmente
+            $prefijo = match($nivel) {
+                'Inicial' => 'INI',
+                'Primaria' => 'PRI',
+                'Secundaria' => 'SEC',
+                default => 'GEN'
+            };
+            
+            $anio = date('Y');
+            $stmt = $this->db->prepare("
+                SELECT COUNT(*) + 1 as siguiente 
+                FROM solicitudes_admision 
+                WHERE codigo_postulante LIKE :patron
+            ");
+            $stmt->execute(['patron' => $anio . $prefijo . '%']);
+            $result = $stmt->fetch();
+            
+            return $anio . $prefijo . str_pad($result['siguiente'], 4, '0', STR_PAD_LEFT);
+        }
     }
     
     /**
@@ -161,7 +175,6 @@ class AdmisionesController {
     private function validarDatos($data) {
         $errores = [];
         
-        // Validar campos obligatorios
         $camposObligatorios = [
             'nombres', 'apellidos', 'fecha_nacimiento', 'dni_estudiante',
             'sexo', 'direccion', 'distrito', 'nivel_postula', 'grado_postula',
@@ -174,17 +187,14 @@ class AdmisionesController {
             }
         }
         
-        // Validar DNI (8 dígitos)
         if (!empty($data['dni_estudiante']) && !preg_match('/^\d{8}$/', $data['dni_estudiante'])) {
             $errores[] = "El DNI del estudiante debe tener 8 dígitos";
         }
         
-        // Validar email
         if (!empty($data['email_apoderado']) && !filter_var($data['email_apoderado'], FILTER_VALIDATE_EMAIL)) {
             $errores[] = "El email del apoderado no es válido";
         }
         
-        // Validar celular (9 dígitos)
         if (!empty($data['celular_apoderado']) && !preg_match('/^\d{9}$/', $data['celular_apoderado'])) {
             $errores[] = "El celular debe tener 9 dígitos";
         }
@@ -202,7 +212,8 @@ class AdmisionesController {
             'doc_dni_estudiante' => 'DNI del Estudiante',
             'doc_dni_apoderado' => 'DNI del Apoderado',
             'doc_libreta' => 'Libreta de Notas',
-            'doc_foto' => 'Foto del Estudiante'
+            'doc_foto' => 'Foto del Estudiante',
+            'doc_voucher_pago' => 'Comprobante de Pago'
         ];
         
         foreach ($documentosRequeridos as $key => $nombre) {
@@ -247,6 +258,9 @@ class AdmisionesController {
             // Generar código de postulante
             $codigo = $this->generarCodigoPostulante($_POST['nivel_postula']);
             
+            // Iniciar transacción
+            $this->db->beginTransaction();
+            
             // Preparar datos para insertar
             $sql = "INSERT INTO solicitudes_admision (
                 codigo_postulante, nombres, apellidos, fecha_nacimiento, dni_estudiante,
@@ -257,7 +271,7 @@ class AdmisionesController {
                 apoderado_principal, nombre_apoderado, parentesco_apoderado, dni_apoderado,
                 celular_apoderado, email_apoderado,
                 tiene_hermanos, nombres_hermanos, necesidades_especiales, descripcion_necesidades,
-                doc_partida, doc_dni_estudiante, doc_dni_apoderado, doc_libreta, doc_certificado, doc_foto,
+                doc_partida, doc_dni_estudiante, doc_dni_apoderado, doc_libreta, doc_certificado, doc_foto, doc_voucher_pago,
                 estado, ip_registro
             ) VALUES (
                 :codigo_postulante, :nombres, :apellidos, :fecha_nacimiento, :dni_estudiante,
@@ -268,8 +282,8 @@ class AdmisionesController {
                 :apoderado_principal, :nombre_apoderado, :parentesco_apoderado, :dni_apoderado,
                 :celular_apoderado, :email_apoderado,
                 :tiene_hermanos, :nombres_hermanos, :necesidades_especiales, :descripcion_necesidades,
-                :doc_partida, :doc_dni_estudiante, :doc_dni_apoderado, :doc_libreta, :doc_certificado, :doc_foto,
-                'Documentos Completos', :ip_registro
+                :doc_partida, :doc_dni_estudiante, :doc_dni_apoderado, :doc_libreta, :doc_certificado, :doc_foto, :doc_voucher_pago,
+                'Pendiente Pago', :ip_registro
             )";
             
             $stmt = $this->db->prepare($sql);
@@ -317,12 +331,16 @@ class AdmisionesController {
                 'doc_libreta' => $documentos['doc_libreta'],
                 'doc_certificado' => $documentos['doc_certificado'] ?? null,
                 'doc_foto' => $documentos['doc_foto'],
+                'doc_voucher_pago' => $documentos['doc_voucher_pago'],
                 'ip_registro' => $_SERVER['REMOTE_ADDR']
             ];
             
             $stmt->execute($params);
             
-            // Enviar email de confirmación (opcional)
+            // Confirmar transacción
+            $this->db->commit();
+            
+            // Enviar email de confirmación
             $this->enviarEmailConfirmacion($codigo, $_POST['email_apoderado'], $_POST['nombres'], $_POST['apellidos']);
             
             Response::success('Solicitud enviada correctamente', [
@@ -330,7 +348,14 @@ class AdmisionesController {
             ]);
             
         } catch(PDOException $e) {
-            Response::error('Error al procesar la solicitud: ' . $e->getMessage(), 500);
+            // Revertir transacción en caso de error
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+            
+            // Log del error
+            error_log("Error en guardarSolicitud: " . $e->getMessage());
+            Response::error('Error al procesar la solicitud. Por favor, intente nuevamente.', 500);
         }
     }
     
@@ -364,7 +389,8 @@ class AdmisionesController {
                     <p><strong>Estudiante:</strong> $nombres $apellidos</p>
                     <p><strong>Código de Postulante:</strong> <span class='codigo'>$codigo</span></p>
                     <p>Guarde este código para futuras consultas.</p>
-                    <p>En breve nos pondremos en contacto con usted para coordinar la entrevista.</p>
+                    <p><strong>Siguiente paso:</strong> Nuestro equipo verificará tu pago y documentos en un plazo máximo de 24 horas hábiles.</p>
+                    <p>Una vez verificado, nos contactaremos contigo para coordinar la entrevista de admisión.</p>
                 </div>
                 <div class='footer'>
                     <p>Colegio Trinity School - Chincha Alta</p>
@@ -379,8 +405,6 @@ class AdmisionesController {
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
         $headers .= "From: admisiones@trinityschool.edu.pe" . "\r\n";
         
-        // Nota: Para que funcione el envío de emails, necesitas configurar sendmail en XAMPP
-        // o usar una librería como PHPMailer
         @mail($email, $asunto, $mensaje, $headers);
     }
 }
