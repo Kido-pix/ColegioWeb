@@ -58,29 +58,7 @@
     <!-- CONTENIDO DE ADMISIONES -->
     <main class="admisiones-main">
         
-        <!-- HERO SECTION -->
-        <section class="admisiones-hero">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <span class="hero-badge">📚 PROCESO DE ADMISIÓN 2025</span>
-                <h1>¡Únete a la Familia Trinity!</h1>
-                <p>Completa tu solicitud de admisión y forma parte de nuestra comunidad educativa</p>
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">20+</span>
-                        <span class="stat-label">Años de experiencia</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">500+</span>
-                        <span class="stat-label">Estudiantes</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">98%</span>
-                        <span class="stat-label">Satisfacción</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+
 
         <!-- INFORMACIÓN DEL PROCESO -->
         <section class="proceso-info">

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud Enviada - Colegio Trinity School</title>
+    
+    <link rel="stylesheet" href="../css/Estilo.css">
+    <link rel="stylesheet" href="../css/darkmode.css">
+    <link rel="stylesheet" href="css/admisiones.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .gracias-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px 50px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+        }
+        
+        .gracias-box {
+            max-width: 800px;
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .check-icon {
+            width: 100px;
+            height: 100px;
+            background: #28a745;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            animation: scaleIn 0.5s ease;
+        }
+        
+        .check-icon::before {
+            content: '✓';
+            font-size: 60px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        @keyframes scaleIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .gracias-box h1 {
+            color: #8B1538;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .codigo-postulante {
+            background: linear-gradient(135deg, #8B1538, #1B4B5A);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            display: inline-block;
+        }
+        
+        .codigo-postulante strong {
+            font-size: 2rem;
+            display: block;
+            margin-top: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .pago-instrucciones {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .pago-instrucciones h3 {
+            color: #8B1538;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .metodos-pago {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .metodo-pago {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        .metodo-pago:hover {
+            border-color: #8B1538;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .metodo-pago h4 {
+            color: #8B1538;
+            margin-bottom: 10px;
+        }
+        
+        .metodo-pago .numero {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .metodo-pago .nombre {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .siguientes-pasos {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .siguientes-pasos h3 {
+            color: #8B1538;
+            margin-bottom: 20px;
+        }
+        
+        .paso-siguiente {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .paso-siguiente:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+        
+        .paso-numero {
+            width: 40px;
+            height: 40px;
+            background: #8B1538;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .paso-info h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .paso-info p {
+            color: #666;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        
+        .btn-grupo {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .btn-principal, .btn-secundario {
+            padding: 14px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn-principal {
+            background: #8B1538;
+            color: white;
+        }
+        
+        .btn-principal:hover {
+            background: #1B4B5A;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn-secundario {
+            background: white;
+            color: #8B1538;
+            border: 2px solid #8B1538;
+        }
+        
+        .btn-secundario:hover {
+            background: #8B1538;
+            color: white;
+        }
+        
+        .contacto-info {
+            background: #e8f5e9;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .contacto-info p {
+            margin: 5px 0;
+            color: #333;
+        }
+        
+        @media (max-width: 768px) {
+            .gracias-box {
+                padding: 30px 20px;
+            }
+            
+            .gracias-box h1 {
+                font-size: 2rem;
+            }
+            
+            .codigo-postulante strong {
+                font-size: 1.5rem;
+            }
+            
+            .metodos-pago {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-grupo {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../index.html" class="logo-link">
+                    <img src="../img/logo.png" alt="Logo Colegio Trinity School" />
+                    <div class="logo-text">
+                        <h1>Colegio<br>Trinity School</h1>
+                        <p>Chincha Alta</p>
+                    </div>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="gracias-container">
+        <div class="gracias-box">
+            <div class="check-icon"></div>
+            
+            <h1>¡Solicitud Enviada Correctamente!</h1>
+            <p style="font-size: 1.1rem; color: #666; margin-bottom: 20px;">
+                Gracias por tu interés en formar parte de la familia Trinity School
+            </p>
+            
+            <div class="codigo-postulante">
+                <span style="font-size: 0.9rem;">Tu código de postulante es:</span>
+                <strong id="codigoPostulante">2025INI0001</strong>
+            </div>
+            
+            <p style="color: #666; margin-bottom: 30px;">
+                <strong>📧 Importante:</strong> Hemos enviado un email de confirmación a tu correo electrónico.
+                Guarda tu código de postulante para futuras consultas.
+            </p>
+            
+            <!-- INSTRUCCIONES DE PAGO -->
+            <div class="pago-instrucciones">
+                <h3>💳 Completar Pago de Derecho de Admisión</h3>
+                <p><strong>Monto: S/. 150.00</strong></p>
+                <p style="margin-bottom: 20px;">Para continuar con el proceso, debes realizar el pago del derecho de admisión mediante alguno de estos métodos:</p>
+                
+                <div class="metodos-pago">
+                    <div class="metodo-pago">
+                        <h4>📱 Yape</h4>
+                        <div class="numero">987 654 321</div>
+                        <div class="nombre">Trinity School</div>
+                    </div>
+                    
+                    <div class="metodo-pago">
+                        <h4>📱 Plin</h4>
+                        <div class="numero">987 654 321</div>
+                        <div class="nombre">Trinity School</div>
+                    </div>
+                    
+                    <div class="metodo-pago">
+                        <h4>🏦 Transferencia</h4>
+                        <div class="numero">191-1234567890-123</div>
+                        <div class="nombre">BCP - Trinity School</div>
+                        <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">
+                            CCI: 00219100123456789012
+                        </div>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px;">
+                    <strong>⚠️ Importante:</strong> Después de realizar el pago, envía tu voucher por WhatsApp al 
+                    <strong>987 654 321</strong> indicando tu código de postulante: <strong id="codigoEnPago">2025INI0001</strong>
+                </p>
+            </div>
+            
+            <!-- SIGUIENTES PASOS -->
+            <div class="siguientes-pasos">
+                <h3>📋 Próximos Pasos</h3>
+                
+                <div class="paso-siguiente">
+                    <div class="paso-numero">1</div>
+                    <div class="paso-info">
+                        <h4>Realizar el Pago</h4>
+                        <p>Completa el pago de S/. 150.00 por derecho de admisión usando cualquiera de los métodos indicados.</p>
+                    </div>
+                </div>
+                
+                <div class="paso-siguiente">
+                    <div class="paso-numero">2</div>
+                    <div class="paso-info">
+                        <h4>Enviar Voucher</h4>
+                        <p>Envía tu comprobante de pago por WhatsApp al 987 654 321 con tu código de postulante.</p>
+                    </div>
+                </div>
+                
+                <div class="paso-siguiente">
+                    <div class="paso-numero">3</div>
+                    <div class="paso-info">
+                        <h4>Verificación</h4>
+                        <p>Nuestro equipo verificará tu pago en un plazo máximo de 24 horas hábiles.</p>
+                    </div>
+                </div>
+                
+                <div class="paso-siguiente">
+                    <div class="paso-numero">4</div>
+                    <div class="paso-info">
+                        <h4>Coordinación de Entrevista</h4>
+                        <p>Una vez verificado el pago, nos contactaremos contigo para coordinar la fecha de entrevista.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- INFORMACIÓN DE CONTACTO -->
+            <div class="contacto-info">
+                <p><strong>📞 ¿Tienes alguna duda?</strong></p>
+                <p>📱 WhatsApp: 987 654 321</p>
+                <p>📧 Email: admisiones@trinityschool.edu.pe</p>
+                <p>🕐 Horario de atención: Lunes a Viernes 8:00 AM - 5:00 PM</p>
+            </div>
+            
+            <!-- BOTONES DE ACCIÓN -->
+            <div class="btn-grupo">
+                <a href="../index.html" class="btn-principal">Volver al Inicio</a>
+                <a href="https://wa.me/51987654321?text=Hola,%20soy%20postulante%20con%20código%20" 
+                   class="btn-secundario" id="btnWhatsApp" target="_blank">
+                    Enviar Voucher por WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Obtener código de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const codigo = urlParams.get('codigo') || '2025INI0001';
+        
+        // Actualizar código en la página
+        document.getElementById('codigoPostulante').textContent = codigo;
+        document.getElementById('codigoEnPago').textContent = codigo;
+        
+        // Actualizar link de WhatsApp
+        const btnWhatsApp = document.getElementById('btnWhatsApp');
+        const mensaje = encodeURIComponent(`Hola, soy postulante con código ${codigo}. Adjunto mi voucher de pago.`);
+        btnWhatsApp.href = `https://wa.me/51987654321?text=${mensaje}`;
+    </script>
+    
+    <script src="../js/darkmode.js"></script>
+</body>
+</html>

@@ -163,11 +163,11 @@ function actualizarPaso() {
     });
     
     // Mostrar paso actual
-    const pasoActivo = document.querySelector(`[data-paso="${pasoActual}"]`);
-    if (pasoActivo && pasoActivo.classList.contains('paso-contenido')) {
-        pasoActivo.classList.add('activo');
-    }
-    
+// Mostrar paso actual
+const pasoActivo = document.querySelector(`.paso-contenido[data-paso="${pasoActual}"]`);
+if (pasoActivo) {
+    pasoActivo.classList.add('activo');
+}
     // Actualizar indicador de progreso
     actualizarProgreso();
     
