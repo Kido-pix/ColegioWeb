@@ -139,13 +139,13 @@
                     <div class="documento-item">
                         <span class="doc-icon">📜</span>
                         <h4>Certificado de Estudios</h4>
-                        <span class="doc-badge opcional">Opcional</span>
+                        <span class="doc-badge obligatorio">Obligatorio</span>
                     </div>
 
                     <div class="documento-item">
                         <span class="doc-icon">📸</span>
                         <h4>Foto del Estudiante</h4>
-                        <span class="doc-badge obligatorio">Obligatorio</span>
+                        <span class="doc-badge opcional">Opcional</span>
                     </div>
                 </div>
 
