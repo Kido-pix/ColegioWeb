@@ -49,10 +49,10 @@ try {
     // Solicitudes por nivel educativo
     $stmt = $db->query("
         SELECT 
-            nivel_educativo,
+            nivel_postula,
             COUNT(*) as cantidad
         FROM solicitudes_admision
-        GROUP BY nivel_educativo
+        GROUP BY nivel_postula
     ");
     $porNivel = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
     
@@ -64,9 +64,9 @@ try {
     $stmt = $db->query("
         SELECT 
             codigo_postulante,
-            CONCAT(nombre_estudiante, ' ', apellido_paterno, ' ', apellido_materno) as nombre_completo,
-            nivel_educativo,
-            grado,
+            CONCAT(nombres, ' ', apellido_paterno, ' ', apellido_materno) as nombre_completo,
+            nivel_postula as nivel_educativo,
+            grado_postula as grado,
             estado,
             fecha_registro
         FROM solicitudes_admision
@@ -645,7 +645,7 @@ try {
         <ul class="sidebar-menu">
             <li><a href="dashboard.php" class="active"><i class="fas fa-home"></i>Dashboard</a></li>
             <li><a href="solicitudes.php"><i class="fas fa-file-alt"></i>Solicitudes</a></li>
-            <li><a href="pagos.php"><i class="fas fa-money-check-alt"></i>Verificar Pagos</a></li>
+            <li><a href="verificar_pago.php"><i class="fas fa-money-check-alt"></i>Verificar Pagos</a></li>
             <li><a href="entrevistas.php"><i class="fas fa-calendar-alt"></i>Entrevistas</a></li>
             <li><a href="reportes.php"><i class="fas fa-chart-bar"></i>Reportes</a></li>
             <li><a href="configuracion.php"><i class="fas fa-cog"></i>Configuración</a></li>
@@ -746,7 +746,7 @@ try {
                 <i class="fas fa-list"></i>
                 Ver Todas las Solicitudes
             </a>
-            <a href="pagos.php" class="action-btn">
+            <a href="verificar_pago.php" class="action-btn">
                 <i class="fas fa-money-check-alt"></i>
                 Verificar Pagos
             </a>

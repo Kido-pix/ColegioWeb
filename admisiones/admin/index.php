@@ -2,45 +2,49 @@
 session_start();
 
 // Si ya está logueado, redirigir al dashboard
-if (isset($_SESSION['admin_logueado'])) {
+if (isset($_SESSION['admin_logueado']) && $_SESSION['admin_logueado'] === true) {
     header('Location: dashboard.php');
     exit;
 }
 
-// Procesar login
 $error = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once '../procesar.php';
     
     $usuario = $_POST['usuario'] ?? '';
     $password = $_POST['password'] ?? '';
     
-    try {
-        $db = Database::getInstance()->getConnection();
-        
-        $stmt = $db->prepare("SELECT * FROM usuarios_admin WHERE usuario = ? AND activo = 1");
-        $stmt->execute([$usuario]);
-        $admin = $stmt->fetch();
-        
-        if ($admin && password_verify($password, $admin['password'])) {
-            // Login exitoso
-            $_SESSION['admin_logueado'] = true;
-            $_SESSION['admin_id'] = $admin['id'];
-            $_SESSION['admin_usuario'] = $admin['usuario'];
-            $_SESSION['admin_nombre'] = $admin['nombre_completo'];
-            $_SESSION['admin_rol'] = $admin['rol'];
+    if (empty($usuario) || empty($password)) {
+        $error = 'Por favor, completa todos los campos';
+    } else {
+        try {
+            $db = Database::getInstance()->getConnection();
             
-            // Actualizar último acceso
-            $stmt = $db->prepare("UPDATE usuarios_admin SET ultimo_acceso = NOW() WHERE id = ?");
-            $stmt->execute([$admin['id']]);
+            $stmt = $db->prepare("SELECT * FROM usuarios_admin WHERE usuario = ? AND activo = 1");
+            $stmt->execute([$usuario]);
+            $admin = $stmt->fetch(PDO::FETCH_ASSOC);
             
-            header('Location: dashboard.php');
-            exit;
-        } else {
-            $error = 'Usuario o contraseña incorrectos';
+            if ($admin && password_verify($password, $admin['password'])) {
+                // Login exitoso
+                $_SESSION['admin_logueado'] = true;
+                $_SESSION['admin_id'] = $admin['id'];
+                $_SESSION['admin_usuario'] = $admin['usuario'];
+                $_SESSION['admin_nombre'] = $admin['nombre_completo'];
+                $_SESSION['admin_rol'] = $admin['rol'];
+                
+                // Actualizar último acceso
+                $updateStmt = $db->prepare("UPDATE usuarios_admin SET ultimo_acceso = NOW() WHERE id = ?");
+                $updateStmt->execute([$admin['id']]);
+                
+                header('Location: dashboard.php');
+                exit;
+            } else {
+                $error = 'Usuario o contraseña incorrectos';
+            }
+        } catch (PDOException $e) {
+            $error = 'Error en el sistema: ' . $e->getMessage();
         }
-    } catch(PDOException $e) {
-        $error = 'Error de conexión. Intente nuevamente.';
     }
 }
 ?>
@@ -50,7 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Panel Administrativo Trinity School</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -59,8 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #8B1538 0%, #1B4B5A 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0A1929 0%, #1B4B5A 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -69,167 +74,252 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .login-container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            max-width: 450px;
             width: 100%;
+            max-width: 450px;
         }
 
-        .login-header {
-            background: linear-gradient(135deg, #8B1538 0%, #1B4B5A 100%);
-            padding: 40px 30px;
+        .login-card {
+            background: rgba(26, 32, 44, 0.95);
+            border: 1px solid rgba(58, 175, 169, 0.2);
+            border-radius: 20px;
+            padding: 50px 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo-container {
             text-align: center;
-            color: white;
+            margin-bottom: 40px;
         }
 
-        .login-header img {
+        .logo {
             width: 80px;
             height: 80px;
-            margin-bottom: 15px;
-            border-radius: 50%;
-            background: white;
-            padding: 10px;
+            background: linear-gradient(135deg, #1B4B5A, #3AAFA9);
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 20px;
         }
 
-        .login-header h1 {
+        .logo-text h1 {
             font-size: 1.8rem;
+            color: #E8EAED;
             margin-bottom: 5px;
+            font-weight: 700;
         }
 
-        .login-header p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .login-body {
-            padding: 40px 30px;
+        .logo-text p {
+            color: #9AA0A6;
+            font-size: 0.95rem;
         }
 
         .form-group {
             margin-bottom: 25px;
         }
 
-        .form-group label {
+        .form-label {
             display: block;
-            color: #333;
+            color: #E8EAED;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-size: 0.95rem;
         }
 
-        .form-group input {
+        .input-group {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9AA0A6;
+            font-size: 1.1rem;
+        }
+
+        .form-input {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            padding: 15px 15px 15px 45px;
+            background: rgba(45, 55, 72, 0.5);
+            border: 1px solid rgba(58, 175, 169, 0.2);
+            border-radius: 12px;
+            color: #E8EAED;
             font-size: 1rem;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
             transition: all 0.3s ease;
         }
 
-        .form-group input:focus {
+        .form-input:focus {
             outline: none;
-            border-color: #8B1538;
-            box-shadow: 0 0 0 3px rgba(139, 21, 56, 0.1);
+            border-color: #3AAFA9;
+            background: rgba(45, 55, 72, 0.8);
+            box-shadow: 0 0 0 3px rgba(58, 175, 169, 0.1);
         }
 
-        .error-message {
-            background: #fee;
-            border-left: 4px solid #dc3545;
-            padding: 12px 15px;
-            border-radius: 6px;
-            color: #721c24;
-            margin-bottom: 20px;
+        .form-input::placeholder {
+            color: #9AA0A6;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
             font-size: 0.9rem;
+        }
+
+        .alert-error {
+            background: rgba(247, 70, 74, 0.1);
+            border: 1px solid rgba(247, 70, 74, 0.3);
+            color: #F7464A;
+        }
+
+        .alert i {
+            font-size: 1.2rem;
         }
 
         .btn-login {
             width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #8B1538 0%, #1B4B5A 100%);
+            padding: 15px;
+            background: linear-gradient(135deg, #1B4B5A, #3AAFA9);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 1rem;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         .btn-login:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(139, 21, 56, 0.3);
+            box-shadow: 0 10px 30px rgba(58, 175, 169, 0.3);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
         }
 
         .login-footer {
             text-align: center;
-            padding: 20px;
-            background: #f8f9fa;
-            border-top: 1px solid #e0e0e0;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(58, 175, 169, 0.2);
+            color: #9AA0A6;
+            font-size: 0.85rem;
         }
 
         .login-footer a {
-            color: #8B1538;
+            color: #3AAFA9;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.9rem;
         }
 
         .login-footer a:hover {
             text-decoration: underline;
         }
 
-        @media (max-width: 480px) {
-            .login-header h1 {
+        @media (max-width: 500px) {
+            .login-card {
+                padding: 40px 30px;
+            }
+
+            .logo {
+                width: 60px;
+                height: 60px;
                 font-size: 1.5rem;
             }
 
-            .login-body {
-                padding: 30px 20px;
+            .logo-text h1 {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <div class="login-header">
-            <img src="../../img/logo.png" alt="Trinity School Logo">
-            <h1>Panel Administrativo</h1>
-            <p>Sistema de Admisiones 2025</p>
-        </div>
+        <div class="login-card">
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Trinity School</h1>
+                    <p>Panel Administrativo</p>
+                </div>
+            </div>
 
-        <div class="login-body">
-            <?php if ($error): ?>
-                <div class="error-message">
-                    ⚠️ <?php echo htmlspecialchars($error); ?>
+            <?php if (!empty($error)): ?>
+                <div class="alert alert-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span><?php echo htmlspecialchars($error); ?></span>
                 </div>
             <?php endif; ?>
 
             <form method="POST" action="">
                 <div class="form-group">
-                    <label for="usuario">Usuario</label>
-                    <input type="text" id="usuario" name="usuario" required autofocus 
-                           placeholder="Ingrese su usuario">
+                    <label class="form-label" for="usuario">Usuario</label>
+                    <div class="input-group">
+                        <i class="input-icon fas fa-user"></i>
+                        <input 
+                            type="text" 
+                            id="usuario" 
+                            name="usuario" 
+                            class="form-input" 
+                            placeholder="Ingresa tu usuario"
+                            required
+                            autocomplete="username"
+                            value="<?php echo isset($_POST['usuario']) ? htmlspecialchars($_POST['usuario']) : ''; ?>"
+                        >
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Contraseña</label>
-                    <input type="password" id="password" name="password" required 
-                           placeholder="Ingrese su contraseña">
+                    <label class="form-label" for="password">Contraseña</label>
+                    <div class="input-group">
+                        <i class="input-icon fas fa-lock"></i>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            class="form-input" 
+                            placeholder="Ingresa tu contraseña"
+                            required
+                            autocomplete="current-password"
+                        >
+                    </div>
                 </div>
 
                 <button type="submit" class="btn-login">
-                    Iniciar Sesión
+                    <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
                 </button>
             </form>
-        </div>
 
-        <div class="login-footer">
-            <a href="../../index.html">← Volver al sitio web</a>
+            <div class="login-footer">
+                <p>
+                    ¿Problemas para acceder? 
+                    <a href="mailto:admin@trinityschool.edu.pe">Contáctanos</a>
+                </p>
+                <p style="margin-top: 15px;">
+                    <a href="../index.php">
+                        <i class="fas fa-arrow-left"></i> Volver al sitio web
+                    </a>
+                </p>
+            </div>
         </div>
     </div>
+
+    <script>
+        // Auto-focus en el campo de usuario al cargar
+        document.getElementById('usuario').focus();
+    </script>
 </body>
 </html>

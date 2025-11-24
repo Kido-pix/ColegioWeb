@@ -58,8 +58,6 @@
     <!-- CONTENIDO DE ADMISIONES -->
     <main class="admisiones-main">
         
-
-
         <!-- INFORMACIÓN DEL PROCESO -->
         <section class="proceso-info">
             <div class="container">
@@ -201,7 +199,7 @@
                     </div>
 
                     <!-- Formulario -->
-                    <form id="formAdmision" class="formulario-contenido" method="POST" enctype="multipart/form-data">
+                    <form id="formAdmision" class="formulario-contenido" method="POST" action="procesar.php" enctype="multipart/form-data">
                         
                         <!-- PASO 1: DATOS DEL ESTUDIANTE -->
                         <div class="paso-contenido activo" data-paso="1">
@@ -218,9 +216,15 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="apellidos">Apellidos completos <span class="required">*</span></label>
-                                    <input type="text" id="apellidos" name="apellidos" required 
-                                           placeholder="Ej: García Pérez">
+                                    <label for="apellido_paterno">Apellido Paterno <span class="required">*</span></label>
+                                    <input type="text" id="apellido_paterno" name="apellido_paterno" required 
+                                           placeholder="Ej: García">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="apellido_materno">Apellido Materno <span class="required">*</span></label>
+                                    <input type="text" id="apellido_materno" name="apellido_materno" required 
+                                           placeholder="Ej: Pérez">
                                 </div>
 
                                 <div class="form-group">
@@ -487,135 +491,135 @@
                             </div>
                         </div>
 
-<!-- PASO 4: DOCUMENTOS -->
-<div class="paso-contenido" data-paso="4">
-    <h3 class="paso-titulo">
-        <span class="paso-icon">📎</span>
-        Documentos Requeridos
-    </h3>
+                        <!-- PASO 4: DOCUMENTOS -->
+                        <div class="paso-contenido" data-paso="4">
+                            <h3 class="paso-titulo">
+                                <span class="paso-icon">📎</span>
+                                Documentos Requeridos
+                            </h3>
 
-    <div class="documentos-upload">
-        <!-- Partida de nacimiento -->
-        <div class="upload-item">
-            <div class="upload-header">
-                <h4>📄 Partida de Nacimiento</h4>
-                <span class="doc-badge obligatorio">Obligatorio</span>
-            </div>
-            <input type="file" id="doc_partida" name="doc_partida" accept=".pdf,.jpg,.jpeg,.png" required>
-            <label for="doc_partida" class="upload-label">
-                <span class="upload-icon">☁️</span>
-                <span class="upload-text">Clic para subir archivo</span>
-                <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
-            </label>
-            <div class="archivo-preview" id="preview_partida"></div>
-        </div>
+                            <div class="documentos-upload">
+                                <!-- Partida de nacimiento -->
+                                <div class="upload-item">
+                                    <div class="upload-header">
+                                        <h4>📄 Partida de Nacimiento</h4>
+                                        <span class="doc-badge obligatorio">Obligatorio</span>
+                                    </div>
+                                    <input type="file" id="partida_nacimiento" name="partida_nacimiento" accept=".pdf,.jpg,.jpeg,.png" required>
+                                    <label for="partida_nacimiento" class="upload-label">
+                                        <span class="upload-icon">☁️</span>
+                                        <span class="upload-text">Clic para subir archivo</span>
+                                        <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
+                                    </label>
+                                    <div class="archivo-preview" id="preview_partida"></div>
+                                </div>
 
-        <!-- DNI Estudiante -->
-        <div class="upload-item">
-            <div class="upload-header">
-                <h4>🪪 DNI del Estudiante</h4>
-                <span class="doc-badge obligatorio">Obligatorio</span>
-            </div>
-            <input type="file" id="doc_dni_estudiante" name="doc_dni_estudiante" accept=".pdf,.jpg,.jpeg,.png" required>
-            <label for="doc_dni_estudiante" class="upload-label">
-                <span class="upload-icon">☁️</span>
-                <span class="upload-text">Clic para subir archivo</span>
-                <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
-            </label>
-            <div class="archivo-preview" id="preview_dni_estudiante"></div>
-        </div>
+                                <!-- DNI Estudiante -->
+                                <div class="upload-item">
+                                    <div class="upload-header">
+                                        <h4>🪪 DNI del Estudiante</h4>
+                                        <span class="doc-badge obligatorio">Obligatorio</span>
+                                    </div>
+                                    <input type="file" id="dni_estudiante_archivo" name="dni_estudiante_archivo" accept=".pdf,.jpg,.jpeg,.png" required>
+                                    <label for="dni_estudiante_archivo" class="upload-label">
+                                        <span class="upload-icon">☁️</span>
+                                        <span class="upload-text">Clic para subir archivo</span>
+                                        <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
+                                    </label>
+                                    <div class="archivo-preview" id="preview_dni_estudiante"></div>
+                                </div>
 
-        <!-- DNI Apoderado -->
-        <div class="upload-item">
-            <div class="upload-header">
-                <h4>🪪 DNI del Apoderado</h4>
-                <span class="doc-badge obligatorio">Obligatorio</span>
-            </div>
-            <input type="file" id="doc_dni_apoderado" name="doc_dni_apoderado" accept=".pdf,.jpg,.jpeg,.png" required>
-            <label for="doc_dni_apoderado" class="upload-label">
-                <span class="upload-icon">☁️</span>
-                <span class="upload-text">Clic para subir archivo</span>
-                <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
-            </label>
-            <div class="archivo-preview" id="preview_dni_apoderado"></div>
-        </div>
+                                <!-- DNI Apoderado -->
+                                <div class="upload-item">
+                                    <div class="upload-header">
+                                        <h4>🪪 DNI del Apoderado</h4>
+                                        <span class="doc-badge obligatorio">Obligatorio</span>
+                                    </div>
+                                    <input type="file" id="dni_apoderado_archivo" name="dni_apoderado" accept=".pdf,.jpg,.jpeg,.png" required>
+                                    <label for="dni_apoderado_archivo" class="upload-label">
+                                        <span class="upload-icon">☁️</span>
+                                        <span class="upload-text">Clic para subir archivo</span>
+                                        <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
+                                    </label>
+                                    <div class="archivo-preview" id="preview_dni_apoderado"></div>
+                                </div>
 
-        <!-- Libreta de notas -->
-        <div class="upload-item">
-            <div class="upload-header">
-                <h4>📚 Libreta de Notas</h4>
-                <span class="doc-badge obligatorio">Obligatorio</span>
-            </div>
-            <input type="file" id="doc_libreta" name="doc_libreta" accept=".pdf,.jpg,.jpeg,.png" required>
-            <label for="doc_libreta" class="upload-label">
-                <span class="upload-icon">☁️</span>
-                <span class="upload-text">Clic para subir archivo</span>
-                <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
-            </label>
-            <div class="archivo-preview" id="preview_libreta"></div>
-        </div>
+                                <!-- Libreta de notas -->
+                                <div class="upload-item">
+                                    <div class="upload-header">
+                                        <h4>📚 Libreta de Notas</h4>
+                                        <span class="doc-badge obligatorio">Obligatorio</span>
+                                    </div>
+                                    <input type="file" id="libreta_notas" name="libreta_notas" accept=".pdf,.jpg,.jpeg,.png" required>
+                                    <label for="libreta_notas" class="upload-label">
+                                        <span class="upload-icon">☁️</span>
+                                        <span class="upload-text">Clic para subir archivo</span>
+                                        <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
+                                    </label>
+                                    <div class="archivo-preview" id="preview_libreta"></div>
+                                </div>
 
-        <!-- Certificado (opcional) -->
-        <div class="upload-item">
-            <div class="upload-header">
-                <h4>📜 Certificado de Estudios</h4>
-                <span class="doc-badge opcional">Opcional</span>
-            </div>
-            <input type="file" id="doc_certificado" name="doc_certificado" accept=".pdf,.jpg,.jpeg,.png">
-            <label for="doc_certificado" class="upload-label">
-                <span class="upload-icon">☁️</span>
-                <span class="upload-text">Clic para subir archivo</span>
-                <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
-            </label>
-            <div class="archivo-preview" id="preview_certificado"></div>
-        </div>
+                                <!-- Certificado (OBLIGATORIO) -->
+                                <div class="upload-item">
+                                    <div class="upload-header">
+                                        <h4>📜 Certificado de Estudios</h4>
+                                        <span class="doc-badge obligatorio">Obligatorio</span>
+                                    </div>
+                                    <input type="file" id="certificado_estudios" name="certificado_estudios" accept=".pdf,.jpg,.jpeg,.png" required>
+                                    <label for="certificado_estudios" class="upload-label">
+                                        <span class="upload-icon">☁️</span>
+                                        <span class="upload-text">Clic para subir archivo</span>
+                                        <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
+                                    </label>
+                                    <div class="archivo-preview" id="preview_certificado"></div>
+                                </div>
 
-        <!-- Foto del estudiante -->
-        <div class="upload-item">
-            <div class="upload-header">
-                <h4>📸 Foto del Estudiante</h4>
-                <span class="doc-badge obligatorio">Obligatorio</span>
-            </div>
-            <input type="file" id="doc_foto" name="doc_foto" accept=".jpg,.jpeg,.png" required>
-            <label for="doc_foto" class="upload-label">
-                <span class="upload-icon">☁️</span>
-                <span class="upload-text">Clic para subir foto</span>
-                <span class="upload-info">JPG o PNG - Máx. 5MB</span>
-            </label>
-            <div class="archivo-preview" id="preview_foto"></div>
-        </div>
+                                <!-- Foto del estudiante (OPCIONAL) -->
+                                <div class="upload-item">
+                                    <div class="upload-header">
+                                        <h4>📸 Foto del Estudiante</h4>
+                                        <span class="doc-badge opcional">Opcional</span>
+                                    </div>
+                                    <input type="file" id="foto_estudiante" name="foto_estudiante" accept=".jpg,.jpeg,.png">
+                                    <label for="foto_estudiante" class="upload-label">
+                                        <span class="upload-icon">☁️</span>
+                                        <span class="upload-text">Clic para subir foto</span>
+                                        <span class="upload-info">JPG o PNG - Máx. 5MB</span>
+                                    </label>
+                                    <div class="archivo-preview" id="preview_foto"></div>
+                                </div>
 
-        <!-- NUEVO: Voucher de Pago -->
-        <div class="upload-item" style="grid-column: 1 / -1; border: 3px solid #D4AF37; background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(139, 21, 56, 0.05));">
-            <div class="upload-header">
-                <h4>💳 Comprobante de Pago</h4>
-                <span class="doc-badge obligatorio">Obligatorio</span>
-            </div>
-            
-            <div class="info-box" style="margin: 15px 0; background: rgba(255, 243, 205, 0.5); border-left-color: #D4AF37;">
-                <strong style="color: #8B1538;">💰 REALIZAR PAGO DE S/. 150.00</strong><br>
-                Antes de subir el comprobante, realiza el pago del derecho de admisión mediante:<br><br>
-                📱 <strong>Yape:</strong> 987 654 321 - Trinity School<br>
-                📱 <strong>Plin:</strong> 987 654 321 - Trinity School<br>
-                🏦 <strong>Transferencia BCP:</strong> 191-1234567890-123<br>
-                <small style="margin-left: 25px; display: block; margin-top: 5px;">CCI: 00219100123456789012</small><br><br>
-                <strong style="color: #8B1538;">⚠️ Importante:</strong> Después de realizar el pago, sube tu comprobante aquí.
-            </div>
-            
-            <input type="file" id="doc_voucher_pago" name="doc_voucher_pago" accept=".pdf,.jpg,.jpeg,.png" required>
-            <label for="doc_voucher_pago" class="upload-label">
-                <span class="upload-icon">💳</span>
-                <span class="upload-text">Subir comprobante de pago</span>
-                <span class="upload-info">Captura de Yape/Plin o comprobante de transferencia<br>PDF, JPG o PNG - Máx. 5MB</span>
-            </label>
-            <div class="archivo-preview" id="preview_voucher_pago"></div>
-        </div>
-    </div>
+                                <!-- VOUCHER DE PAGO -->
+                                <div class="upload-item" style="grid-column: 1 / -1; border: 3px solid #D4AF37; background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(139, 21, 56, 0.05));">
+                                    <div class="upload-header">
+                                        <h4>💳 Comprobante de Pago</h4>
+                                        <span class="doc-badge obligatorio">Obligatorio</span>
+                                    </div>
+                                    
+                                    <div class="info-box" style="margin: 15px 0; background: rgba(255, 243, 205, 0.5); border-left-color: #D4AF37;">
+                                        <strong style="color: #8B1538;">💰 REALIZAR PAGO DE S/. 150.00</strong><br>
+                                        Antes de subir el comprobante, realiza el pago del derecho de admisión mediante:<br><br>
+                                        📱 <strong>Yape:</strong> 987 654 321 - Trinity School<br>
+                                        📱 <strong>Plin:</strong> 987 654 321 - Trinity School<br>
+                                        🏦 <strong>Transferencia BCP:</strong> 191-1234567890-123<br>
+                                        <small style="margin-left: 25px; display: block; margin-top: 5px;">CCI: 00219100123456789012</small><br><br>
+                                        <strong style="color: #8B1538;">⚠️ Importante:</strong> Después de realizar el pago, sube tu comprobante aquí.
+                                    </div>
+                                    
+                                    <input type="file" id="comprobante_pago" name="comprobante_pago" accept=".pdf,.jpg,.jpeg,.png" required>
+                                    <label for="comprobante_pago" class="upload-label">
+                                        <span class="upload-icon">💳</span>
+                                        <span class="upload-text">Subir comprobante de pago</span>
+                                        <span class="upload-info">Captura de Yape/Plin o comprobante de transferencia<br>PDF, JPG o PNG - Máx. 5MB</span>
+                                    </label>
+                                    <div class="archivo-preview" id="preview_voucher_pago"></div>
+                                </div>
+                            </div>
 
-    <div class="info-box" style="margin-top: 30px;">
-        <strong>📌 Siguiente paso:</strong> Después de enviar tu solicitud, nuestro equipo verificará tu pago en un plazo máximo de 24 horas hábiles. Una vez verificado, te contactaremos para coordinar la entrevista de admisión.
-    </div>
-</div>
+                            <div class="info-box" style="margin-top: 30px;">
+                                <strong>📌 Siguiente paso:</strong> Después de enviar tu solicitud, nuestro equipo verificará tu pago en un plazo máximo de 24 horas hábiles. Una vez verificado, te contactaremos para coordinar la entrevista de admisión.
+                            </div>
+                        </div>
 
                         <!-- PASO 5: CONFIRMACIÓN -->
                         <div class="paso-contenido" data-paso="5">
@@ -625,7 +629,7 @@
                             </h3>
 
                             <div class="resumen-datos" id="resumenDatos">
-                                <!-- Aquí se mostrará el resumen con JavaScript -->
+                                <!-- El resumen se generará dinámicamente con JavaScript -->
                             </div>
 
                             <div class="terminos-condiciones">
@@ -657,7 +661,7 @@
 
     </main>
 
-    <!-- FOOTER (copiado de tu página principal) -->
+    <!-- FOOTER -->
     <footer>
         <div class="footer-contenido">
             <div class="footer-seccion">
@@ -692,16 +696,509 @@
                 <div class="footer-info">
                     <p>📍 Jr. Educación 123, Chincha Alta</p>
                     <p>📞 (056) 123456</p>
-                    <p>✉️ contacto@trinityschool.edu.pe</p>
+                    <p>✉️ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6f0c00011b0e0c1b002f1b1d0601061b161c0c07000003410a0b1a411f0a">[email&#160;protected]</a></p>
                 </div>
             </div>
         </div>
         <p class="footer-copy">© 2025 Colegio Trinity School. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Scripts -->
-    <script src="../js/script.js"></script>
-    <script src="../js/darkmode.js"></script>
-    <script src="js/admisiones.js"></script>
+ <!-- Scripts de la página principal -->
+    <script src="../script/menu.js"></script>
+    <script src="../script/darkmode.js"></script>
+    
+    <!-- Script del formulario de admisiones -->
+    <script>
+// ============================================
+// JAVASCRIPT CORREGIDO - FORMULARIO DE ADMISIONES
+// ============================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // ===== VARIABLES GLOBALES =====
+    let pasoActual = 0;
+    const totalPasos = 5;
+    
+    // ===== ELEMENTOS DEL DOM =====
+    const btnIniciarRegistro = document.getElementById('btnIniciarRegistro');
+    const formularioAdmisiones = document.getElementById('formularioAdmisiones');
+    const btnSiguiente = document.getElementById('btnSiguiente');
+    const btnAnterior = document.getElementById('btnAnterior');
+    const btnEnviar = document.getElementById('btnEnviar');
+    const form = document.getElementById('formAdmision');
+    
+    // ===== BOTÓN INICIAR REGISTRO =====
+    if (btnIniciarRegistro) {
+        btnIniciarRegistro.addEventListener('click', function() {
+            document.querySelector('.inicio-formulario').style.display = 'none';
+            formularioAdmisiones.style.display = 'block';
+            pasoActual = 1;
+            mostrarPaso(pasoActual);
+            
+            // Scroll al formulario (NO al top)
+            setTimeout(() => {
+                formularioAdmisiones.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        });
+    }
+    
+    // ===== NAVEGACIÓN ENTRE PASOS =====
+    function mostrarPaso(numeroPaso) {
+        const todosLosPasos = document.querySelectorAll('.paso-contenido');
+        todosLosPasos.forEach(paso => paso.classList.remove('activo'));
+        
+        const pasoActivo = document.querySelector(`.paso-contenido[data-paso="${numeroPaso}"]`);
+        if (pasoActivo) {
+            pasoActivo.classList.add('activo');
+        }
+        
+        actualizarProgreso(numeroPaso);
+        actualizarBotones(numeroPaso);
+        
+        if (numeroPaso === totalPasos) {
+            generarResumen();
+        }
+    }
+    
+    function actualizarProgreso(numeroPaso) {
+        const pasos = document.querySelectorAll('.paso-progreso');
+        pasos.forEach((paso, index) => {
+            if (index < numeroPaso) {
+                paso.classList.add('completado');
+                paso.classList.remove('activo');
+            } else if (index === numeroPaso - 1) {
+                paso.classList.add('activo');
+                paso.classList.remove('completado');
+            } else {
+                paso.classList.remove('activo', 'completado');
+            }
+        });
+    }
+    
+    function actualizarBotones(numeroPaso) {
+        if (numeroPaso === 1) {
+            btnAnterior.style.display = 'none';
+        } else {
+            btnAnterior.style.display = 'inline-block';
+        }
+        
+        if (numeroPaso === totalPasos) {
+            btnSiguiente.style.display = 'none';
+            btnEnviar.style.display = 'inline-block';
+        } else {
+            btnSiguiente.style.display = 'inline-block';
+            btnEnviar.style.display = 'none';
+        }
+    }
+    
+    // ===== EVENTOS DE NAVEGACIÓN =====
+    if (btnSiguiente) {
+        btnSiguiente.addEventListener('click', function() {
+            if (validarPasoActual()) {
+                if (pasoActual < totalPasos) {
+                    pasoActual++;
+                    mostrarPaso(pasoActual);
+                    // CAMBIO: Scroll suave al progreso, NO al top
+                    const progreso = document.querySelector('.progreso-pasos');
+                    if (progreso) {
+                        progreso.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            }
+        });
+    }
+    
+    if (btnAnterior) {
+        btnAnterior.addEventListener('click', function() {
+            if (pasoActual > 1) {
+                pasoActual--;
+                mostrarPaso(pasoActual);
+                // CAMBIO: Scroll suave al progreso, NO al top
+                const progreso = document.querySelector('.progreso-pasos');
+                if (progreso) {
+                    progreso.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    }
+    
+    // ===== VALIDACIÓN DE PASOS (MEJORADA) =====
+    function validarPasoActual() {
+        const pasoActivo = document.querySelector(`.paso-contenido[data-paso="${pasoActual}"]`);
+        if (!pasoActivo) return true;
+        
+        const camposRequeridos = pasoActivo.querySelectorAll('[required]');
+        let valido = true;
+        let primerCampoInvalido = null;
+        
+        // Limpiar mensajes de error previos
+        pasoActivo.querySelectorAll('.error-mensaje').forEach(msg => msg.remove());
+        pasoActivo.querySelectorAll('.campo-invalido').forEach(campo => campo.classList.remove('campo-invalido'));
+        
+        camposRequeridos.forEach(campo => {
+            let campoValido = true;
+            
+            if (campo.type === 'file') {
+                // Para archivos, verificar si tiene files
+                if (!campo.files || campo.files.length === 0) {
+                    campoValido = false;
+                }
+            } else if (campo.type === 'checkbox') {
+                // Para checkboxes, verificar si está checked
+                if (!campo.checked) {
+                    campoValido = false;
+                }
+            } else {
+                // Para otros campos, verificar valor
+                if (!campo.value || campo.value.trim() === '') {
+                    campoValido = false;
+                }
+            }
+            
+            if (!campoValido) {
+                campo.classList.add('campo-invalido');
+                valido = false;
+                
+                if (!primerCampoInvalido) {
+                    primerCampoInvalido = campo;
+                }
+                
+                // Agregar mensaje de error
+                const errorMsg = document.createElement('span');
+                errorMsg.className = 'error-mensaje';
+                errorMsg.style.color = '#F7464A';
+                errorMsg.style.fontSize = '0.85rem';
+                errorMsg.style.marginTop = '5px';
+                errorMsg.style.display = 'block';
+                errorMsg.textContent = 'Este campo es obligatorio';
+                
+                // Insertar después del label o del campo
+                if (campo.parentNode.tagName === 'LABEL') {
+                    campo.parentNode.parentNode.appendChild(errorMsg);
+                } else {
+                    campo.parentNode.appendChild(errorMsg);
+                }
+            }
+        });
+        
+        if (!valido) {
+            alert('⚠️ Por favor, completa todos los campos obligatorios antes de continuar.');
+            if (primerCampoInvalido) {
+                primerCampoInvalido.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => primerCampoInvalido.focus(), 300);
+            }
+        }
+        
+        return valido;
+    }
+    
+    // ===== LÓGICA ESPECÍFICA DE CAMPOS =====
+    
+    // Nivel y Grado
+    const nivelSelect = document.getElementById('nivel_postula');
+    const gradoSelect = document.getElementById('grado_postula');
+    
+    if (nivelSelect && gradoSelect) {
+        nivelSelect.addEventListener('change', function() {
+            const nivel = this.value;
+            gradoSelect.disabled = false;
+            gradoSelect.innerHTML = '<option value="">Seleccionar...</option>';
+            
+            let grados = [];
+            if (nivel === 'Inicial') {
+                grados = ['3 años', '4 años', '5 años'];
+            } else if (nivel === 'Primaria') {
+                grados = ['1° grado', '2° grado', '3° grado', '4° grado', '5° grado', '6° grado'];
+            } else if (nivel === 'Secundaria') {
+                grados = ['1° año', '2° año', '3° año', '4° año', '5° año'];
+            }
+            
+            grados.forEach(grado => {
+                const option = document.createElement('option');
+                option.value = grado;
+                option.textContent = grado;
+                gradoSelect.appendChild(option);
+            });
+        });
+    }
+    
+    // Apoderado Principal
+    const apoderadoSelect = document.getElementById('apoderado_principal');
+    const datosOtroApoderado = document.getElementById('datosOtroApoderado');
+    
+    if (apoderadoSelect && datosOtroApoderado) {
+        apoderadoSelect.addEventListener('change', function() {
+            if (this.value === 'Otro') {
+                datosOtroApoderado.style.display = 'block';
+                const nombreApoderado = document.getElementById('nombre_apoderado');
+                const parentescoApoderado = document.getElementById('parentesco_apoderado');
+                if (nombreApoderado) nombreApoderado.required = true;
+                if (parentescoApoderado) parentescoApoderado.required = true;
+            } else {
+                datosOtroApoderado.style.display = 'none';
+                const nombreApoderado = document.getElementById('nombre_apoderado');
+                const parentescoApoderado = document.getElementById('parentesco_apoderado');
+                if (nombreApoderado) nombreApoderado.required = false;
+                if (parentescoApoderado) parentescoApoderado.required = false;
+            }
+        });
+    }
+    
+    // Hermanos
+    const tieneHermanosCheck = document.getElementById('tiene_hermanos');
+    const campoHermanos = document.getElementById('campoHermanos');
+    
+    if (tieneHermanosCheck && campoHermanos) {
+        tieneHermanosCheck.addEventListener('change', function() {
+            campoHermanos.style.display = this.checked ? 'block' : 'none';
+        });
+    }
+    
+    // Necesidades Especiales
+    const necesidadesCheck = document.getElementById('necesidades_especiales');
+    const campoNecesidades = document.getElementById('campoNecesidades');
+    
+    if (necesidadesCheck && campoNecesidades) {
+        necesidadesCheck.addEventListener('change', function() {
+            campoNecesidades.style.display = this.checked ? 'block' : 'none';
+        });
+    }
+    
+    // ===== PREVIEW DE ARCHIVOS (CORREGIDO) =====
+    const inputsArchivo = document.querySelectorAll('input[type="file"]');
+    inputsArchivo.forEach(input => {
+        input.addEventListener('change', function(e) {
+            const file = this.files[0];
+            if (!file) return;
+            
+            // Validar tamaño
+            if (file.size > 5242880) { // 5MB
+                alert('⚠️ El archivo es muy grande. El tamaño máximo es 5MB.');
+                this.value = '';
+                return;
+            }
+            
+            // Validar tipo
+            const tiposPermitidos = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+            if (!tiposPermitidos.includes(file.type)) {
+                alert('⚠️ Tipo de archivo no permitido. Solo PDF, JPG o PNG.');
+                this.value = '';
+                return;
+            }
+            
+            // Buscar el contenedor de preview
+            let previewContainer = this.parentElement.querySelector('.archivo-preview');
+            
+            // Si no existe, buscar por ID
+            if (!previewContainer) {
+                const inputId = this.id || this.name;
+                const previewId = 'preview_' + inputId.replace('_archivo', '').replace('dni_estudiante_archivo', 'dni_estudiante').replace('dni_apoderado_archivo', 'dni_apoderado').replace('_doc', '');
+                previewContainer = document.getElementById(previewId);
+            }
+            
+            if (previewContainer) {
+                const tamanoKB = (file.size / 1024).toFixed(2);
+                previewContainer.innerHTML = `
+                    <div class="archivo-info" style="background: #e8f5e9; padding: 10px; border-radius: 8px; margin-top: 10px; display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <span class="archivo-nombre" style="font-weight: 600; color: #2e7d32;">✅ ${file.name}</span><br>
+                            <span class="archivo-tamano" style="font-size: 0.85rem; color: #666;">${tamanoKB} KB</span>
+                        </div>
+                        <button type="button" class="btn-eliminar-archivo" onclick="eliminarArchivo('${this.id}')" style="background: #f44336; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">✕</button>
+                    </div>
+                `;
+            }
+            
+            // Quitar clase de error si existía
+            this.classList.remove('campo-invalido');
+            const errorMsg = this.parentElement.querySelector('.error-mensaje');
+            if (errorMsg) errorMsg.remove();
+        });
+    });
+    
+    // ===== GENERAR RESUMEN =====
+    function generarResumen() {
+        const resumenContainer = document.getElementById('resumenDatos');
+        if (!resumenContainer) return;
+        
+        let html = '<div class="resumen-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">';
+        
+        // Datos del Estudiante
+        html += '<div class="resumen-seccion" style="background: #f5f5f5; padding: 20px; border-radius: 10px;">';
+        html += '<h4 style="color: #8B1538; margin-bottom: 15px;">👤 Datos del Estudiante</h4>';
+        html += '<ul class="resumen-lista" style="list-style: none; padding: 0;">';
+        html += `<li style="margin-bottom: 8px;"><strong>Nombres:</strong> ${obtenerValor('nombres')} ${obtenerValor('apellido_paterno')} ${obtenerValor('apellido_materno')}</li>`;
+        html += `<li style="margin-bottom: 8px;"><strong>DNI:</strong> ${obtenerValor('dni_estudiante')}</li>`;
+        html += `<li style="margin-bottom: 8px;"><strong>Fecha de nacimiento:</strong> ${obtenerValor('fecha_nacimiento')}</li>`;
+        html += `<li style="margin-bottom: 8px;"><strong>Sexo:</strong> ${obtenerValor('sexo')}</li>`;
+        html += `<li style="margin-bottom: 8px;"><strong>Dirección:</strong> ${obtenerValor('direccion')}, ${obtenerValor('distrito')}</li>`;
+        html += '</ul></div>';
+        
+        // Información Académica
+        html += '<div class="resumen-seccion" style="background: #f5f5f5; padding: 20px; border-radius: 10px;">';
+        html += '<h4 style="color: #8B1538; margin-bottom: 15px;">🎓 Información Académica</h4>';
+        html += '<ul class="resumen-lista" style="list-style: none; padding: 0;">';
+        html += `<li style="margin-bottom: 8px;"><strong>Nivel:</strong> ${obtenerValor('nivel_postula')}</li>`;
+        html += `<li style="margin-bottom: 8px;"><strong>Grado:</strong> ${obtenerValor('grado_postula')}</li>`;
+        if (obtenerValor('colegio_procedencia')) {
+            html += `<li style="margin-bottom: 8px;"><strong>Colegio anterior:</strong> ${obtenerValor('colegio_procedencia')}</li>`;
+        }
+        html += '</ul></div>';
+        
+        // Apoderado
+        html += '<div class="resumen-seccion" style="background: #f5f5f5; padding: 20px; border-radius: 10px;">';
+        html += '<h4 style="color: #8B1538; margin-bottom: 15px;">👨‍👩‍👧 Apoderado Principal</h4>';
+        html += '<ul class="resumen-lista" style="list-style: none; padding: 0;">';
+        html += `<li style="margin-bottom: 8px;"><strong>Apoderado:</strong> ${obtenerValor('apoderado_principal')}</li>`;
+        html += `<li style="margin-bottom: 8px;"><strong>Celular:</strong> ${obtenerValor('celular_apoderado')}</li>`;
+        html += `<li style="margin-bottom: 8px;"><strong>Email:</strong> ${obtenerValor('email_apoderado')}</li>`;
+        html += '</ul></div>';
+        
+        // Documentos
+        html += '<div class="resumen-seccion" style="background: #f5f5f5; padding: 20px; border-radius: 10px;">';
+        html += '<h4 style="color: #8B1538; margin-bottom: 15px;">📎 Documentos Adjuntos</h4>';
+        html += '<ul class="resumen-lista" style="list-style: none; padding: 0;">';
+        
+        const documentosMap = {
+            'partida_nacimiento': 'Partida de Nacimiento',
+            'dni_estudiante_archivo': 'DNI del Estudiante',
+            'dni_apoderado_archivo': 'DNI del Apoderado',
+            'dni_apoderado': 'DNI del Apoderado',
+            'libreta_notas': 'Libreta de Notas',
+            'certificado_estudios': 'Certificado de Estudios',
+            'foto_estudiante': 'Foto del Estudiante',
+            'comprobante_pago': 'Comprobante de Pago'
+        };
+        
+        Object.keys(documentosMap).forEach(docId => {
+            const input = document.getElementById(docId) || document.querySelector(`input[name="${docId}"]`);
+            if (input && input.files && input.files[0]) {
+                html += `<li style="margin-bottom: 8px;">✅ ${documentosMap[docId]}: ${input.files[0].name}</li>`;
+            }
+        });
+        
+        html += '</ul></div>';
+        html += '</div>';
+        
+        resumenContainer.innerHTML = html;
+    }
+    
+    function obtenerValor(id) {
+        const elemento = document.getElementById(id);
+        return elemento ? (elemento.value || '') : '';
+    }
+    
+    // ===== ENVÍO DEL FORMULARIO (MEJORADO) =====
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validar términos
+            const terminos = document.getElementById('aceptar_terminos');
+            if (!terminos || !terminos.checked) {
+                alert('⚠️ Debes aceptar los términos y condiciones para continuar.');
+                return;
+            }
+            
+            // Mostrar loading
+            btnEnviar.disabled = true;
+            btnEnviar.innerHTML = '<span>⏳ Enviando...</span>';
+            
+            // Crear FormData
+            const formData = new FormData(form);
+            
+            // Debug: Mostrar qué archivos se están enviando
+            console.log('📤 Enviando solicitud...');
+            for (let pair of formData.entries()) {
+                if (pair[1] instanceof File) {
+                    console.log(pair[0], ':', pair[1].name, '-', pair[1].size, 'bytes');
+                }
+            }
+            
+            // Enviar por AJAX
+            fetch('procesar.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                console.log('📥 Respuesta recibida:', response.status);
+                return response.json();
+            })
+            .then(data => {
+                console.log('✅ Datos procesados:', data);
+                
+                if (data.exito) {
+                    alert(`✅ ¡Solicitud enviada exitosamente!\n\n📋 Tu código de postulante es:\n${data.codigo_postulante}\n\n✉️ Recibirás un email de confirmación pronto.`);
+                    form.reset();
+                    window.location.href = 'index.php';
+                } else {
+                    alert(`❌ Error al enviar la solicitud:\n\n${data.mensaje}`);
+                    console.error('Error del servidor:', data);
+                    btnEnviar.disabled = false;
+                    btnEnviar.innerHTML = '<span>Enviar Solicitud</span><span class="btn-icon">✓</span>';
+                }
+            })
+            .catch(error => {
+                console.error('❌ Error en el envío:', error);
+                alert('❌ Hubo un error al enviar la solicitud.\n\nPor favor, verifica tu conexión e intenta de nuevo.\n\nSi el problema persiste, contacta al administrador.');
+                btnEnviar.disabled = false;
+                btnEnviar.innerHTML = '<span>Enviar Solicitud</span><span class="btn-icon">✓</span>';
+            });
+        });
+    }
+    
+    // ===== MODO OSCURO =====
+    const btnDarkMode = document.getElementById('darkModeBtn');
+    if (btnDarkMode) {
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            btnDarkMode.textContent = '☀️';
+        }
+        
+        btnDarkMode.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                btnDarkMode.textContent = '☀️';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                btnDarkMode.textContent = '🌙';
+                localStorage.setItem('darkMode', null);
+            }
+        });
+    }
+    
+    // ===== MENÚ MÓVIL =====
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            this.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+    }
+    
+});
+
+// ===== FUNCIÓN GLOBAL PARA ELIMINAR ARCHIVO =====
+function eliminarArchivo(inputId) {
+    const input = document.getElementById(inputId);
+    if (input) {
+        input.value = '';
+        
+        // Buscar y limpiar el preview
+        let previewContainer = input.parentElement.querySelector('.archivo-preview');
+        if (!previewContainer) {
+            const previewId = 'preview_' + inputId.replace('_archivo', '').replace('dni_estudiante_archivo', 'dni_estudiante').replace('dni_apoderado_archivo', 'dni_apoderado').replace('_doc', '');
+            previewContainer = document.getElementById(previewId);
+        }
+        
+        if (previewContainer) {
+            previewContainer.innerHTML = '';
+        }
+    }
+}
+    </script>
 </body>
 </html>

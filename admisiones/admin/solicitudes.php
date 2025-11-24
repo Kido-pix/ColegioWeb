@@ -56,10 +56,10 @@ try {
     $sql = "SELECT 
                 id,
                 codigo_postulante,
-                CONCAT(nombre_estudiante, ' ', apellido_paterno, ' ', apellido_materno) as nombre_completo,
+                CONCAT(nombres, ' ', apellido_paterno, ' ', apellido_materno) as nombre_completo,
                 dni_estudiante,
-                nivel_educativo,
-                grado,
+                nivel_postula as nivel_educativo,
+                grado_postula as grado,
                 estado,
                 fecha_registro,
                 email_apoderado,
@@ -653,8 +653,7 @@ try {
         <ul class="sidebar-menu">
             <li><a href="dashboard.php"><i class="fas fa-home"></i>Dashboard</a></li>
             <li><a href="solicitudes.php" class="active"><i class="fas fa-file-alt"></i>Solicitudes</a></li>
-            <li><a href="pagos.php"><i class="fas fa-money-check-alt"></i>Verificar Pagos</a></li>
-            <li><a href="entrevistas.php"><i class="fas fa-calendar-alt"></i>Entrevistas</a></li>
+            <li><a href="verificar_pago.php"><i class="fas fa-money-check-alt"></i>Verificar Pagos</a></li>            <li><a href="entrevistas.php"><i class="fas fa-calendar-alt"></i>Entrevistas</a></li>
             <li><a href="reportes.php"><i class="fas fa-chart-bar"></i>Reportes</a></li>
             <li><a href="configuracion.php"><i class="fas fa-cog"></i>Configuración</a></li>
         </ul>
