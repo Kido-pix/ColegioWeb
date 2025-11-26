@@ -1,4 +1,8 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
 session_start();
 
 if (!isset($_SESSION['admin_logueado'])) {
@@ -6,11 +10,13 @@ if (!isset($_SESSION['admin_logueado'])) {
     exit;
 }
 
-require_once '../procesar.php';
+// Incluir conexión a base de datos
+require_once '../config/database.php';
 
 try {
+    // Obtener instancia de conexión
     $db = Database::getInstance()->getConnection();
-    
+
     // Inicializar variables con valores por defecto
     $totalSolicitudes = 0;
     $pendientesPago = 0;
@@ -98,6 +104,9 @@ try {
     
 } catch(PDOException $e) {
     $error = "Error al cargar estadísticas: " . $e->getMessage();
+    echo "<div style='background: #f44336; color: white; padding: 20px; margin: 20px; border-radius: 10px;'>";
+    echo "<strong>Error de conexión:</strong> " . $e->getMessage();
+    echo "</div>";
     // Mantener valores por defecto en caso de error
 }
 ?>
@@ -677,69 +686,68 @@ try {
             <p>Resumen del proceso de admisiones 2025</p>
         </div>
 
-        <!-- Stats Grid -->
-        <div class="stats-grid">
-            <div class="stat-card primary">
-                <div class="stat-header">
-                    <div>
-                        <div class="stat-value"><?php echo $totalSolicitudes; ?></div>
-                        <div class="stat-label">Total Solicitudes</div>
-                    </div>
-                    <div class="stat-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                </div>
-                <div class="stat-footer">
-                    <i class="fas fa-calendar-day"></i> <?php echo $solicitudesHoy; ?> hoy
-                </div>
+<!-- Stats Grid -->
+<div class="stats-grid">
+    <div class="stat-card primary">
+        <div class="stat-header">
+            <div>
+                <div class="stat-value" id="stat-total"><?php echo $totalSolicitudes; ?></div>
+                <div class="stat-label">Total Solicitudes</div>
             </div>
-
-            <div class="stat-card warning">
-                <div class="stat-header">
-                    <div>
-                        <div class="stat-value"><?php echo $pendientesPago; ?></div>
-                        <div class="stat-label">Pendientes de Pago</div>
-                    </div>
-                    <div class="stat-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                </div>
-                <div class="stat-footer">
-                    <i class="fas fa-exclamation-circle"></i> Requieren atención
-                </div>
-            </div>
-
-            <div class="stat-card success">
-                <div class="stat-header">
-                    <div>
-                        <div class="stat-value"><?php echo $pagosVerificados; ?></div>
-                        <div class="stat-label">Pagos Verificados</div>
-                    </div>
-                    <div class="stat-icon">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                </div>
-                <div class="stat-footer">
-                    <i class="fas fa-chart-line"></i> <?php echo $solicitudesSemana; ?> esta semana
-                </div>
-            </div>
-
-            <div class="stat-card info">
-                <div class="stat-header">
-                    <div>
-                        <div class="stat-value"><?php echo $admitidos; ?></div>
-                        <div class="stat-label">Admitidos</div>
-                    </div>
-                    <div class="stat-icon">
-                        <i class="fas fa-user-check"></i>
-                    </div>
-                </div>
-                <div class="stat-footer">
-                    <i class="fas fa-graduation-cap"></i> Proceso completado
-                </div>
+            <div class="stat-icon">
+                <i class="fas fa-file-alt"></i>
             </div>
         </div>
+        <div class="stat-footer">
+            <i class="fas fa-calendar-day"></i> <span id="stat-hoy"><?php echo $solicitudesHoy; ?></span> hoy
+        </div>
+    </div>
 
+    <div class="stat-card warning">
+        <div class="stat-header">
+            <div>
+                <div class="stat-value" id="stat-pendientes"><?php echo $pendientesPago; ?></div>
+                <div class="stat-label">Pendientes de Pago</div>
+            </div>
+            <div class="stat-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+        </div>
+        <div class="stat-footer">
+            <i class="fas fa-exclamation-circle"></i> Requieren atención
+        </div>
+    </div>
+
+    <div class="stat-card success">
+        <div class="stat-header">
+            <div>
+                <div class="stat-value" id="stat-verificados"><?php echo $pagosVerificados; ?></div>
+                <div class="stat-label">Pagos Verificados</div>
+            </div>
+            <div class="stat-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+        </div>
+        <div class="stat-footer">
+            <i class="fas fa-chart-line"></i> <span id="stat-semana"><?php echo $solicitudesSemana; ?></span> esta semana
+        </div>
+    </div>
+
+    <div class="stat-card info">
+        <div class="stat-header">
+            <div>
+                <div class="stat-value" id="stat-admitidos"><?php echo $admitidos; ?></div>
+                <div class="stat-label">Admitidos</div>
+            </div>
+            <div class="stat-icon">
+                <i class="fas fa-user-check"></i>
+            </div>
+        </div>
+        <div class="stat-footer">
+            <i class="fas fa-graduation-cap"></i> Proceso completado
+        </div>
+    </div>
+</div>
         <!-- Quick Actions -->
         <div class="quick-actions">
             <a href="solicitudes.php" class="action-btn">
@@ -902,8 +910,10 @@ try {
         </div>
     </main>
 
-    <script>
-        // Animar barras de progreso
+<script>
+        // ============================================
+        // ANIMAR BARRAS DE PROGRESO
+        // ============================================
         window.addEventListener('load', function() {
             const progressBars = document.querySelectorAll('.progress-bar');
             progressBars.forEach(bar => {
@@ -914,6 +924,96 @@ try {
                 }, 100);
             });
         });
+        
+        // ============================================
+        // ACTUALIZACIÓN EN TIEMPO REAL
+        // ============================================
+        
+        // Función para actualizar estadísticas
+        function actualizarEstadisticas() {
+            fetch('api/estadisticas.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la respuesta');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        // Actualizar números con animación
+                        actualizarNumero('stat-total', data.total);
+                        actualizarNumero('stat-pendientes', data.pendientes);
+                        actualizarNumero('stat-verificados', data.verificados);
+                        actualizarNumero('stat-admitidos', data.admitidos);
+                        actualizarNumero('stat-hoy', data.hoy);
+                        actualizarNumero('stat-semana', data.semana);
+                        
+                        console.log('✅ Estadísticas actualizadas:', new Date().toLocaleTimeString());
+                    }
+                })
+                .catch(error => {
+                    console.error('❌ Error al actualizar:', error);
+                });
+        }
+        
+        // Función para animar cambio de número
+        function actualizarNumero(id, valorNuevo) {
+            const elemento = document.getElementById(id);
+            if (!elemento) return;
+            
+            const valorActual = parseInt(elemento.textContent) || 0;
+            
+            if (valorActual !== valorNuevo) {
+                // Animación de pulso
+                elemento.style.transform = 'scale(1.15)';
+                elemento.style.color = '#3AAFA9';
+                
+                // Cambiar número
+                setTimeout(() => {
+                    elemento.textContent = valorNuevo;
+                }, 150);
+                
+                // Volver a normal
+                setTimeout(() => {
+                    elemento.style.transform = 'scale(1)';
+                    elemento.style.color = '';
+                }, 300);
+            }
+        }
+        
+        // Actualizar cada 10 segundos
+        setInterval(actualizarEstadisticas, 10000);
+        
+        // Primera actualización después de 2 segundos
+        setTimeout(actualizarEstadisticas, 2000);
+        
+        console.log('🔄 Actualización automática activada (cada 10 segundos)');
     </script>
+
+    <!-- Estilos para animaciones -->
+    <style>
+        .stat-value {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        
+        .stat-card {
+            position: relative;
+        }
+        
+        .stat-card::after {
+            content: '🔄';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.8rem;
+            opacity: 0;
+            animation: pulseUpdate 10s infinite;
+        }
+        
+        @keyframes pulseUpdate {
+            0%, 98% { opacity: 0; }
+            99%, 100% { opacity: 0.3; }
+        }
+    </style>
 </body>
 </html>

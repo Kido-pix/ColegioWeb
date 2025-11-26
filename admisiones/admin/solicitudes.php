@@ -6,7 +6,7 @@ if (!isset($_SESSION['admin_logueado'])) {
     exit;
 }
 
-require_once '../procesar.php';
+require_once '../config/database.php';
 
 // Parámetros de paginación y filtros
 $registrosPorPagina = 15;

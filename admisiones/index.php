@@ -5,19 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admisiones 2025 | Colegio Trinity School</title>
     
-    <!-- CSS de la página principal -->
     <link rel="stylesheet" href="../css/Estilo.css">
     <link rel="stylesheet" href="../css/darkmode.css">
-    
-    <!-- CSS específico de admisiones -->
     <link rel="stylesheet" href="css/admisiones.css">
-    
-    <!-- Fuente Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <!-- NAVBAR (copiado de tu página principal) -->
     <header>
         <nav class="navbar">
             <div class="logo">
@@ -55,10 +49,8 @@
         </nav>
     </header>
 
-    <!-- CONTENIDO DE ADMISIONES -->
     <main class="admisiones-main">
         
-        <!-- INFORMACIÓN DEL PROCESO -->
         <section class="proceso-info">
             <div class="container">
                 <div class="section-header">
@@ -99,7 +91,6 @@
             </div>
         </section>
 
-        <!-- DOCUMENTOS REQUERIDOS -->
         <section class="documentos-requeridos">
             <div class="container">
                 <div class="section-header">
@@ -154,7 +145,6 @@
             </div>
         </section>
 
-        <!-- BOTÓN PRINCIPAL DE INICIO -->
         <section class="inicio-formulario">
             <div class="container">
                 <div class="cta-box">
@@ -169,12 +159,10 @@
             </div>
         </section>
 
-        <!-- FORMULARIO (se mostrará cuando se haga clic en "Iniciar Registro") -->
         <section class="formulario-admisiones" id="formularioAdmisiones" style="display: none;">
             <div class="container">
                 <div class="formulario-wrapper">
                     
-                    <!-- Indicador de progreso -->
                     <div class="progreso-pasos">
                         <div class="paso-progreso activo" data-paso="1">
                             <div class="paso-circulo">1</div>
@@ -198,7 +186,6 @@
                         </div>
                     </div>
 
-                    <!-- Formulario -->
                     <form id="formAdmision" class="formulario-contenido" method="POST" action="procesar.php" enctype="multipart/form-data">
                         
                         <!-- PASO 1: DATOS DEL ESTUDIANTE -->
@@ -211,20 +198,17 @@
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label for="nombres">Nombres completos <span class="required">*</span></label>
-                                    <input type="text" id="nombres" name="nombres" required 
-                                           placeholder="Ej: Juan Carlos">
+                                    <input type="text" id="nombres" name="nombres" required placeholder="Ej: Juan Carlos">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="apellido_paterno">Apellido Paterno <span class="required">*</span></label>
-                                    <input type="text" id="apellido_paterno" name="apellido_paterno" required 
-                                           placeholder="Ej: García">
+                                    <input type="text" id="apellido_paterno" name="apellido_paterno" required placeholder="Ej: García">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="apellido_materno">Apellido Materno <span class="required">*</span></label>
-                                    <input type="text" id="apellido_materno" name="apellido_materno" required 
-                                           placeholder="Ej: Pérez">
+                                    <input type="text" id="apellido_materno" name="apellido_materno" required placeholder="Ej: Pérez">
                                 </div>
 
                                 <div class="form-group">
@@ -234,8 +218,7 @@
 
                                 <div class="form-group">
                                     <label for="dni_estudiante">DNI <span class="required">*</span></label>
-                                    <input type="text" id="dni_estudiante" name="dni_estudiante" required 
-                                           maxlength="8" placeholder="8 dígitos">
+                                    <input type="text" id="dni_estudiante" name="dni_estudiante" required maxlength="8" placeholder="8 dígitos">
                                 </div>
 
                                 <div class="form-group">
@@ -249,26 +232,22 @@
 
                                 <div class="form-group">
                                     <label for="lugar_nacimiento">Lugar de nacimiento</label>
-                                    <input type="text" id="lugar_nacimiento" name="lugar_nacimiento" 
-                                           placeholder="Ej: Chincha, Ica">
+                                    <input type="text" id="lugar_nacimiento" name="lugar_nacimiento" placeholder="Ej: Chincha, Ica">
                                 </div>
 
                                 <div class="form-group form-group-full">
                                     <label for="direccion">Dirección completa <span class="required">*</span></label>
-                                    <input type="text" id="direccion" name="direccion" required 
-                                           placeholder="Calle, número, urbanización, etc.">
+                                    <input type="text" id="direccion" name="direccion" required placeholder="Calle, número, urbanización, etc.">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="distrito">Distrito <span class="required">*</span></label>
-                                    <input type="text" id="distrito" name="distrito" required 
-                                           placeholder="Ej: Chincha Alta">
+                                    <input type="text" id="distrito" name="distrito" required placeholder="Ej: Chincha Alta">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="provincia">Provincia</label>
-                                    <input type="text" id="provincia" name="provincia" 
-                                           value="Chincha" placeholder="Ej: Chincha">
+                                    <input type="text" id="provincia" name="provincia" value="Chincha" placeholder="Ej: Chincha">
                                 </div>
                             </div>
                         </div>
@@ -300,8 +279,7 @@
 
                                 <div class="form-group">
                                     <label for="colegio_procedencia">Colegio de procedencia</label>
-                                    <input type="text" id="colegio_procedencia" name="colegio_procedencia" 
-                                           placeholder="Nombre del colegio anterior">
+                                    <input type="text" id="colegio_procedencia" name="colegio_procedencia" placeholder="Nombre del colegio anterior">
                                 </div>
 
                                 <div class="form-group">
@@ -315,8 +293,7 @@
 
                                 <div class="form-group">
                                     <label for="promedio_anterior">Promedio del año anterior</label>
-                                    <input type="number" id="promedio_anterior" name="promedio_anterior" 
-                                           min="0" max="20" step="0.1" placeholder="Ej: 15.5">
+                                    <input type="number" id="promedio_anterior" name="promedio_anterior" min="0" max="20" step="0.1" placeholder="Ej: 15.5">
                                 </div>
                             </div>
 
@@ -326,171 +303,155 @@
                             </div>
                         </div>
 
-                        <!-- PASO 3: DATOS FAMILIARES -->
-                        <div class="paso-contenido" data-paso="3">
-                            <h3 class="paso-titulo">
-                                <span class="paso-icon">👨‍👩‍👧</span>
-                                Datos Familiares
-                            </h3>
+<!-- PASO 3: DATOS FAMILIARES -->
+<div class="paso-contenido" data-paso="3">
+    <h3 class="paso-titulo">
+        <span class="paso-icon">👨‍👩‍👧</span>
+        Datos Familiares
+    </h3>
 
-                            <!-- Datos del Padre -->
-                            <div class="seccion-familia">
-                                <h4 class="subtitulo-seccion">📋 Datos del Padre</h4>
-                                <div class="form-grid">
-                                    <div class="form-group">
-                                        <label for="nombre_padre">Nombres y apellidos</label>
-                                        <input type="text" id="nombre_padre" name="nombre_padre" 
-                                               placeholder="Nombres completos del padre">
-                                    </div>
+    <!-- MENSAJE INFORMATIVO -->
+    <div class="info-box" style="margin-bottom: 25px;">
+        <strong>ℹ️ Información importante:</strong> Los datos de padre y madre son opcionales. 
+        Puede dejar campos vacíos si alguno de ellos no está disponible o ha fallecido. 
+        El contacto del apoderado principal es suficiente para la comunicación oficial con el colegio.
+    </div>
 
-                                    <div class="form-group">
-                                        <label for="dni_padre">DNI</label>
-                                        <input type="text" id="dni_padre" name="dni_padre" 
-                                               maxlength="8" placeholder="8 dígitos">
-                                    </div>
+    <!-- Datos del Padre -->
+    <div class="seccion-familia">
+        <h4 class="subtitulo-seccion">📋 Datos del Padre (Opcional)</h4>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="nombre_padre">Nombres y apellidos</label>
+                <input type="text" id="nombre_padre" name="nombre_padre" placeholder="Nombres completos del padre">
+            </div>
 
-                                    <div class="form-group">
-                                        <label for="celular_padre">Celular</label>
-                                        <input type="tel" id="celular_padre" name="celular_padre" 
-                                               maxlength="9" placeholder="9 dígitos">
-                                    </div>
+            <div class="form-group">
+                <label for="ocupacion_padre">Ocupación</label>
+                <input type="text" id="ocupacion_padre" name="ocupacion_padre" placeholder="Profesión u oficio">
+            </div>
 
-                                    <div class="form-group">
-                                        <label for="email_padre">Email</label>
-                                        <input type="email" id="email_padre" name="email_padre" 
-                                               placeholder="correo@ejemplo.com">
-                                    </div>
+            <div class="form-group">
+                <label for="celular_padre">Celular</label>
+                <input type="tel" id="celular_padre" name="celular_padre" maxlength="9" placeholder="9 dígitos">
+            </div>
 
-                                    <div class="form-group">
-                                        <label for="ocupacion_padre">Ocupación</label>
-                                        <input type="text" id="ocupacion_padre" name="ocupacion_padre" 
-                                               placeholder="Profesión u oficio">
-                                    </div>
-                                </div>
-                            </div>
+            <div class="form-group">
+                <label for="email_padre">Email</label>
+                <input type="email" id="email_padre" name="email_padre" placeholder="correo@ejemplo.com">
+            </div>
+        </div>
+    </div>
 
-                            <!-- Datos de la Madre -->
-                            <div class="seccion-familia">
-                                <h4 class="subtitulo-seccion">📋 Datos de la Madre</h4>
-                                <div class="form-grid">
-                                    <div class="form-group">
-                                        <label for="nombre_madre">Nombres y apellidos</label>
-                                        <input type="text" id="nombre_madre" name="nombre_madre" 
-                                               placeholder="Nombres completos de la madre">
-                                    </div>
+    <!-- Datos de la Madre -->
+    <div class="seccion-familia">
+        <h4 class="subtitulo-seccion">📋 Datos de la Madre (Opcional)</h4>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="nombre_madre">Nombres y apellidos</label>
+                <input type="text" id="nombre_madre" name="nombre_madre" placeholder="Nombres completos de la madre">
+            </div>
 
-                                    <div class="form-group">
-                                        <label for="dni_madre">DNI</label>
-                                        <input type="text" id="dni_madre" name="dni_madre" 
-                                               maxlength="8" placeholder="8 dígitos">
-                                    </div>
+            <div class="form-group">
+                <label for="ocupacion_madre">Ocupación</label>
+                <input type="text" id="ocupacion_madre" name="ocupacion_madre" placeholder="Profesión u oficio">
+            </div>
 
-                                    <div class="form-group">
-                                        <label for="celular_madre">Celular</label>
-                                        <input type="tel" id="celular_madre" name="celular_madre" 
-                                               maxlength="9" placeholder="9 dígitos">
-                                    </div>
+            <div class="form-group">
+                <label for="celular_madre">Celular</label>
+                <input type="tel" id="celular_madre" name="celular_madre" maxlength="9" placeholder="9 dígitos">
+            </div>
 
-                                    <div class="form-group">
-                                        <label for="email_madre">Email</label>
-                                        <input type="email" id="email_madre" name="email_madre" 
-                                               placeholder="correo@ejemplo.com">
-                                    </div>
+            <div class="form-group">
+                <label for="email_madre">Email</label>
+                <input type="email" id="email_madre" name="email_madre" placeholder="correo@ejemplo.com">
+            </div>
+        </div>
+    </div>
 
-                                    <div class="form-group">
-                                        <label for="ocupacion_madre">Ocupación</label>
-                                        <input type="text" id="ocupacion_madre" name="ocupacion_madre" 
-                                               placeholder="Profesión u oficio">
-                                    </div>
-                                </div>
-                            </div>
+    <!-- Apoderado Principal -->
+    <div class="seccion-familia destacada">
+        <h4 class="subtitulo-seccion">⭐ Apoderado Principal</h4>
+        
+        <div class="info-box" style="margin-bottom: 15px;">
+            <strong>⚠️ Obligatorio:</strong> Debe proporcionar los datos de contacto del apoderado principal (celular y email). 
+            Este será el contacto oficial para todas las comunicaciones del colegio.
+        </div>
+        
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="apoderado_principal">¿Quién será el apoderado? <span class="required">*</span></label>
+                <select id="apoderado_principal" name="apoderado_principal" required>
+                    <option value="">Seleccionar...</option>
+                    <option value="Padre">Padre</option>
+                    <option value="Madre">Madre</option>
+                    <option value="Otro">Otro familiar o tutor</option>
+                </select>
+            </div>
+        </div>
 
-                            <!-- Apoderado Principal -->
-                            <div class="seccion-familia destacada">
-                                <h4 class="subtitulo-seccion">⭐ Apoderado Principal</h4>
-                                <div class="form-grid">
-                                    <div class="form-group">
-                                        <label for="apoderado_principal">¿Quién será el apoderado? <span class="required">*</span></label>
-                                        <select id="apoderado_principal" name="apoderado_principal" required>
-                                            <option value="">Seleccionar...</option>
-                                            <option value="Padre">Padre</option>
-                                            <option value="Madre">Madre</option>
-                                            <option value="Otro">Otro familiar o tutor</option>
-                                        </select>
-                                    </div>
-                                </div>
+        <div id="datosOtroApoderado" style="display: none;">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="nombre_apoderado">Nombre del apoderado <span class="required">*</span></label>
+                    <input type="text" id="nombre_apoderado" name="nombre_apoderado" placeholder="Nombres y apellidos completos">
+                </div>
 
-                                <!-- Campos adicionales si es "Otro" -->
-                                <div id="datosOtroApoderado" style="display: none;">
-                                    <div class="form-grid">
-                                        <div class="form-group">
-                                            <label for="nombre_apoderado">Nombre del apoderado <span class="required">*</span></label>
-                                            <input type="text" id="nombre_apoderado" name="nombre_apoderado" 
-                                                   placeholder="Nombres y apellidos completos">
-                                        </div>
+                <div class="form-group">
+                    <label for="parentesco_apoderado">Parentesco <span class="required">*</span></label>
+                    <input type="text" id="parentesco_apoderado" name="parentesco_apoderado" placeholder="Ej: Tío, Abuelo, Tutor legal">
+                </div>
 
-                                        <div class="form-group">
-                                            <label for="parentesco_apoderado">Parentesco <span class="required">*</span></label>
-                                            <input type="text" id="parentesco_apoderado" name="parentesco_apoderado" 
-                                                   placeholder="Ej: Tío, Abuelo, Tutor legal">
-                                        </div>
+                <div class="form-group">
+                    <label for="dni_apoderado_otro">DNI del apoderado <span class="required">*</span></label>
+                    <input type="text" id="dni_apoderado_otro" name="dni_apoderado_otro" maxlength="8" placeholder="8 dígitos">
+                </div>
+            </div>
+        </div>
 
-                                        <div class="form-group">
-                                            <label for="dni_apoderado">DNI del apoderado <span class="required">*</span></label>
-                                            <input type="text" id="dni_apoderado" name="dni_apoderado" 
-                                                   maxlength="8" placeholder="8 dígitos">
-                                        </div>
-                                    </div>
-                                </div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="celular_apoderado">Celular del apoderado <span class="required">*</span></label>
+                <input type="tel" id="celular_apoderado" name="celular_apoderado" required maxlength="9" placeholder="9 dígitos">
+            </div>
 
-                                <div class="form-grid">
-                                    <div class="form-group">
-                                        <label for="celular_apoderado">Celular del apoderado <span class="required">*</span></label>
-                                        <input type="tel" id="celular_apoderado" name="celular_apoderado" required 
-                                               maxlength="9" placeholder="9 dígitos">
-                                    </div>
+            <div class="form-group">
+                <label for="email_apoderado">Email del apoderado <span class="required">*</span></label>
+                <input type="email" id="email_apoderado" name="email_apoderado" required placeholder="correo@ejemplo.com">
+            </div>
+        </div>
+    </div>
 
-                                    <div class="form-group">
-                                        <label for="email_apoderado">Email del apoderado <span class="required">*</span></label>
-                                        <input type="email" id="email_apoderado" name="email_apoderado" required 
-                                               placeholder="correo@ejemplo.com">
-                                    </div>
-                                </div>
-                            </div>
+    <!-- Información adicional -->
+    <div class="seccion-familia">
+        <h4 class="subtitulo-seccion">ℹ️ Información Adicional</h4>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="tiene_hermanos" name="tiene_hermanos" value="1">
+                    ¿Tiene hermanos estudiando en Trinity School?
+                </label>
+            </div>
 
-                            <!-- Información adicional -->
-                            <div class="seccion-familia">
-                                <h4 class="subtitulo-seccion">ℹ️ Información Adicional</h4>
-                                <div class="form-grid">
-                                    <div class="form-group">
-                                        <label>
-                                            <input type="checkbox" id="tiene_hermanos" name="tiene_hermanos" value="1">
-                                            ¿Tiene hermanos estudiando en Trinity School?
-                                        </label>
-                                    </div>
+            <div class="form-group form-group-full" id="campoHermanos" style="display: none;">
+                <label for="nombres_hermanos">Nombres de los hermanos</label>
+                <textarea id="nombres_hermanos" name="nombres_hermanos" rows="2" placeholder="Nombres y grados de los hermanos"></textarea>
+            </div>
 
-                                    <div class="form-group form-group-full" id="campoHermanos" style="display: none;">
-                                        <label for="nombres_hermanos">Nombres de los hermanos</label>
-                                        <textarea id="nombres_hermanos" name="nombres_hermanos" rows="2" 
-                                                  placeholder="Nombres y grados de los hermanos"></textarea>
-                                    </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="necesidades_especiales" name="necesidades_especiales" value="1">
+                    ¿El estudiante tiene necesidades especiales?
+                </label>
+            </div>
 
-                                    <div class="form-group">
-                                        <label>
-                                            <input type="checkbox" id="necesidades_especiales" name="necesidades_especiales" value="1">
-                                            ¿El estudiante tiene necesidades especiales?
-                                        </label>
-                                    </div>
-
-                                    <div class="form-group form-group-full" id="campoNecesidades" style="display: none;">
-                                        <label for="descripcion_necesidades">Descripción</label>
-                                        <textarea id="descripcion_necesidades" name="descripcion_necesidades" rows="3" 
-                                                  placeholder="Describa las necesidades especiales"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+            <div class="form-group form-group-full" id="campoNecesidades" style="display: none;">
+                <label for="descripcion_necesidades">Descripción</label>
+                <textarea id="descripcion_necesidades" name="descripcion_necesidades" rows="3" placeholder="Describa las necesidades especiales"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
                         <!-- PASO 4: DOCUMENTOS -->
                         <div class="paso-contenido" data-paso="4">
                             <h3 class="paso-titulo">
@@ -511,32 +472,32 @@
                                         <span class="upload-text">Clic para subir archivo</span>
                                         <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
                                     </label>
-                                    <div class="archivo-preview" id="preview_partida"></div>
+                                    <div class="archivo-preview" id="preview_partida_nacimiento"></div>
                                 </div>
 
-                                <!-- DNI Estudiante -->
+                                <!-- DNI Estudiante - CORREGIDO -->
                                 <div class="upload-item">
                                     <div class="upload-header">
                                         <h4>🪪 DNI del Estudiante</h4>
                                         <span class="doc-badge obligatorio">Obligatorio</span>
                                     </div>
-                                    <input type="file" id="dni_estudiante_archivo" name="dni_estudiante_archivo" accept=".pdf,.jpg,.jpeg,.png" required>
-                                    <label for="dni_estudiante_archivo" class="upload-label">
+                                    <input type="file" id="dni_estudiante_doc" name="dni_estudiante_doc" accept=".pdf,.jpg,.jpeg,.png" required>
+                                    <label for="dni_estudiante_doc" class="upload-label">
                                         <span class="upload-icon">☁️</span>
                                         <span class="upload-text">Clic para subir archivo</span>
                                         <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
                                     </label>
-                                    <div class="archivo-preview" id="preview_dni_estudiante"></div>
+                                    <div class="archivo-preview" id="preview_dni_estudiante_doc"></div>
                                 </div>
 
-                                <!-- DNI Apoderado -->
+                                <!-- DNI Apoderado - CORREGIDO -->
                                 <div class="upload-item">
                                     <div class="upload-header">
                                         <h4>🪪 DNI del Apoderado</h4>
                                         <span class="doc-badge obligatorio">Obligatorio</span>
                                     </div>
-                                    <input type="file" id="dni_apoderado_archivo" name="dni_apoderado" accept=".pdf,.jpg,.jpeg,.png" required>
-                                    <label for="dni_apoderado_archivo" class="upload-label">
+                                    <input type="file" id="dni_apoderado" name="dni_apoderado" accept=".pdf,.jpg,.jpeg,.png" required>
+                                    <label for="dni_apoderado" class="upload-label">
                                         <span class="upload-icon">☁️</span>
                                         <span class="upload-text">Clic para subir archivo</span>
                                         <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
@@ -556,10 +517,10 @@
                                         <span class="upload-text">Clic para subir archivo</span>
                                         <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
                                     </label>
-                                    <div class="archivo-preview" id="preview_libreta"></div>
+                                    <div class="archivo-preview" id="preview_libreta_notas"></div>
                                 </div>
 
-                                <!-- Certificado (OBLIGATORIO) -->
+                                <!-- Certificado -->
                                 <div class="upload-item">
                                     <div class="upload-header">
                                         <h4>📜 Certificado de Estudios</h4>
@@ -571,10 +532,10 @@
                                         <span class="upload-text">Clic para subir archivo</span>
                                         <span class="upload-info">PDF, JPG o PNG - Máx. 5MB</span>
                                     </label>
-                                    <div class="archivo-preview" id="preview_certificado"></div>
+                                    <div class="archivo-preview" id="preview_certificado_estudios"></div>
                                 </div>
 
-                                <!-- Foto del estudiante (OPCIONAL) -->
+                                <!-- Foto del estudiante -->
                                 <div class="upload-item">
                                     <div class="upload-header">
                                         <h4>📸 Foto del Estudiante</h4>
@@ -586,7 +547,7 @@
                                         <span class="upload-text">Clic para subir foto</span>
                                         <span class="upload-info">JPG o PNG - Máx. 5MB</span>
                                     </label>
-                                    <div class="archivo-preview" id="preview_foto"></div>
+                                    <div class="archivo-preview" id="preview_foto_estudiante"></div>
                                 </div>
 
                                 <!-- VOUCHER DE PAGO -->
@@ -612,12 +573,12 @@
                                         <span class="upload-text">Subir comprobante de pago</span>
                                         <span class="upload-info">Captura de Yape/Plin o comprobante de transferencia<br>PDF, JPG o PNG - Máx. 5MB</span>
                                     </label>
-                                    <div class="archivo-preview" id="preview_voucher_pago"></div>
+                                    <div class="archivo-preview" id="preview_comprobante_pago"></div>
                                 </div>
                             </div>
 
                             <div class="info-box" style="margin-top: 30px;">
-                                <strong>📌 Siguiente paso:</strong> Después de enviar tu solicitud, nuestro equipo verificará tu pago en un plazo máximo de 24 horas hábiles. Una vez verificado, te contactaremos para coordinar la entrevista de admisión.
+                                <strong>📌 Siguiente paso:</strong> Después de enviar tu solicitud, nuestro equipo verificará tu pago en un plazo máximo de 24 horas hábiles.
                             </div>
                         </div>
 
@@ -629,7 +590,7 @@
                             </h3>
 
                             <div class="resumen-datos" id="resumenDatos">
-                                <!-- El resumen se generará dinámicamente con JavaScript -->
+                                <!-- El resumen se generará dinámicamente -->
                             </div>
 
                             <div class="terminos-condiciones">
@@ -696,509 +657,15 @@
                 <div class="footer-info">
                     <p>📍 Jr. Educación 123, Chincha Alta</p>
                     <p>📞 (056) 123456</p>
-                    <p>✉️ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6f0c00011b0e0c1b002f1b1d0601061b161c0c07000003410a0b1a411f0a">[email&#160;protected]</a></p>
+                    <p>✉️ info@trinityschool.edu.pe</p>
                 </div>
             </div>
         </div>
         <p class="footer-copy">© 2025 Colegio Trinity School. Todos los derechos reservados.</p>
     </footer>
-
- <!-- Scripts de la página principal -->
-    <script src="../script/menu.js"></script>
+    <!-- SCRIPTS -->
+<script src="../script/menu.js"></script>
     <script src="../script/darkmode.js"></script>
-    
-    <!-- Script del formulario de admisiones -->
-    <script>
-// ============================================
-// JAVASCRIPT CORREGIDO - FORMULARIO DE ADMISIONES
-// ============================================
-
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // ===== VARIABLES GLOBALES =====
-    let pasoActual = 0;
-    const totalPasos = 5;
-    
-    // ===== ELEMENTOS DEL DOM =====
-    const btnIniciarRegistro = document.getElementById('btnIniciarRegistro');
-    const formularioAdmisiones = document.getElementById('formularioAdmisiones');
-    const btnSiguiente = document.getElementById('btnSiguiente');
-    const btnAnterior = document.getElementById('btnAnterior');
-    const btnEnviar = document.getElementById('btnEnviar');
-    const form = document.getElementById('formAdmision');
-    
-    // ===== BOTÓN INICIAR REGISTRO =====
-    if (btnIniciarRegistro) {
-        btnIniciarRegistro.addEventListener('click', function() {
-            document.querySelector('.inicio-formulario').style.display = 'none';
-            formularioAdmisiones.style.display = 'block';
-            pasoActual = 1;
-            mostrarPaso(pasoActual);
-            
-            // Scroll al formulario (NO al top)
-            setTimeout(() => {
-                formularioAdmisiones.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-        });
-    }
-    
-    // ===== NAVEGACIÓN ENTRE PASOS =====
-    function mostrarPaso(numeroPaso) {
-        const todosLosPasos = document.querySelectorAll('.paso-contenido');
-        todosLosPasos.forEach(paso => paso.classList.remove('activo'));
-        
-        const pasoActivo = document.querySelector(`.paso-contenido[data-paso="${numeroPaso}"]`);
-        if (pasoActivo) {
-            pasoActivo.classList.add('activo');
-        }
-        
-        actualizarProgreso(numeroPaso);
-        actualizarBotones(numeroPaso);
-        
-        if (numeroPaso === totalPasos) {
-            generarResumen();
-        }
-    }
-    
-    function actualizarProgreso(numeroPaso) {
-        const pasos = document.querySelectorAll('.paso-progreso');
-        pasos.forEach((paso, index) => {
-            if (index < numeroPaso) {
-                paso.classList.add('completado');
-                paso.classList.remove('activo');
-            } else if (index === numeroPaso - 1) {
-                paso.classList.add('activo');
-                paso.classList.remove('completado');
-            } else {
-                paso.classList.remove('activo', 'completado');
-            }
-        });
-    }
-    
-    function actualizarBotones(numeroPaso) {
-        if (numeroPaso === 1) {
-            btnAnterior.style.display = 'none';
-        } else {
-            btnAnterior.style.display = 'inline-block';
-        }
-        
-        if (numeroPaso === totalPasos) {
-            btnSiguiente.style.display = 'none';
-            btnEnviar.style.display = 'inline-block';
-        } else {
-            btnSiguiente.style.display = 'inline-block';
-            btnEnviar.style.display = 'none';
-        }
-    }
-    
-    // ===== EVENTOS DE NAVEGACIÓN =====
-    if (btnSiguiente) {
-        btnSiguiente.addEventListener('click', function() {
-            if (validarPasoActual()) {
-                if (pasoActual < totalPasos) {
-                    pasoActual++;
-                    mostrarPaso(pasoActual);
-                    // CAMBIO: Scroll suave al progreso, NO al top
-                    const progreso = document.querySelector('.progreso-pasos');
-                    if (progreso) {
-                        progreso.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                }
-            }
-        });
-    }
-    
-    if (btnAnterior) {
-        btnAnterior.addEventListener('click', function() {
-            if (pasoActual > 1) {
-                pasoActual--;
-                mostrarPaso(pasoActual);
-                // CAMBIO: Scroll suave al progreso, NO al top
-                const progreso = document.querySelector('.progreso-pasos');
-                if (progreso) {
-                    progreso.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }
-        });
-    }
-    
-    // ===== VALIDACIÓN DE PASOS (MEJORADA) =====
-    function validarPasoActual() {
-        const pasoActivo = document.querySelector(`.paso-contenido[data-paso="${pasoActual}"]`);
-        if (!pasoActivo) return true;
-        
-        const camposRequeridos = pasoActivo.querySelectorAll('[required]');
-        let valido = true;
-        let primerCampoInvalido = null;
-        
-        // Limpiar mensajes de error previos
-        pasoActivo.querySelectorAll('.error-mensaje').forEach(msg => msg.remove());
-        pasoActivo.querySelectorAll('.campo-invalido').forEach(campo => campo.classList.remove('campo-invalido'));
-        
-        camposRequeridos.forEach(campo => {
-            let campoValido = true;
-            
-            if (campo.type === 'file') {
-                // Para archivos, verificar si tiene files
-                if (!campo.files || campo.files.length === 0) {
-                    campoValido = false;
-                }
-            } else if (campo.type === 'checkbox') {
-                // Para checkboxes, verificar si está checked
-                if (!campo.checked) {
-                    campoValido = false;
-                }
-            } else {
-                // Para otros campos, verificar valor
-                if (!campo.value || campo.value.trim() === '') {
-                    campoValido = false;
-                }
-            }
-            
-            if (!campoValido) {
-                campo.classList.add('campo-invalido');
-                valido = false;
-                
-                if (!primerCampoInvalido) {
-                    primerCampoInvalido = campo;
-                }
-                
-                // Agregar mensaje de error
-                const errorMsg = document.createElement('span');
-                errorMsg.className = 'error-mensaje';
-                errorMsg.style.color = '#F7464A';
-                errorMsg.style.fontSize = '0.85rem';
-                errorMsg.style.marginTop = '5px';
-                errorMsg.style.display = 'block';
-                errorMsg.textContent = 'Este campo es obligatorio';
-                
-                // Insertar después del label o del campo
-                if (campo.parentNode.tagName === 'LABEL') {
-                    campo.parentNode.parentNode.appendChild(errorMsg);
-                } else {
-                    campo.parentNode.appendChild(errorMsg);
-                }
-            }
-        });
-        
-        if (!valido) {
-            alert('⚠️ Por favor, completa todos los campos obligatorios antes de continuar.');
-            if (primerCampoInvalido) {
-                primerCampoInvalido.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                setTimeout(() => primerCampoInvalido.focus(), 300);
-            }
-        }
-        
-        return valido;
-    }
-    
-    // ===== LÓGICA ESPECÍFICA DE CAMPOS =====
-    
-    // Nivel y Grado
-    const nivelSelect = document.getElementById('nivel_postula');
-    const gradoSelect = document.getElementById('grado_postula');
-    
-    if (nivelSelect && gradoSelect) {
-        nivelSelect.addEventListener('change', function() {
-            const nivel = this.value;
-            gradoSelect.disabled = false;
-            gradoSelect.innerHTML = '<option value="">Seleccionar...</option>';
-            
-            let grados = [];
-            if (nivel === 'Inicial') {
-                grados = ['3 años', '4 años', '5 años'];
-            } else if (nivel === 'Primaria') {
-                grados = ['1° grado', '2° grado', '3° grado', '4° grado', '5° grado', '6° grado'];
-            } else if (nivel === 'Secundaria') {
-                grados = ['1° año', '2° año', '3° año', '4° año', '5° año'];
-            }
-            
-            grados.forEach(grado => {
-                const option = document.createElement('option');
-                option.value = grado;
-                option.textContent = grado;
-                gradoSelect.appendChild(option);
-            });
-        });
-    }
-    
-    // Apoderado Principal
-    const apoderadoSelect = document.getElementById('apoderado_principal');
-    const datosOtroApoderado = document.getElementById('datosOtroApoderado');
-    
-    if (apoderadoSelect && datosOtroApoderado) {
-        apoderadoSelect.addEventListener('change', function() {
-            if (this.value === 'Otro') {
-                datosOtroApoderado.style.display = 'block';
-                const nombreApoderado = document.getElementById('nombre_apoderado');
-                const parentescoApoderado = document.getElementById('parentesco_apoderado');
-                if (nombreApoderado) nombreApoderado.required = true;
-                if (parentescoApoderado) parentescoApoderado.required = true;
-            } else {
-                datosOtroApoderado.style.display = 'none';
-                const nombreApoderado = document.getElementById('nombre_apoderado');
-                const parentescoApoderado = document.getElementById('parentesco_apoderado');
-                if (nombreApoderado) nombreApoderado.required = false;
-                if (parentescoApoderado) parentescoApoderado.required = false;
-            }
-        });
-    }
-    
-    // Hermanos
-    const tieneHermanosCheck = document.getElementById('tiene_hermanos');
-    const campoHermanos = document.getElementById('campoHermanos');
-    
-    if (tieneHermanosCheck && campoHermanos) {
-        tieneHermanosCheck.addEventListener('change', function() {
-            campoHermanos.style.display = this.checked ? 'block' : 'none';
-        });
-    }
-    
-    // Necesidades Especiales
-    const necesidadesCheck = document.getElementById('necesidades_especiales');
-    const campoNecesidades = document.getElementById('campoNecesidades');
-    
-    if (necesidadesCheck && campoNecesidades) {
-        necesidadesCheck.addEventListener('change', function() {
-            campoNecesidades.style.display = this.checked ? 'block' : 'none';
-        });
-    }
-    
-    // ===== PREVIEW DE ARCHIVOS (CORREGIDO) =====
-    const inputsArchivo = document.querySelectorAll('input[type="file"]');
-    inputsArchivo.forEach(input => {
-        input.addEventListener('change', function(e) {
-            const file = this.files[0];
-            if (!file) return;
-            
-            // Validar tamaño
-            if (file.size > 5242880) { // 5MB
-                alert('⚠️ El archivo es muy grande. El tamaño máximo es 5MB.');
-                this.value = '';
-                return;
-            }
-            
-            // Validar tipo
-            const tiposPermitidos = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
-            if (!tiposPermitidos.includes(file.type)) {
-                alert('⚠️ Tipo de archivo no permitido. Solo PDF, JPG o PNG.');
-                this.value = '';
-                return;
-            }
-            
-            // Buscar el contenedor de preview
-            let previewContainer = this.parentElement.querySelector('.archivo-preview');
-            
-            // Si no existe, buscar por ID
-            if (!previewContainer) {
-                const inputId = this.id || this.name;
-                const previewId = 'preview_' + inputId.replace('_archivo', '').replace('dni_estudiante_archivo', 'dni_estudiante').replace('dni_apoderado_archivo', 'dni_apoderado').replace('_doc', '');
-                previewContainer = document.getElementById(previewId);
-            }
-            
-            if (previewContainer) {
-                const tamanoKB = (file.size / 1024).toFixed(2);
-                previewContainer.innerHTML = `
-                    <div class="archivo-info" style="background: #e8f5e9; padding: 10px; border-radius: 8px; margin-top: 10px; display: flex; align-items: center; justify-content: space-between;">
-                        <div>
-                            <span class="archivo-nombre" style="font-weight: 600; color: #2e7d32;">✅ ${file.name}</span><br>
-                            <span class="archivo-tamano" style="font-size: 0.85rem; color: #666;">${tamanoKB} KB</span>
-                        </div>
-                        <button type="button" class="btn-eliminar-archivo" onclick="eliminarArchivo('${this.id}')" style="background: #f44336; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">✕</button>
-                    </div>
-                `;
-            }
-            
-            // Quitar clase de error si existía
-            this.classList.remove('campo-invalido');
-            const errorMsg = this.parentElement.querySelector('.error-mensaje');
-            if (errorMsg) errorMsg.remove();
-        });
-    });
-    
-    // ===== GENERAR RESUMEN =====
-    function generarResumen() {
-        const resumenContainer = document.getElementById('resumenDatos');
-        if (!resumenContainer) return;
-        
-        let html = '<div class="resumen-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">';
-        
-        // Datos del Estudiante
-        html += '<div class="resumen-seccion" style="background: #f5f5f5; padding: 20px; border-radius: 10px;">';
-        html += '<h4 style="color: #8B1538; margin-bottom: 15px;">👤 Datos del Estudiante</h4>';
-        html += '<ul class="resumen-lista" style="list-style: none; padding: 0;">';
-        html += `<li style="margin-bottom: 8px;"><strong>Nombres:</strong> ${obtenerValor('nombres')} ${obtenerValor('apellido_paterno')} ${obtenerValor('apellido_materno')}</li>`;
-        html += `<li style="margin-bottom: 8px;"><strong>DNI:</strong> ${obtenerValor('dni_estudiante')}</li>`;
-        html += `<li style="margin-bottom: 8px;"><strong>Fecha de nacimiento:</strong> ${obtenerValor('fecha_nacimiento')}</li>`;
-        html += `<li style="margin-bottom: 8px;"><strong>Sexo:</strong> ${obtenerValor('sexo')}</li>`;
-        html += `<li style="margin-bottom: 8px;"><strong>Dirección:</strong> ${obtenerValor('direccion')}, ${obtenerValor('distrito')}</li>`;
-        html += '</ul></div>';
-        
-        // Información Académica
-        html += '<div class="resumen-seccion" style="background: #f5f5f5; padding: 20px; border-radius: 10px;">';
-        html += '<h4 style="color: #8B1538; margin-bottom: 15px;">🎓 Información Académica</h4>';
-        html += '<ul class="resumen-lista" style="list-style: none; padding: 0;">';
-        html += `<li style="margin-bottom: 8px;"><strong>Nivel:</strong> ${obtenerValor('nivel_postula')}</li>`;
-        html += `<li style="margin-bottom: 8px;"><strong>Grado:</strong> ${obtenerValor('grado_postula')}</li>`;
-        if (obtenerValor('colegio_procedencia')) {
-            html += `<li style="margin-bottom: 8px;"><strong>Colegio anterior:</strong> ${obtenerValor('colegio_procedencia')}</li>`;
-        }
-        html += '</ul></div>';
-        
-        // Apoderado
-        html += '<div class="resumen-seccion" style="background: #f5f5f5; padding: 20px; border-radius: 10px;">';
-        html += '<h4 style="color: #8B1538; margin-bottom: 15px;">👨‍👩‍👧 Apoderado Principal</h4>';
-        html += '<ul class="resumen-lista" style="list-style: none; padding: 0;">';
-        html += `<li style="margin-bottom: 8px;"><strong>Apoderado:</strong> ${obtenerValor('apoderado_principal')}</li>`;
-        html += `<li style="margin-bottom: 8px;"><strong>Celular:</strong> ${obtenerValor('celular_apoderado')}</li>`;
-        html += `<li style="margin-bottom: 8px;"><strong>Email:</strong> ${obtenerValor('email_apoderado')}</li>`;
-        html += '</ul></div>';
-        
-        // Documentos
-        html += '<div class="resumen-seccion" style="background: #f5f5f5; padding: 20px; border-radius: 10px;">';
-        html += '<h4 style="color: #8B1538; margin-bottom: 15px;">📎 Documentos Adjuntos</h4>';
-        html += '<ul class="resumen-lista" style="list-style: none; padding: 0;">';
-        
-        const documentosMap = {
-            'partida_nacimiento': 'Partida de Nacimiento',
-            'dni_estudiante_archivo': 'DNI del Estudiante',
-            'dni_apoderado_archivo': 'DNI del Apoderado',
-            'dni_apoderado': 'DNI del Apoderado',
-            'libreta_notas': 'Libreta de Notas',
-            'certificado_estudios': 'Certificado de Estudios',
-            'foto_estudiante': 'Foto del Estudiante',
-            'comprobante_pago': 'Comprobante de Pago'
-        };
-        
-        Object.keys(documentosMap).forEach(docId => {
-            const input = document.getElementById(docId) || document.querySelector(`input[name="${docId}"]`);
-            if (input && input.files && input.files[0]) {
-                html += `<li style="margin-bottom: 8px;">✅ ${documentosMap[docId]}: ${input.files[0].name}</li>`;
-            }
-        });
-        
-        html += '</ul></div>';
-        html += '</div>';
-        
-        resumenContainer.innerHTML = html;
-    }
-    
-    function obtenerValor(id) {
-        const elemento = document.getElementById(id);
-        return elemento ? (elemento.value || '') : '';
-    }
-    
-    // ===== ENVÍO DEL FORMULARIO (MEJORADO) =====
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validar términos
-            const terminos = document.getElementById('aceptar_terminos');
-            if (!terminos || !terminos.checked) {
-                alert('⚠️ Debes aceptar los términos y condiciones para continuar.');
-                return;
-            }
-            
-            // Mostrar loading
-            btnEnviar.disabled = true;
-            btnEnviar.innerHTML = '<span>⏳ Enviando...</span>';
-            
-            // Crear FormData
-            const formData = new FormData(form);
-            
-            // Debug: Mostrar qué archivos se están enviando
-            console.log('📤 Enviando solicitud...');
-            for (let pair of formData.entries()) {
-                if (pair[1] instanceof File) {
-                    console.log(pair[0], ':', pair[1].name, '-', pair[1].size, 'bytes');
-                }
-            }
-            
-            // Enviar por AJAX
-            fetch('procesar.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                console.log('📥 Respuesta recibida:', response.status);
-                return response.json();
-            })
-            .then(data => {
-                console.log('✅ Datos procesados:', data);
-                
-                if (data.exito) {
-                    alert(`✅ ¡Solicitud enviada exitosamente!\n\n📋 Tu código de postulante es:\n${data.codigo_postulante}\n\n✉️ Recibirás un email de confirmación pronto.`);
-                    form.reset();
-                    window.location.href = 'index.php';
-                } else {
-                    alert(`❌ Error al enviar la solicitud:\n\n${data.mensaje}`);
-                    console.error('Error del servidor:', data);
-                    btnEnviar.disabled = false;
-                    btnEnviar.innerHTML = '<span>Enviar Solicitud</span><span class="btn-icon">✓</span>';
-                }
-            })
-            .catch(error => {
-                console.error('❌ Error en el envío:', error);
-                alert('❌ Hubo un error al enviar la solicitud.\n\nPor favor, verifica tu conexión e intenta de nuevo.\n\nSi el problema persiste, contacta al administrador.');
-                btnEnviar.disabled = false;
-                btnEnviar.innerHTML = '<span>Enviar Solicitud</span><span class="btn-icon">✓</span>';
-            });
-        });
-    }
-    
-    // ===== MODO OSCURO =====
-    const btnDarkMode = document.getElementById('darkModeBtn');
-    if (btnDarkMode) {
-        if (localStorage.getItem('darkMode') === 'enabled') {
-            document.body.classList.add('dark-mode');
-            btnDarkMode.textContent = '☀️';
-        }
-        
-        btnDarkMode.addEventListener('click', function() {
-            document.body.classList.toggle('dark-mode');
-            
-            if (document.body.classList.contains('dark-mode')) {
-                btnDarkMode.textContent = '☀️';
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                btnDarkMode.textContent = '🌙';
-                localStorage.setItem('darkMode', null);
-            }
-        });
-    }
-    
-    // ===== MENÚ MÓVIL =====
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    
-    if (menuToggle && navLinks) {
-        menuToggle.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-            this.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
-        });
-    }
-    
-});
-
-// ===== FUNCIÓN GLOBAL PARA ELIMINAR ARCHIVO =====
-function eliminarArchivo(inputId) {
-    const input = document.getElementById(inputId);
-    if (input) {
-        input.value = '';
-        
-        // Buscar y limpiar el preview
-        let previewContainer = input.parentElement.querySelector('.archivo-preview');
-        if (!previewContainer) {
-            const previewId = 'preview_' + inputId.replace('_archivo', '').replace('dni_estudiante_archivo', 'dni_estudiante').replace('dni_apoderado_archivo', 'dni_apoderado').replace('_doc', '');
-            previewContainer = document.getElementById(previewId);
-        }
-        
-        if (previewContainer) {
-            previewContainer.innerHTML = '';
-        }
-    }
-}
-    </script>
+    <script src="js/admisiones.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 // ============================================
 // FORMULARIO DE ADMISIONES - TRINITY SCHOOL
 // JavaScript completo y funcional
+// Versión 3.0 - Final con validación mejorada
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -56,6 +57,11 @@ document.addEventListener('DOMContentLoaded', function() {
         btnAnterior.style.display = numeroPaso === 1 ? 'none' : 'inline-block';
         btnSiguiente.style.display = numeroPaso === totalPasos ? 'none' : 'inline-block';
         btnEnviar.style.display = numeroPaso === totalPasos ? 'inline-block' : 'none';
+        
+        // Generar resumen si estamos en el paso final
+        if (numeroPaso === totalPasos) {
+            generarResumen();
+        }
         
         // Scroll suave al inicio
         formularioAdmisiones.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -113,6 +119,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     valido = false;
                 }
                 if (campo.name === 'dni_estudiante' && !validarDNI(campo.value)) {
+                    mostrarError(campo, 'DNI debe tener 8 dígitos');
+                    valido = false;
+                }
+                if (campo.name === 'dni_apoderado_otro' && campo.value && !validarDNI(campo.value)) {
                     mostrarError(campo, 'DNI debe tener 8 dígitos');
                     valido = false;
                 }
@@ -191,15 +201,23 @@ document.addEventListener('DOMContentLoaded', function() {
             if (this.value === 'Otro') {
                 datosOtroApoderado.style.display = 'block';
                 // Hacer campos requeridos
-                datosOtroApoderado.querySelectorAll('input').forEach(input => {
-                    input.required = true;
-                });
+                const nombreApoderado = document.getElementById('nombre_apoderado');
+                const parentescoApoderado = document.getElementById('parentesco_apoderado');
+                const dniApoderadoOtro = document.getElementById('dni_apoderado_otro');
+                
+                if (nombreApoderado) nombreApoderado.required = true;
+                if (parentescoApoderado) parentescoApoderado.required = true;
+                if (dniApoderadoOtro) dniApoderadoOtro.required = true;
             } else {
                 datosOtroApoderado.style.display = 'none';
                 // Quitar requerido
-                datosOtroApoderado.querySelectorAll('input').forEach(input => {
-                    input.required = false;
-                });
+                const nombreApoderado = document.getElementById('nombre_apoderado');
+                const parentescoApoderado = document.getElementById('parentesco_apoderado');
+                const dniApoderadoOtro = document.getElementById('dni_apoderado_otro');
+                
+                if (nombreApoderado) nombreApoderado.required = false;
+                if (parentescoApoderado) parentescoApoderado.required = false;
+                if (dniApoderadoOtro) dniApoderadoOtro.required = false;
             }
         });
     }
@@ -226,54 +244,280 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // ============================================
-    // PREVISUALIZACIÓN DE ARCHIVOS
+    // LIMPIAR ERRORES AL ESCRIBIR EN CAMPOS OPCIONALES
+    // ============================================
+    const camposOpcionales = [
+        'nombre_padre', 'celular_padre', 'email_padre', 'ocupacion_padre',
+        'nombre_madre', 'celular_madre', 'email_madre', 'ocupacion_madre'
+    ];
+    
+    camposOpcionales.forEach(campoId => {
+        const campo = document.getElementById(campoId);
+        if (campo) {
+            campo.addEventListener('input', function() {
+                this.classList.remove('error');
+                const errorMsg = this.parentElement.querySelector('.error-message');
+                if (errorMsg) errorMsg.remove();
+            });
+        }
+    });
+    
+    // ============================================
+    // PREVISUALIZACIÓN DE ARCHIVOS (VALIDACIÓN MEJORADA)
     // ============================================
     const inputsArchivo = document.querySelectorAll('input[type="file"]');
     
     inputsArchivo.forEach(input => {
-        input.addEventListener('change', function() {
-            const previewId = 'preview_' + this.id.replace('doc_', '');
-            const preview = document.getElementById(previewId);
+        input.addEventListener('change', function(e) {
+            const file = this.files[0];
+            if (!file) return;
             
-            if (this.files.length > 0) {
-                const file = this.files[0];
+            // ===== VALIDACIÓN 1: TAMAÑO MÁXIMO (5MB) =====
+            const MAX_SIZE = 5 * 1024 * 1024;
+            if (file.size > MAX_SIZE) {
+                mostrarAlerta('⚠️ El archivo es muy grande. Tamaño máximo: 5MB', 'error');
+                this.value = '';
+                return;
+            }
+            
+            // ===== VALIDACIÓN 2: TAMAÑO MÍNIMO (1KB) =====
+            const MIN_SIZE = 1024;
+            if (file.size < MIN_SIZE) {
+                mostrarAlerta('⚠️ El archivo es muy pequeño. Tamaño mínimo: 1KB', 'error');
+                this.value = '';
+                return;
+            }
+            
+            // ===== VALIDACIÓN 3: EXTENSIÓN DEL ARCHIVO =====
+            const extension = file.name.split('.').pop().toLowerCase();
+            const extensionesPermitidas = ['pdf', 'jpg', 'jpeg', 'png'];
+            
+            if (!extensionesPermitidas.includes(extension)) {
+                mostrarAlerta('⚠️ Tipo de archivo no permitido. Solo: PDF, JPG, JPEG, PNG', 'error');
+                this.value = '';
+                return;
+            }
+            
+            // ===== VALIDACIÓN 4: TIPO MIME =====
+            const tiposMimePermitidos = [
+                'application/pdf',
+                'image/jpeg',
+                'image/jpg', 
+                'image/png'
+            ];
+            
+            if (!tiposMimePermitidos.includes(file.type)) {
+                mostrarAlerta('⚠️ Tipo de archivo inválido detectado. Archivo rechazado.', 'error');
+                this.value = '';
+                return;
+            }
+            
+            // ===== VALIDACIÓN 5: NOMBRE DE ARCHIVO =====
+            const nombreArchivo = file.name;
+            const caracteresInvalidos = /[<>:"\/\\|?*\x00-\x1F]/g;
+            
+            if (caracteresInvalidos.test(nombreArchivo)) {
+                mostrarAlerta('⚠️ El nombre del archivo contiene caracteres no permitidos', 'error');
+                this.value = '';
+                return;
+            }
+            
+            // ===== VALIDACIÓN 6: VERIFICACIÓN ESPECÍFICA POR TIPO =====
+            if (file.type === 'application/pdf') {
+                validarPDF(file, this);
+            } else if (file.type.startsWith('image/')) {
+                validarImagen(file, this);
+            }
+            
+            // Buscar el preview correcto
+            let previewContainer = this.parentElement.querySelector('.archivo-preview');
+            if (!previewContainer) {
+                const previewId = 'preview_' + this.id;
+                previewContainer = document.getElementById(previewId);
+            }
+            
+            if (previewContainer) {
                 const fileSize = (file.size / 1024 / 1024).toFixed(2);
+                const tipoIcono = file.type === 'application/pdf' ? '📄' : '🖼️';
                 
-                // Validar tamaño
-                if (file.size > 5 * 1024 * 1024) {
-                    mostrarAlerta('El archivo no debe superar los 5MB', 'error');
-                    this.value = '';
-                    return;
-                }
-                
-                // Validar extensión
-                const extension = file.name.split('.').pop().toLowerCase();
-                const extensionesPermitidas = ['pdf', 'jpg', 'jpeg', 'png'];
-                
-                if (!extensionesPermitidas.includes(extension)) {
-                    mostrarAlerta('Solo se permiten archivos PDF, JPG, JPEG y PNG', 'error');
-                    this.value = '';
-                    return;
-                }
-                
-                // Mostrar preview
-                if (preview) {
-                    preview.innerHTML = `
-                        <div style="padding: 10px; background: #d4edda; border-radius: 5px; color: #155724; margin-top: 10px;">
-                            ✓ ${file.name} (${fileSize} MB)
+                previewContainer.innerHTML = `
+                    <div class="archivo-info" style="background: #e8f5e9; padding: 10px; border-radius: 8px; margin-top: 10px; display: flex; align-items: center; justify-content: space-between;">
+                        <div style="display: flex; align-items: center; flex: 1;">
+                            <span class="archivo-icono" style="font-size: 1.5rem; margin-right: 10px;">${tipoIcono}</span>
+                            <div>
+                                <span class="archivo-nombre" style="font-weight: 600; color: #2e7d32; display: block;">✅ ${file.name}</span>
+                                <span class="archivo-tamano" style="font-size: 0.85rem; color: #666;">${fileSize} MB</span>
+                            </div>
                         </div>
-                    `;
-                }
-                
-                // Cambiar estilo del label
-                const label = this.parentElement.querySelector('.upload-label');
-                if (label) {
-                    label.style.borderColor = '#28a745';
-                    label.style.background = 'rgba(40, 167, 69, 0.05)';
-                }
+                        <button type="button" class="btn-eliminar-archivo" onclick="eliminarArchivo('${this.id}')" style="background: #f44336; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; margin-left: 10px;">✕</button>
+                    </div>
+                `;
+                previewContainer.classList.add('mostrar');
+            }
+            
+            // Limpiar errores
+            this.classList.remove('error');
+            const errorMsg = this.parentElement.querySelector('.error-message');
+            if (errorMsg) errorMsg.remove();
+        });
+        
+        // Prevenir drag & drop
+        input.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+        
+        input.addEventListener('drop', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                this.files = files;
+                this.dispatchEvent(new Event('change'));
             }
         });
     });
+    
+    // ===== FUNCIÓN: VALIDAR PDF =====
+    function validarPDF(file, inputElement) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            const arr = new Uint8Array(e.target.result).subarray(0, 5);
+            let header = "";
+            for (let i = 0; i < arr.length; i++) {
+                header += String.fromCharCode(arr[i]);
+            }
+            
+            if (!header.startsWith('%PDF-')) {
+                mostrarAlerta('⚠️ El archivo no es un PDF válido', 'error');
+                inputElement.value = '';
+                const preview = inputElement.parentElement.querySelector('.archivo-preview');
+                if (preview) preview.innerHTML = '';
+            }
+        };
+        
+        reader.onerror = function() {
+            mostrarAlerta('⚠️ Error al leer el archivo PDF', 'error');
+            inputElement.value = '';
+        };
+        
+        reader.readAsArrayBuffer(file.slice(0, 5));
+    }
+    
+    // ===== FUNCIÓN: VALIDAR IMAGEN =====
+    function validarImagen(file, inputElement) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            const img = new Image();
+            
+            img.onload = function() {
+                if (this.width < 100 || this.height < 100) {
+                    mostrarAlerta('⚠️ La imagen es muy pequeña. Dimensiones mínimas recomendadas: 100x100px', 'warning');
+                }
+                
+                if (this.width > 5000 || this.height > 5000) {
+                    mostrarAlerta('⚠️ La imagen es muy grande. Dimensiones máximas recomendadas: 5000x5000px', 'warning');
+                }
+            };
+            
+            img.onerror = function() {
+                mostrarAlerta('⚠️ El archivo no es una imagen válida', 'error');
+                inputElement.value = '';
+                const preview = inputElement.parentElement.querySelector('.archivo-preview');
+                if (preview) preview.innerHTML = '';
+            };
+            
+            img.src = e.target.result;
+        };
+        
+        reader.onerror = function() {
+            mostrarAlerta('⚠️ Error al leer la imagen', 'error');
+            inputElement.value = '';
+        };
+        
+        reader.readAsDataURL(file);
+    }
+    
+    // ============================================
+    // GENERAR RESUMEN (PASO 5)
+    // ============================================
+    function generarResumen() {
+        const resumenContainer = document.getElementById('resumenDatos');
+        if (!resumenContainer) return;
+        
+        let html = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">';
+        
+        // Datos del Estudiante
+        html += '<div style="background: #f5f5f5; padding: 20px; border-radius: 10px;">';
+        html += '<h4 style="color: #8B1538; margin-bottom: 15px; font-size: 1.2rem;">👤 Datos del Estudiante</h4>';
+        html += '<ul style="list-style: none; padding: 0;">';
+        html += `<li style="margin-bottom: 8px;"><strong>Nombres:</strong> ${obtenerValor('nombres')} ${obtenerValor('apellido_paterno')} ${obtenerValor('apellido_materno')}</li>`;
+        html += `<li style="margin-bottom: 8px;"><strong>DNI:</strong> ${obtenerValor('dni_estudiante')}</li>`;
+        html += `<li style="margin-bottom: 8px;"><strong>Fecha de nacimiento:</strong> ${obtenerValor('fecha_nacimiento')}</li>`;
+        html += `<li style="margin-bottom: 8px;"><strong>Sexo:</strong> ${obtenerValor('sexo')}</li>`;
+        html += `<li style="margin-bottom: 8px;"><strong>Dirección:</strong> ${obtenerValor('direccion')}, ${obtenerValor('distrito')}</li>`;
+        html += '</ul></div>';
+        
+        // Información Académica
+        html += '<div style="background: #f5f5f5; padding: 20px; border-radius: 10px;">';
+        html += '<h4 style="color: #8B1538; margin-bottom: 15px; font-size: 1.2rem;">🎓 Información Académica</h4>';
+        html += '<ul style="list-style: none; padding: 0;">';
+        html += `<li style="margin-bottom: 8px;"><strong>Nivel:</strong> ${obtenerValor('nivel_postula')}</li>`;
+        html += `<li style="margin-bottom: 8px;"><strong>Grado:</strong> ${obtenerValor('grado_postula')}</li>`;
+        if (obtenerValor('colegio_procedencia')) {
+            html += `<li style="margin-bottom: 8px;"><strong>Colegio anterior:</strong> ${obtenerValor('colegio_procedencia')}</li>`;
+        }
+        html += '</ul></div>';
+        
+        // Apoderado Principal
+        html += '<div style="background: #f5f5f5; padding: 20px; border-radius: 10px;">';
+        html += '<h4 style="color: #8B1538; margin-bottom: 15px; font-size: 1.2rem;">👨‍👩‍👧 Apoderado Principal</h4>';
+        html += '<ul style="list-style: none; padding: 0;">';
+        html += `<li style="margin-bottom: 8px;"><strong>Apoderado:</strong> ${obtenerValor('apoderado_principal')}</li>`;
+        if (obtenerValor('apoderado_principal') === 'Otro') {
+            html += `<li style="margin-bottom: 8px;"><strong>Nombre:</strong> ${obtenerValor('nombre_apoderado')}</li>`;
+            html += `<li style="margin-bottom: 8px;"><strong>Parentesco:</strong> ${obtenerValor('parentesco_apoderado')}</li>`;
+            html += `<li style="margin-bottom: 8px;"><strong>DNI:</strong> ${obtenerValor('dni_apoderado_otro')}</li>`;
+        }
+        html += `<li style="margin-bottom: 8px;"><strong>Celular:</strong> ${obtenerValor('celular_apoderado')}</li>`;
+        html += `<li style="margin-bottom: 8px;"><strong>Email:</strong> ${obtenerValor('email_apoderado')}</li>`;
+        html += '</ul></div>';
+        
+        // Documentos Adjuntos
+        html += '<div style="background: #f5f5f5; padding: 20px; border-radius: 10px;">';
+        html += '<h4 style="color: #8B1538; margin-bottom: 15px; font-size: 1.2rem;">📎 Documentos Adjuntos</h4>';
+        html += '<ul style="list-style: none; padding: 0;">';
+        
+        const documentosMap = {
+            'partida_nacimiento': 'Partida de Nacimiento',
+            'dni_estudiante_doc': 'DNI del Estudiante',
+            'dni_apoderado': 'DNI del Apoderado',
+            'libreta_notas': 'Libreta de Notas',
+            'certificado_estudios': 'Certificado de Estudios',
+            'foto_estudiante': 'Foto del Estudiante',
+            'comprobante_pago': 'Comprobante de Pago'
+        };
+        
+        Object.keys(documentosMap).forEach(docId => {
+            const input = document.getElementById(docId) || document.querySelector(`input[name="${docId}"]`);
+            if (input && input.files && input.files[0]) {
+                const fileSize = (input.files[0].size / 1024).toFixed(2);
+                html += `<li style="margin-bottom: 8px;">✅ ${documentosMap[docId]}: ${input.files[0].name} (${fileSize} KB)</li>`;
+            }
+        });
+        
+        html += '</ul></div>';
+        html += '</div>';
+        
+        resumenContainer.innerHTML = html;
+    }
+    
+    function obtenerValor(id) {
+        const elemento = document.getElementById(id);
+        return elemento ? (elemento.value || '') : '';
+    }
     
     // ============================================
     // ENVÍO DEL FORMULARIO
@@ -306,8 +550,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Crear FormData
             const formData = new FormData(form);
             
-            // Log para debug (puedes quitarlo después)
-            console.log('Datos a enviar:');
+            // Log para debug
+            console.log('📤 Datos a enviar:');
             for (let [key, value] of formData.entries()) {
                 if (value instanceof File) {
                     console.log(key + ': ' + value.name + ' (' + value.size + ' bytes)');
@@ -323,10 +567,9 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => response.json())
             .then(data => {
-                console.log('Respuesta del servidor:', data);
+                console.log('📥 Respuesta del servidor:', data);
                 
                 if (data.exito) {
-                    // Redirigir a página de confirmación
                     mostrarAlerta('¡Solicitud enviada exitosamente!', 'success');
                     setTimeout(() => {
                         window.location.href = `gracias.php?codigo=${data.codigo}`;
@@ -338,7 +581,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('❌ Error:', error);
                 mostrarAlerta('Error de conexión. Por favor intente nuevamente.', 'error');
                 btnEnviar.disabled = false;
                 btnEnviar.innerHTML = '<span>Enviar Solicitud</span><span class="btn-icon">✓</span>';
@@ -422,8 +665,37 @@ document.addEventListener('DOMContentLoaded', function() {
             background: #8B1538 !important;
             transform: scale(1.1);
         }
+        
+        input[type="file"] {
+            cursor: pointer;
+        }
+        
+        input[type="file"]:hover {
+            border-color: #8B1538;
+        }
     `;
     document.head.appendChild(style);
     
-    console.log('✓ Sistema de admisiones iniciado correctamente');
+    console.log('✅ Sistema de admisiones iniciado correctamente - Versión 3.0 Final');
 });
+
+// ============================================
+// FUNCIÓN GLOBAL PARA ELIMINAR ARCHIVO
+// ============================================
+function eliminarArchivo(inputId) {
+    const input = document.getElementById(inputId);
+    if (input) {
+        input.value = '';
+        
+        let previewContainer = input.parentElement.querySelector('.archivo-preview');
+        if (!previewContainer) {
+            const previewId = 'preview_' + inputId;
+            previewContainer = document.getElementById(previewId);
+        }
+        
+        if (previewContainer) {
+            previewContainer.innerHTML = '';
+            previewContainer.classList.remove('mostrar');
+        }
+    }
+}

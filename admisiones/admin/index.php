@@ -10,7 +10,7 @@ if (isset($_SESSION['admin_logueado']) && $_SESSION['admin_logueado'] === true) 
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require_once '../procesar.php';
+    require_once '../config/database.php';
     
     $usuario = $_POST['usuario'] ?? '';
     $password = $_POST['password'] ?? '';

@@ -6,7 +6,7 @@ if (!isset($_SESSION['admin_logueado'])) {
     exit;
 }
 
-require_once '../procesar.php';
+require_once '../config/database.php';
 
 // Procesar verificación de pago
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {

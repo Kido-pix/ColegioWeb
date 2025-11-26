@@ -6,7 +6,7 @@ if (!isset($_SESSION['admin_logueado'])) {
     exit;
 }
 
-require_once '../procesar.php';
+require_once '../config/database.php';
 
 // Verificar que se recibió el ID
 if (!isset($_GET['id']) || empty($_GET['id'])) {
@@ -932,8 +932,7 @@ $edad = $hoy->diff($fechaNac)->y;
         <ul class="sidebar-menu">
             <li><a href="dashboard.php"><i class="fas fa-home"></i>Dashboard</a></li>
             <li><a href="solicitudes.php" class="active"><i class="fas fa-file-alt"></i>Solicitudes</a></li>
-            <li><a href="pagos.php"><i class="fas fa-money-check-alt"></i>Verificar Pagos</a></li>
-            <li><a href="entrevistas.php"><i class="fas fa-calendar-alt"></i>Entrevistas</a></li>
+            <li><a href="verificar_pago.php"><i class="fas fa-money-check-alt"></i>Verificar Pagos</a></li>            <li><a href="entrevistas.php"><i class="fas fa-calendar-alt"></i>Entrevistas</a></li>
             <li><a href="reportes.php"><i class="fas fa-chart-bar"></i>Reportes</a></li>
             <li><a href="configuracion.php"><i class="fas fa-cog"></i>Configuración</a></li>
         </ul>

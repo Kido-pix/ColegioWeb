@@ -12,7 +12,7 @@ if (!isset($_SESSION['admin_logueado'])) {
     die('Acceso no autorizado');
 }
 
-require_once '../procesar.php';
+require_once '../config/database.php'; 
 
 // Validar parámetros
 if (!isset($_GET['id']) || !isset($_GET['tipo'])) {
