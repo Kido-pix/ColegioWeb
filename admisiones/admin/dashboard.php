@@ -31,6 +31,10 @@ try {
     $solicitudesSemana = 0;
     $ultimasSolicitudes = [];
     
+    // ============================================
+    // ESTADÍSTICAS BÁSICAS
+    // ============================================
+    
     // Total de solicitudes
     $stmt = $db->query("SELECT COUNT(*) as total FROM solicitudes_admision");
     $result = $stmt->fetch();
@@ -102,12 +106,54 @@ try {
     $result = $stmt->fetch();
     $solicitudesSemana = $result ? (int)$result['total'] : 0;
     
+    // ============================================
+    // DATOS PARA GRÁFICOS
+    // ============================================
+    
+    // GRÁFICO 1: Solicitudes por estado
+    $stmt = $db->query("
+        SELECT 
+            estado,
+            COUNT(*) as cantidad
+        FROM solicitudes_admision
+        GROUP BY estado
+        ORDER BY cantidad DESC
+    ");
+    $solicitudesPorEstado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    // GRÁFICO 2: Solicitudes por nivel
+    $stmt = $db->query("
+        SELECT 
+            nivel_postula,
+            COUNT(*) as cantidad
+        FROM solicitudes_admision
+        GROUP BY nivel_postula
+        ORDER BY cantidad DESC
+    ");
+    $solicitudesPorNivel = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    // GRÁFICO 3: Solicitudes por mes (últimos 6 meses)
+    $stmt = $db->query("
+        SELECT 
+            DATE_FORMAT(fecha_registro, '%Y-%m') as mes,
+            DATE_FORMAT(fecha_registro, '%b %Y') as mes_nombre,
+            COUNT(*) as cantidad
+        FROM solicitudes_admision
+        WHERE fecha_registro >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+        GROUP BY mes, mes_nombre
+        ORDER BY mes ASC
+    ");
+    $solicitudesPorMes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
 } catch(PDOException $e) {
     $error = "Error al cargar estadísticas: " . $e->getMessage();
     echo "<div style='background: #f44336; color: white; padding: 20px; margin: 20px; border-radius: 10px;'>";
     echo "<strong>Error de conexión:</strong> " . $e->getMessage();
     echo "</div>";
     // Mantener valores por defecto en caso de error
+    $solicitudesPorEstado = [];
+    $solicitudesPorNivel = [];
+    $solicitudesPorMes = [];
 }
 ?>
 <!DOCTYPE html>
@@ -118,6 +164,10 @@ try {
     <title>Dashboard - Panel Administrativo Trinity School</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -394,6 +444,7 @@ try {
             font-weight: 700;
             color: var(--text);
             margin-bottom: 5px;
+            transition: transform 0.3s ease, color 0.3s ease;
         }
 
         .stat-label {
@@ -408,6 +459,34 @@ try {
             border-top: 1px solid var(--border);
             font-size: 0.85rem;
             color: var(--text-secondary);
+        }
+
+        /* GRÁFICOS */
+        .graficos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .grafico-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .grafico-card h3 {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .grafico-full {
+            grid-column: 1 / -1;
         }
 
         /* CONTENT GRID */
@@ -449,46 +528,6 @@ try {
 
         .badge-primary { background: rgba(27, 75, 90, 0.2); color: var(--primary); }
         .badge-success { background: rgba(46, 212, 122, 0.2); color: var(--success); }
-
-        /* PROGRESS BARS */
-        .progress-item {
-            margin-bottom: 20px;
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-
-        .progress-label {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        .progress-value {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--accent);
-        }
-
-        .progress-bar-container {
-            height: 10px;
-            background: var(--border);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            border-radius: 10px;
-            transition: width 1s ease;
-        }
-
-        .progress-bar.inicial { background: linear-gradient(90deg, #3AAFA9, #2ED47A); }
-        .progress-bar.primaria { background: linear-gradient(90deg, #1B4B5A, #3AAFA9); }
-        .progress-bar.secundaria { background: linear-gradient(90deg, #0A1929, #1B4B5A); }
 
         /* TABLE */
         .table-container {
@@ -621,6 +660,10 @@ try {
             .content-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .graficos-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 768px) {
@@ -682,72 +725,73 @@ try {
     <main class="main-content">
         <!-- Header -->
         <div class="header">
-            <h1>👋 Bienvenido, <?php echo htmlspecialchars($_SESSION['admin_nombre']); ?></h1>
+            <h1>Bienvenido, <?php echo htmlspecialchars($_SESSION['admin_nombre']); ?></h1>
             <p>Resumen del proceso de admisiones 2025</p>
         </div>
 
-<!-- Stats Grid -->
-<div class="stats-grid">
-    <div class="stat-card primary">
-        <div class="stat-header">
-            <div>
-                <div class="stat-value" id="stat-total"><?php echo $totalSolicitudes; ?></div>
-                <div class="stat-label">Total Solicitudes</div>
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card primary">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-value" id="stat-total"><?php echo $totalSolicitudes; ?></div>
+                        <div class="stat-label">Total Solicitudes</div>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                </div>
+                <div class="stat-footer">
+                    <i class="fas fa-calendar-day"></i> <span id="stat-hoy"><?php echo $solicitudesHoy; ?></span> hoy
+                </div>
             </div>
-            <div class="stat-icon">
-                <i class="fas fa-file-alt"></i>
-            </div>
-        </div>
-        <div class="stat-footer">
-            <i class="fas fa-calendar-day"></i> <span id="stat-hoy"><?php echo $solicitudesHoy; ?></span> hoy
-        </div>
-    </div>
 
-    <div class="stat-card warning">
-        <div class="stat-header">
-            <div>
-                <div class="stat-value" id="stat-pendientes"><?php echo $pendientesPago; ?></div>
-                <div class="stat-label">Pendientes de Pago</div>
+            <div class="stat-card warning">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-value" id="stat-pendientes"><?php echo $pendientesPago; ?></div>
+                        <div class="stat-label">Pendientes de Pago</div>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                </div>
+                <div class="stat-footer">
+                    <i class="fas fa-exclamation-circle"></i> Requieren atención
+                </div>
             </div>
-            <div class="stat-icon">
-                <i class="fas fa-clock"></i>
-            </div>
-        </div>
-        <div class="stat-footer">
-            <i class="fas fa-exclamation-circle"></i> Requieren atención
-        </div>
-    </div>
 
-    <div class="stat-card success">
-        <div class="stat-header">
-            <div>
-                <div class="stat-value" id="stat-verificados"><?php echo $pagosVerificados; ?></div>
-                <div class="stat-label">Pagos Verificados</div>
+            <div class="stat-card success">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-value" id="stat-verificados"><?php echo $pagosVerificados; ?></div>
+                        <div class="stat-label">Pagos Verificados</div>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                </div>
+                <div class="stat-footer">
+                    <i class="fas fa-chart-line"></i> <span id="stat-semana"><?php echo $solicitudesSemana; ?></span> esta semana
+                </div>
             </div>
-            <div class="stat-icon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-        </div>
-        <div class="stat-footer">
-            <i class="fas fa-chart-line"></i> <span id="stat-semana"><?php echo $solicitudesSemana; ?></span> esta semana
-        </div>
-    </div>
 
-    <div class="stat-card info">
-        <div class="stat-header">
-            <div>
-                <div class="stat-value" id="stat-admitidos"><?php echo $admitidos; ?></div>
-                <div class="stat-label">Admitidos</div>
-            </div>
-            <div class="stat-icon">
-                <i class="fas fa-user-check"></i>
+            <div class="stat-card info">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-value" id="stat-admitidos"><?php echo $admitidos; ?></div>
+                        <div class="stat-label">Admitidos</div>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                </div>
+                <div class="stat-footer">
+                    <i class="fas fa-graduation-cap"></i> Proceso completado
+                </div>
             </div>
         </div>
-        <div class="stat-footer">
-            <i class="fas fa-graduation-cap"></i> Proceso completado
-        </div>
-    </div>
-</div>
+
         <!-- Quick Actions -->
         <div class="quick-actions">
             <a href="solicitudes.php" class="action-btn">
@@ -764,54 +808,43 @@ try {
             </a>
         </div>
 
-        <!-- Content Grid -->
-        <div class="content-grid">
-            <!-- Chart Card -->
-            <div class="card">
-                <div class="card-header">
-                    <h3>Solicitudes por Nivel Educativo</h3>
-                    <span class="card-badge badge-primary">Total: <?php echo $totalSolicitudes; ?></span>
-                </div>
-                <div class="chart-container">
-                    <?php if ($totalSolicitudes > 0): ?>
-                        <div class="progress-item">
-                            <div class="progress-header">
-                                <span class="progress-label">Inicial</span>
-                                <span class="progress-value"><?php echo $inicial; ?> (<?php echo round(($inicial/$totalSolicitudes)*100); ?>%)</span>
-                            </div>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar inicial" style="width: <?php echo ($inicial/$totalSolicitudes)*100; ?>%"></div>
-                            </div>
-                        </div>
+        <!-- ============================================ -->
+        <!-- SECCIÓN DE GRÁFICOS -->
+        <!-- ============================================ -->
+        <h2 style="font-size: 1.5rem; color: var(--text); margin-bottom: 25px;">
+            <i class="fas fa-chart-line"></i> Análisis de Datos
+        </h2>
 
-                        <div class="progress-item">
-                            <div class="progress-header">
-                                <span class="progress-label">Primaria</span>
-                                <span class="progress-value"><?php echo $primaria; ?> (<?php echo round(($primaria/$totalSolicitudes)*100); ?>%)</span>
-                            </div>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar primaria" style="width: <?php echo ($primaria/$totalSolicitudes)*100; ?>%"></div>
-                            </div>
-                        </div>
-
-                        <div class="progress-item">
-                            <div class="progress-header">
-                                <span class="progress-label">Secundaria</span>
-                                <span class="progress-value"><?php echo $secundaria; ?> (<?php echo round(($secundaria/$totalSolicitudes)*100); ?>%)</span>
-                            </div>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar secundaria" style="width: <?php echo ($secundaria/$totalSolicitudes)*100; ?>%"></div>
-                            </div>
-                        </div>
-                    <?php else: ?>
-                        <div class="empty-state">
-                            <i class="fas fa-inbox"></i>
-                            <p>No hay solicitudes registradas aún</p>
-                        </div>
-                    <?php endif; ?>
-                </div>
+        <div class="graficos-grid">
+            
+            <!-- GRÁFICO 1: Solicitudes por Estado -->
+            <div class="grafico-card">
+                <h3>
+                    <i class="fas fa-chart-bar"></i> Solicitudes por Estado
+                </h3>
+                <canvas id="graficoEstados" style="max-height: 300px;"></canvas>
             </div>
 
+            <!-- GRÁFICO 2: Distribución por Nivel -->
+            <div class="grafico-card">
+                <h3>
+                    <i class="fas fa-chart-pie"></i> Distribución por Nivel
+                </h3>
+                <canvas id="graficoNiveles" style="max-height: 300px;"></canvas>
+            </div>
+
+            <!-- GRÁFICO 3: Tendencia Mensual -->
+            <div class="grafico-card grafico-full">
+                <h3>
+                    <i class="fas fa-chart-line"></i> Tendencia de Solicitudes (Últimos 6 Meses)
+                </h3>
+                <canvas id="graficoMeses" style="max-height: 250px;"></canvas>
+            </div>
+
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
             <!-- Recent Activity Card -->
             <div class="card">
                 <div class="card-header">
@@ -849,6 +882,44 @@ try {
                             <p>No hay actividad reciente</p>
                         </div>
                     <?php endif; ?>
+                </div>
+            </div>
+
+            <!-- Resumen por Nivel -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>Resumen por Nivel</h3>
+                </div>
+                <div style="padding: 20px 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: var(--hover); border-radius: 8px; margin-bottom: 10px;">
+                        <div>
+                            <div style="font-size: 0.9rem; color: var(--text-secondary);">Inicial</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text);"><?php echo $inicial; ?></div>
+                        </div>
+                        <div style="width: 50px; height: 50px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white;">
+                            <i class="fas fa-baby"></i>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: var(--hover); border-radius: 8px; margin-bottom: 10px;">
+                        <div>
+                            <div style="font-size: 0.9rem; color: var(--text-secondary);">Primaria</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text);"><?php echo $primaria; ?></div>
+                        </div>
+                        <div style="width: 50px; height: 50px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white;">
+                            <i class="fas fa-child"></i>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: var(--hover); border-radius: 8px;">
+                        <div>
+                            <div style="font-size: 0.9rem; color: var(--text-secondary);">Secundaria</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--text);"><?php echo $secundaria; ?></div>
+                        </div>
+                        <div style="width: 50px; height: 50px; background: var(--success); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white;">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -910,21 +981,192 @@ try {
         </div>
     </main>
 
-<script>
+    <script>
         // ============================================
-        // ANIMAR BARRAS DE PROGRESO
+        // CONFIGURACIÓN DE GRÁFICOS
         // ============================================
-        window.addEventListener('load', function() {
-            const progressBars = document.querySelectorAll('.progress-bar');
-            progressBars.forEach(bar => {
-                const width = bar.style.width;
-                bar.style.width = '0%';
-                setTimeout(() => {
-                    bar.style.width = width;
-                }, 100);
-            });
-        });
         
+        // Colores del tema
+        const colores = {
+            primary: '#1B4B5A',
+            accent: '#3AAFA9',
+            success: '#2ED47A',
+            warning: '#FFB648',
+            danger: '#F7464A',
+            info: '#4A90E2',
+            purple: '#9B59B6'
+        };
+
+        // ============================================
+        // GRÁFICO 1: SOLICITUDES POR ESTADO
+        // ============================================
+        const ctxEstados = document.getElementById('graficoEstados').getContext('2d');
+        const datosEstados = <?php echo json_encode($solicitudesPorEstado); ?>;
+        
+        new Chart(ctxEstados, {
+            type: 'bar',
+            data: {
+                labels: datosEstados.map(item => item.estado),
+                datasets: [{
+                    label: 'Cantidad',
+                    data: datosEstados.map(item => item.cantidad),
+                    backgroundColor: [
+                        colores.warning,
+                        colores.success,
+                        colores.info,
+                        colores.primary,
+                        colores.danger
+                    ],
+                    borderRadius: 8,
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
+                        borderWidth: 1,
+                        borderColor: '#333'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#9AA0A6',
+                            stepSize: 1
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.05)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#9AA0A6'
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // ============================================
+        // GRÁFICO 2: DISTRIBUCIÓN POR NIVEL
+        // ============================================
+        const ctxNiveles = document.getElementById('graficoNiveles').getContext('2d');
+        const datosNiveles = <?php echo json_encode($solicitudesPorNivel); ?>;
+        
+        new Chart(ctxNiveles, {
+            type: 'doughnut',
+            data: {
+                labels: datosNiveles.map(item => item.nivel_postula),
+                datasets: [{
+                    data: datosNiveles.map(item => item.cantidad),
+                    backgroundColor: [
+                        colores.primary,
+                        colores.accent,
+                        colores.success
+                    ],
+                    borderWidth: 3,
+                    borderColor: '#1A202C'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#9AA0A6',
+                            padding: 15,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        titleColor: '#fff',
+                        bodyColor: '#fff'
+                    }
+                }
+            }
+        });
+
+        // ============================================
+        // GRÁFICO 3: TENDENCIA MENSUAL
+        // ============================================
+        const ctxMeses = document.getElementById('graficoMeses').getContext('2d');
+        const datosMeses = <?php echo json_encode($solicitudesPorMes); ?>;
+        
+        new Chart(ctxMeses, {
+            type: 'line',
+            data: {
+                labels: datosMeses.map(item => item.mes_nombre),
+                datasets: [{
+                    label: 'Solicitudes',
+                    data: datosMeses.map(item => item.cantidad),
+                    borderColor: colores.accent,
+                    backgroundColor: 'rgba(58, 175, 169, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: colores.accent,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        titleColor: '#fff',
+                        bodyColor: '#fff'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#9AA0A6',
+                            stepSize: 1
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.05)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#9AA0A6'
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
         // ============================================
         // ACTUALIZACIÓN EN TIEMPO REAL
         // ============================================
@@ -988,32 +1230,7 @@ try {
         setTimeout(actualizarEstadisticas, 2000);
         
         console.log('🔄 Actualización automática activada (cada 10 segundos)');
+        console.log('📊 Gráficos cargados correctamente');
     </script>
-
-    <!-- Estilos para animaciones -->
-    <style>
-        .stat-value {
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-        
-        .stat-card {
-            position: relative;
-        }
-        
-        .stat-card::after {
-            content: '🔄';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 0.8rem;
-            opacity: 0;
-            animation: pulseUpdate 10s infinite;
-        }
-        
-        @keyframes pulseUpdate {
-            0%, 98% { opacity: 0; }
-            99%, 100% { opacity: 0.3; }
-        }
-    </style>
 </body>
 </html>

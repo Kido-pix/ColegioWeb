@@ -560,32 +560,72 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
-            // Enviar por AJAX
-            fetch('procesar.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('📥 Respuesta del servidor:', data);
-                
-                if (data.exito) {
-                    mostrarAlerta('¡Solicitud enviada exitosamente!', 'success');
-                    setTimeout(() => {
-                        window.location.href = `gracias.php?codigo=${data.codigo}`;
-                    }, 1500);
-                } else {
-                    mostrarAlerta(data.mensaje || 'Error al procesar la solicitud', 'error');
-                    btnEnviar.disabled = false;
-                    btnEnviar.innerHTML = '<span>Enviar Solicitud</span><span class="btn-icon">✓</span>';
-                }
-            })
-            .catch(error => {
-                console.error('❌ Error:', error);
-                mostrarAlerta('Error de conexión. Por favor intente nuevamente.', 'error');
-                btnEnviar.disabled = false;
-                btnEnviar.innerHTML = '<span>Enviar Solicitud</span><span class="btn-icon">✓</span>';
-            });
+// ============================================
+// ENVIAR FORMULARIO POR AJAX
+// ============================================
+fetch('procesar.php', {
+    method: 'POST',
+    body: formData
+})
+.then(response => response.json())
+.then(data => {
+    console.log('📥 Respuesta del servidor:', data);
+    
+    // ============================================
+    // SOLICITUD EXITOSA
+    // ============================================
+    if (data.exito) {
+        mostrarAlerta('¡Solicitud enviada exitosamente!', 'success');
+        setTimeout(() => {
+            window.location.href = `gracias.php?codigo=${data.codigo}`;
+        }, 1500);
+    } 
+    // ============================================
+    // ERROR EN LA SOLICITUD
+    // ============================================
+    else {
+        // Detectar si es error de DNI duplicado
+        const isDniDuplicado = data.mensaje && data.mensaje.includes('ya está registrado');
+        
+        if (isDniDuplicado) {
+            // ============================================
+            // ERROR: DNI DUPLICADO
+            // ============================================
+            mostrarAlerta(
+                `<div style="text-align: left; padding: 10px;">
+                    <strong style="color: #FFB648; font-size: 1.1rem;">⚠️ DNI YA REGISTRADO</strong>
+                    <br><br>
+                    ${data.mensaje}
+                    <br><br>
+                    <small style="color: #666;">
+                        Si necesitas actualizar los datos, contacta con administración.
+                    </small>
+                </div>`,
+                'warning'
+            );
+        } else {
+            // ============================================
+            // ERROR: OTRO TIPO
+            // ============================================
+            mostrarAlerta(data.mensaje || 'Error al procesar la solicitud', 'error');
+        }
+        
+        // Rehabilitar botón de envío
+        btnEnviar.disabled = false;
+        btnEnviar.innerHTML = '<span>Enviar Solicitud</span><span class="btn-icon">✓</span>';
+    }
+})
+// ============================================
+// ERROR DE CONEXIÓN
+// ============================================
+.catch(error => {
+    console.error('❌ Error:', error);
+    mostrarAlerta('Error de conexión. Por favor intente nuevamente.', 'error');
+    
+    // Rehabilitar botón de envío
+    btnEnviar.disabled = false;
+    btnEnviar.innerHTML = '<span>Enviar Solicitud</span><span class="btn-icon">✓</span>';
+});
         });
     }
     

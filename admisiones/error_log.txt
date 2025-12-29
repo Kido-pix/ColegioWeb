@@ -1,0 +1,2 @@
+[26-Dec-2025 04:02:16 Europe/Berlin] Error en procesar.php: El DNI 11111111 ya está registrado. Solicitud: ADM2025S2450 - carlos madan lingua - Estado: Pendiente Pago - Registrado: 22/12/2025
+[26-Dec-2025 04:02:32 Europe/Berlin] Error en procesar.php: El DNI 11111111 ya está registrado. Solicitud: ADM2025S2450 - carlos madan lingua - Estado: Pendiente Pago - Registrado: 22/12/2025

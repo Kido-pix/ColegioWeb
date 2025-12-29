@@ -22,9 +22,7 @@ try {
         throw new Exception('Método no permitido');
     }
     
-    // ============================================
     // VALIDAR CAMPOS REQUERIDOS
-    // ============================================
     $campos_requeridos = [
         'nombres', 'apellido_paterno', 'apellido_materno',
         'dni_estudiante', 'fecha_nacimiento', 'sexo',
@@ -38,7 +36,30 @@ try {
             throw new Exception("El campo {$campo} es obligatorio");
         }
     }
+    // ============================================
+    // VALIDAR DNI DUPLICADO
+    // ============================================
+    $stmt = $conn->prepare("
+        SELECT 
+            codigo_postulante,
+            CONCAT(nombres, ' ', apellido_paterno, ' ', apellido_materno) as nombre_completo,
+            estado,
+            fecha_registro
+        FROM solicitudes_admision 
+        WHERE dni_estudiante = ?
+    ");
+    $stmt->execute([$_POST['dni_estudiante']]);
+    $solicitud_existente = $stmt->fetch(PDO::FETCH_ASSOC);
     
+    if ($solicitud_existente) {
+        throw new Exception(
+            "El DNI {$_POST['dni_estudiante']} ya está registrado. " .
+            "Solicitud: {$solicitud_existente['codigo_postulante']} - " .
+            "{$solicitud_existente['nombre_completo']} - " .
+            "Estado: {$solicitud_existente['estado']} - " .
+            "Registrado: " . date('d/m/Y', strtotime($solicitud_existente['fecha_registro']))
+        );
+    }
     // ============================================
     // GENERAR CÓDIGO ÚNICO
     // ============================================
@@ -110,9 +131,8 @@ try {
     $compro = procesarArchivo('comprobante_pago', $codigo_postulante, $directorio_uploads, true);
     $foto = procesarArchivo('foto_estudiante', $codigo_postulante, $directorio_uploads, false);
     
-    // ============================================
+
     // INSERTAR EN BASE DE DATOS
-    // ============================================
     $sql = "INSERT INTO solicitudes_admision (
         codigo_postulante,
         nombres, apellido_paterno, apellido_materno,

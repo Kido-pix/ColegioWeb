@@ -13,50 +13,86 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
     try {
         $db = Database::getInstance()->getConnection();
         
-        if ($_POST['accion'] === 'verificar_pago') {
-            $solicitudId = (int)$_POST['solicitud_id'];
-            $metodoPago = $_POST['metodo_pago'];
-            $numeroOperacion = $_POST['numero_operacion'] ?? '';
-            $observaciones = $_POST['observaciones'] ?? '';
-            
-            // Actualizar solicitud
-            $stmt = $db->prepare("
-                UPDATE solicitudes_admision 
-                SET pago_verificado = 1,
-                    fecha_pago = NOW(),
-                    metodo_pago = ?,
-                    numero_operacion = ?,
-                    estado = 'Pago Verificado',
-                    observaciones_entrevista = CONCAT(
-                        COALESCE(observaciones_entrevista, ''), 
-                        '\n\n[', NOW(), '] Pago verificado por ', ?, 
-                        IF(? != '', CONCAT('. Obs: ', ?), '')
-                    )
-                WHERE id = ?
-            ");
-            
-            $stmt->execute([
-                $metodoPago, 
-                $numeroOperacion, 
-                $_SESSION['admin_nombre'],
-                $observaciones,
-                $observaciones,
-                $solicitudId
-            ]);
-            
-            // Registrar en log
-            $stmt = $db->prepare("
-                INSERT INTO log_actividades (usuario_id, accion, solicitud_id, detalles)
-                VALUES (?, 'verificacion_pago', ?, ?)
-            ");
-            $stmt->execute([
-                $_SESSION['admin_id'],
-                $solicitudId,
-                "Pago verificado. Método: $metodoPago. " . ($observaciones ? "Obs: $observaciones" : "")
-            ]);
-            
-            $_SESSION['success'] = 'Pago verificado correctamente';
-            
+       if ($_POST['accion'] === 'verificar_pago') {
+    $solicitudId = (int)$_POST['solicitud_id'];
+    $metodoPago = $_POST['metodo_pago'];
+    $numeroOperacion = $_POST['numero_operacion'] ?? '';
+    $observaciones = $_POST['observaciones'] ?? '';
+    
+    // PASO 1: Obtener datos de la solicitud ANTES de actualizar
+    $stmt = $db->prepare("
+        SELECT 
+            codigo_postulante,
+            CONCAT(nombres, ' ', apellido_paterno, ' ', apellido_materno) as nombre_completo,
+            email_apoderado
+        FROM solicitudes_admision 
+        WHERE id = ?
+    ");
+    $stmt->execute([$solicitudId]);
+    $datosPostulante = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if (!$datosPostulante) {
+        throw new Exception('Solicitud no encontrada');
+    }
+    
+    // PASO 2: Actualizar solicitud
+    $stmt = $db->prepare("
+        UPDATE solicitudes_admision 
+        SET pago_verificado = 1,
+            fecha_pago = NOW(),
+            metodo_pago = ?,
+            numero_operacion = ?,
+            estado = 'Pago Verificado',
+            observaciones_entrevista = CONCAT(
+                COALESCE(observaciones_entrevista, ''), 
+                '\n\n[', NOW(), '] Pago verificado por ', ?, 
+                IF(? != '', CONCAT('. Obs: ', ?), '')
+            )
+        WHERE id = ?
+    ");
+    
+    $stmt->execute([
+        $metodoPago, 
+        $numeroOperacion, 
+        $_SESSION['admin_nombre'],
+        $observaciones,
+        $observaciones,
+        $solicitudId
+    ]);
+    
+    // PASO 3: Registrar en log
+    $stmt = $db->prepare("
+        INSERT INTO log_actividades (usuario_id, accion, solicitud_id, detalles)
+        VALUES (?, 'verificacion_pago', ?, ?)
+    ");
+    $stmt->execute([
+        $_SESSION['admin_id'],
+        $solicitudId,
+        "Pago verificado. Método: $metodoPago. " . ($observaciones ? "Obs: $observaciones" : "")
+    ]);
+    
+    // PASO 4: ENVIAR EMAIL AL POSTULANTE
+    require_once '../config/emailer.php';
+    
+    try {
+        $emailer = new Emailer();
+        $datosEmail = [
+            'codigo' => $datosPostulante['codigo_postulante'],
+            'nombre_completo' => $datosPostulante['nombre_completo'],
+            'email' => $datosPostulante['email_apoderado'],
+            'estado' => 'Pago Verificado'
+        ];
+        
+        $resultadoEmail = $emailer->enviarCambioEstado($datosEmail);
+        
+        if ($resultadoEmail['success']) {
+            $_SESSION['success'] = '✅ Pago verificado correctamente y email enviado al postulante';
+        } else {
+            $_SESSION['success'] = '✅ Pago verificado correctamente (⚠️ Email no enviado: ' . $resultadoEmail['message'] . ')';
+        }
+    } catch (Exception $e) {
+        $_SESSION['success'] = '✅ Pago verificado correctamente (⚠️ Error al enviar email: ' . $e->getMessage() . ')';
+    }
         } elseif ($_POST['accion'] === 'rechazar_pago') {
             $solicitudId = (int)$_POST['solicitud_id'];
             $motivo = $_POST['motivo_rechazo'];
@@ -1052,7 +1088,7 @@ try {
         </div>
     </main>
 
-    <!-- MODAL: VERIFICAR PAGO -->
+<!-- MODAL: VERIFICAR PAGO -->
     <div class="modal" id="modalVerificarPago">
         <div class="modal-content">
             <div class="modal-header">
@@ -1080,21 +1116,24 @@ try {
                 </div>
                 
                 <div class="form-group">
-                    <label>Número de Operación</label>
+                    <label>Número de Operación <small style="color: var(--text-secondary); font-weight: normal;">(Opcional)</small></label>
                     <input type="text" name="numero_operacion" class="form-control" 
-                           placeholder="Opcional - número de operación o referencia">
+                           placeholder="Dejar vacío si no aplica">
+                    <small style="color: var(--text-secondary); font-size: 0.8rem; display: block; margin-top: 5px;">
+                        💡 Solo completa este campo si deseas registrar un número de operación específico
+                    </small>
                 </div>
                 
                 <div class="form-group">
-                    <label>Observaciones</label>
+                    <label>Observaciones <small style="color: var(--text-secondary); font-weight: normal;">(Opcional)</small></label>
                     <textarea name="observaciones" class="form-control" rows="3" 
-                              placeholder="Observaciones adicionales (opcional)"></textarea>
+                              placeholder="Ej: Comprobante validado, pago confirmado"></textarea>
                 </div>
                 
                 <div style="padding: 15px; background: rgba(46, 212, 122, 0.1); border-radius: 8px; margin-bottom: 20px;">
                     <strong style="color: var(--success);">✓ Confirmar Verificación</strong>
                     <p style="color: var(--text-secondary); margin-top: 8px; font-size: 0.9rem;">
-                        Al verificar, el estado cambiará a "Pago Verificado" y se enviará una notificación al postulante.
+                        Al verificar, el estado cambiará a <strong>"Pago Verificado"</strong> y se enviará automáticamente un <strong>email de confirmación</strong> al postulante.
                     </p>
                 </div>
                 
@@ -1103,7 +1142,7 @@ try {
                         Cancelar
                     </button>
                     <button type="submit" class="btn btn-success">
-                        <i class="fas fa-check"></i> Verificar Pago
+                        <i class="fas fa-check"></i> Verificar Pago y Enviar Email
                     </button>
                 </div>
             </form>

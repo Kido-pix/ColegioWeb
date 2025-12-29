@@ -19,6 +19,84 @@ $solicitudId = (int)$_GET['id'];
 try {
     $db = Database::getInstance()->getConnection();
     
+    // ============================================
+    // PROCESAR EDICIÓN DE SOLICITUD
+    // ============================================
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['accion'] === 'editar_solicitud') {
+        try {
+            $nombres = trim($_POST['nombres']);
+            $apellido_paterno = trim($_POST['apellido_paterno']);
+            $apellido_materno = trim($_POST['apellido_materno']);
+            $dni_estudiante = trim($_POST['dni_estudiante']);
+            $fecha_nacimiento = $_POST['fecha_nacimiento'];
+            $sexo = $_POST['sexo'];
+            $direccion = trim($_POST['direccion']);
+            $distrito = trim($_POST['distrito']);
+            $colegio_procedencia = trim($_POST['colegio_procedencia']);
+            $apoderado_principal = $_POST['apoderado_principal'];
+            $celular_apoderado = trim($_POST['celular_apoderado']);
+            $email_apoderado = trim($_POST['email_apoderado']);
+            
+            if (strlen($dni_estudiante) != 8 || !is_numeric($dni_estudiante)) {
+                throw new Exception("El DNI debe tener 8 dígitos");
+            }
+            
+            $stmt = $db->prepare("SELECT id FROM solicitudes_admision WHERE dni_estudiante = ? AND id != ?");
+            $stmt->execute([$dni_estudiante, $solicitudId]);
+            if ($stmt->fetch()) {
+                throw new Exception("El DNI ya está registrado en otra solicitud");
+            }
+            
+            if (strlen($celular_apoderado) != 9 || !is_numeric($celular_apoderado)) {
+                throw new Exception("El celular debe tener 9 dígitos");
+            }
+            
+            if (!filter_var($email_apoderado, FILTER_VALIDATE_EMAIL)) {
+                throw new Exception("El email no es válido");
+            }
+            
+            $stmt = $db->prepare("SELECT codigo_postulante FROM solicitudes_admision WHERE id = ?");
+            $stmt->execute([$solicitudId]);
+            $codigo = $stmt->fetchColumn();
+            
+            $stmt = $db->prepare("
+                UPDATE solicitudes_admision SET
+                    nombres = ?, apellido_paterno = ?, apellido_materno = ?,
+                    dni_estudiante = ?, fecha_nacimiento = ?, sexo = ?,
+                    direccion = ?, distrito = ?, colegio_procedencia = ?,
+                    apoderado_principal = ?, celular_apoderado = ?, email_apoderado = ?,
+                    ultima_modificacion = NOW()
+                WHERE id = ?
+            ");
+            
+            $stmt->execute([
+                $nombres, $apellido_paterno, $apellido_materno,
+                $dni_estudiante, $fecha_nacimiento, $sexo,
+                $direccion, $distrito, $colegio_procedencia,
+                $apoderado_principal, $celular_apoderado, $email_apoderado,
+                $solicitudId
+            ]);
+            
+            $stmt = $db->prepare("
+                INSERT INTO log_actividades (usuario_id, accion, solicitud_id, detalles) 
+                VALUES (?, ?, ?, ?)
+            ");
+            $stmt->execute([
+                $_SESSION['admin_id'],
+                'editar_solicitud',
+                $solicitudId,
+                "Editó la solicitud - Código: {$codigo}"
+            ]);
+            
+            $_SESSION['success'] = "✅ Solicitud actualizada correctamente";
+            header("Location: ver_solicitud.php?id={$solicitudId}");
+            exit;
+            
+        } catch (Exception $e) {
+            $_SESSION['error'] = $e->getMessage();
+        }
+    }
+    
     // Obtener datos completos de la solicitud
     $stmt = $db->prepare("
         SELECT 
@@ -60,28 +138,69 @@ try {
         $accion = $_POST['accion'];
         
         switch ($accion) {
-            case 'cambiar_estado':
-                $nuevoEstado = $_POST['nuevo_estado'];
-                $observaciones = $_POST['observaciones'] ?? '';
-                
-                $stmt = $db->prepare("
-                    UPDATE solicitudes_admision 
-                    SET estado = ?,
-                        observaciones_entrevista = CONCAT(COALESCE(observaciones_entrevista, ''), '\n\n[', NOW(), '] ', ?)
-                    WHERE id = ?
-                ");
-                $stmt->execute([$nuevoEstado, $observaciones, $solicitudId]);
-                
-                // Registrar en log
-                $stmt = $db->prepare("
-                    INSERT INTO log_actividades (usuario_id, accion, solicitud_id, detalles)
-                    VALUES (?, 'cambio_estado', ?, ?)
-                ");
-                $stmt->execute([
-                    $_SESSION['admin_id'],
-                    $solicitudId,
-                    "Estado cambiado a: $nuevoEstado. $observaciones"
-                ]);
+case 'cambiar_estado':
+    $nuevoEstado = $_POST['nuevo_estado'];
+    $observaciones = $_POST['observaciones'] ?? '';
+    
+    // PASO 1: Obtener datos del postulante ANTES de actualizar
+    $stmt = $db->prepare("
+        SELECT 
+            codigo_postulante,
+            CONCAT(nombres, ' ', apellido_paterno, ' ', apellido_materno) as nombre_completo,
+            email_apoderado
+        FROM solicitudes_admision 
+        WHERE id = ?
+    ");
+    $stmt->execute([$solicitudId]);
+    $datosPostulante = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if (!$datosPostulante) {
+        throw new Exception('Solicitud no encontrada');
+    }
+    
+    // PASO 2: Actualizar estado
+    $stmt = $db->prepare("
+        UPDATE solicitudes_admision 
+        SET estado = ?,
+            observaciones_entrevista = CONCAT(COALESCE(observaciones_entrevista, ''), '\n\n[', NOW(), '] ', ?)
+        WHERE id = ?
+    ");
+    $stmt->execute([$nuevoEstado, $observaciones, $solicitudId]);
+    
+    // PASO 3: Registrar en log
+    $stmt = $db->prepare("
+        INSERT INTO log_actividades (usuario_id, accion, solicitud_id, detalles)
+        VALUES (?, 'cambio_estado', ?, ?)
+    ");
+    $stmt->execute([
+        $_SESSION['admin_id'],
+        $solicitudId,
+        "Estado cambiado a: $nuevoEstado. $observaciones"
+    ]);
+    
+    // PASO 4: ENVIAR EMAIL AL POSTULANTE
+    require_once '../config/emailer.php';
+    
+    try {
+        $emailer = new Emailer();
+        $datosEmail = [
+            'codigo' => $datosPostulante['codigo_postulante'],
+            'nombre_completo' => $datosPostulante['nombre_completo'],
+            'email' => $datosPostulante['email_apoderado'],
+            'estado' => $nuevoEstado
+        ];
+        
+        $resultadoEmail = $emailer->enviarCambioEstado($datosEmail);
+        
+        if ($resultadoEmail['success']) {
+            $_SESSION['success'] = '✅ Estado actualizado correctamente y email enviado al postulante';
+        } else {
+            $_SESSION['success'] = '✅ Estado actualizado correctamente (⚠️ Email no enviado: ' . $resultadoEmail['message'] . ')';
+        }
+    } catch (Exception $e) {
+        $_SESSION['success'] = '✅ Estado actualizado correctamente (⚠️ Error al enviar email: ' . $e->getMessage() . ')';
+    }
+    break;
                 
                 $_SESSION['success'] = 'Estado actualizado correctamente';
                 break;
@@ -115,61 +234,144 @@ try {
                 $_SESSION['success'] = 'Pago verificado correctamente';
                 break;
                 
-            case 'agendar_entrevista':
-                $fechaEntrevista = $_POST['fecha_entrevista'];
-                $observaciones = $_POST['observaciones'] ?? '';
+case 'agendar_entrevista':
+    $fechaEntrevista = $_POST['fecha_entrevista'];
+    $observaciones = $_POST['observaciones'] ?? '';
+    
+    // PASO 1: Obtener datos del postulante ANTES de actualizar
+    $stmt = $db->prepare("
+        SELECT 
+            codigo_postulante,
+            CONCAT(nombres, ' ', apellido_paterno, ' ', apellido_materno) as nombre_completo,
+            email_apoderado
+        FROM solicitudes_admision 
+        WHERE id = ?
+    ");
+    $stmt->execute([$solicitudId]);
+    $datosPostulante = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if (!$datosPostulante) {
+        throw new Exception('Solicitud no encontrada');
+    }
+    
+    // Formatear fecha y hora para el email
+    $fechaObj = new DateTime($fechaEntrevista);
+    $fechaFormateada = $fechaObj->format('d/m/Y');
+    $horaFormateada = $fechaObj->format('h:i A');
+    
+    // PASO 2: Actualizar solicitud
+    $stmt = $db->prepare("
+        UPDATE solicitudes_admision 
+        SET fecha_entrevista = ?,
+            observaciones_entrevista = CONCAT(COALESCE(observaciones_entrevista, ''), '\n\n[', NOW(), '] Entrevista agendada: ', ?),
+            estado = 'Entrevista Agendada'
+        WHERE id = ?
+    ");
+    $stmt->execute([$fechaEntrevista, $observaciones, $solicitudId]);
+    
+    // PASO 3: Registrar en log
+    $stmt = $db->prepare("
+        INSERT INTO log_actividades (usuario_id, accion, solicitud_id, detalles)
+        VALUES (?, 'agendar_entrevista', ?, ?)
+    ");
+    $stmt->execute([
+        $_SESSION['admin_id'],
+        $solicitudId,
+        "Entrevista agendada para: $fechaEntrevista"
+    ]);
+    
+    // PASO 4: ENVIAR EMAIL AL POSTULANTE
+    require_once '../config/emailer.php';
+    
+    try {
+        $emailer = new Emailer();
+        $datosEmail = [
+            'codigo' => $datosPostulante['codigo_postulante'],
+            'nombre_completo' => $datosPostulante['nombre_completo'],
+            'email' => $datosPostulante['email_apoderado'],
+            'estado' => 'Entrevista Agendada',
+            'fecha_entrevista' => $fechaFormateada,
+            'hora_entrevista' => $horaFormateada
+        ];
+        
+        $resultadoEmail = $emailer->enviarCambioEstado($datosEmail);
+        
+        if ($resultadoEmail['success']) {
+            $_SESSION['success'] = '✅ Entrevista agendada correctamente y email enviado al postulante';
+        } else {
+            $_SESSION['success'] = '✅ Entrevista agendada correctamente (⚠️ Email no enviado: ' . $resultadoEmail['message'] . ')';
+        }
+    } catch (Exception $e) {
+        $_SESSION['success'] = '✅ Entrevista agendada correctamente (⚠️ Error al enviar email: ' . $e->getMessage() . ')';
+    }
+    break;
                 
-                $stmt = $db->prepare("
-                    UPDATE solicitudes_admision 
-                    SET fecha_entrevista = ?,
-                        observaciones_entrevista = CONCAT(COALESCE(observaciones_entrevista, ''), '\n\n[', NOW(), '] Entrevista agendada: ', ?),
-                        estado = 'Entrevista Agendada'
-                    WHERE id = ?
-                ");
-                $stmt->execute([$fechaEntrevista, $observaciones, $solicitudId]);
-                
-                // Registrar en log
-                $stmt = $db->prepare("
-                    INSERT INTO log_actividades (usuario_id, accion, solicitud_id, detalles)
-                    VALUES (?, 'agendar_entrevista', ?, ?)
-                ");
-                $stmt->execute([
-                    $_SESSION['admin_id'],
-                    $solicitudId,
-                    "Entrevista agendada para: $fechaEntrevista"
-                ]);
-                
-                $_SESSION['success'] = 'Entrevista agendada correctamente';
-                break;
-                
-            case 'resultado_entrevista':
-                $resultado = $_POST['resultado'];
-                $observaciones = $_POST['observaciones'];
-                
-                $nuevoEstado = $resultado === 'Aprobado' ? 'Admitido' : 'Rechazado';
-                
-                $stmt = $db->prepare("
-                    UPDATE solicitudes_admision 
-                    SET resultado_entrevista = ?,
-                        estado = ?,
-                        observaciones_entrevista = CONCAT(COALESCE(observaciones_entrevista, ''), '\n\n[', NOW(), '] Resultado: ', ?)
-                    WHERE id = ?
-                ");
-                $stmt->execute([$resultado, $nuevoEstado, $observaciones, $solicitudId]);
-                
-                // Registrar en log
-                $stmt = $db->prepare("
-                    INSERT INTO log_actividades (usuario_id, accion, solicitud_id, detalles)
-                    VALUES (?, 'resultado_entrevista', ?, ?)
-                ");
-                $stmt->execute([
-                    $_SESSION['admin_id'],
-                    $solicitudId,
-                    "Resultado de entrevista: $resultado"
-                ]);
-                
-                $_SESSION['success'] = 'Resultado registrado correctamente';
-                break;
+case 'resultado_entrevista':
+    $resultado = $_POST['resultado'];
+    $observaciones = $_POST['observaciones'];
+    
+    $nuevoEstado = $resultado === 'Aprobado' ? 'Admitido' : 'Rechazado';
+    
+    // PASO 1: Obtener datos del postulante ANTES de actualizar
+    $stmt = $db->prepare("
+        SELECT 
+            codigo_postulante,
+            CONCAT(nombres, ' ', apellido_paterno, ' ', apellido_materno) as nombre_completo,
+            email_apoderado
+        FROM solicitudes_admision 
+        WHERE id = ?
+    ");
+    $stmt->execute([$solicitudId]);
+    $datosPostulante = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if (!$datosPostulante) {
+        throw new Exception('Solicitud no encontrada');
+    }
+    
+    // PASO 2: Actualizar solicitud
+    $stmt = $db->prepare("
+        UPDATE solicitudes_admision 
+        SET resultado_entrevista = ?,
+            estado = ?,
+            observaciones_entrevista = CONCAT(COALESCE(observaciones_entrevista, ''), '\n\n[', NOW(), '] Resultado: ', ?)
+        WHERE id = ?
+    ");
+    $stmt->execute([$resultado, $nuevoEstado, $observaciones, $solicitudId]);
+    
+    // PASO 3: Registrar en log
+    $stmt = $db->prepare("
+        INSERT INTO log_actividades (usuario_id, accion, solicitud_id, detalles)
+        VALUES (?, 'resultado_entrevista', ?, ?)
+    ");
+    $stmt->execute([
+        $_SESSION['admin_id'],
+        $solicitudId,
+        "Resultado de entrevista: $resultado"
+    ]);
+    
+    // PASO 4: ENVIAR EMAIL AL POSTULANTE
+    require_once '../config/emailer.php';
+    
+    try {
+        $emailer = new Emailer();
+        $datosEmail = [
+            'codigo' => $datosPostulante['codigo_postulante'],
+            'nombre_completo' => $datosPostulante['nombre_completo'],
+            'email' => $datosPostulante['email_apoderado'],
+            'estado' => $nuevoEstado
+        ];
+        
+        $resultadoEmail = $emailer->enviarCambioEstado($datosEmail);
+        
+        if ($resultadoEmail['success']) {
+            $_SESSION['success'] = '✅ Resultado registrado correctamente y email enviado al postulante';
+        } else {
+            $_SESSION['success'] = '✅ Resultado registrado correctamente (⚠️ Email no enviado: ' . $resultadoEmail['message'] . ')';
+        }
+    } catch (Exception $e) {
+        $_SESSION['success'] = '✅ Resultado registrado correctamente (⚠️ Error al enviar email: ' . $e->getMessage() . ')';
+    }
+    break;
         }
         
         // Recargar datos actualizados
@@ -1308,15 +1510,20 @@ $edad = $hoy->diff($fechaNac)->y;
                 <?php endif; ?>
 
                 <!-- Acciones -->
-                <div class="data-section">
-                    <h3 class="section-title">
-                        <i class="fas fa-cogs"></i>
-                        Acciones
-                    </h3>
-                    <button class="btn btn-primary" onclick="openModal('modalCambiarEstado')">
-                        <i class="fas fa-exchange-alt"></i> Cambiar Estado
-                    </button>
-                </div>
+<div class="data-section">
+    <h3 class="section-title">
+        <i class="fas fa-cogs"></i>
+        Acciones
+    </h3>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+        <button class="btn btn-primary" onclick="abrirModalEditar()">
+            <i class="fas fa-edit"></i> Editar Solicitud
+        </button>
+        <button class="btn btn-secondary" onclick="openModal('modalCambiarEstado')">
+            <i class="fas fa-exchange-alt"></i> Cambiar Estado
+        </button>
+    </div>
+</div>
             </div>
 
             <!-- TAB: DOCUMENTOS -->
@@ -1834,13 +2041,130 @@ $edad = $hoy->diff($fechaNac)->y;
         });
 
         // Cerrar modal con tecla ESC
-        document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 document.querySelectorAll('.modal.active').forEach(modal => {
                     modal.classList.remove('active');
                 });
             }
         });
+
+        function abrirModalEditar() {
+            document.getElementById('modalEditarSolicitud').classList.add('active');
+        }
+
+        function cerrarModalEditar() {
+            document.getElementById('modalEditarSolicitud').classList.remove('active');
+        }
     </script>
+
+    <!-- MODAL EDITAR SOLICITUD -->
+    <div class="modal" id="modalEditarSolicitud">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-edit"></i> Editar Solicitud</h3>
+                <button class="btn-close" onclick="cerrarModalEditar()">&times;</button>
+            </div>
+
+            <form method="POST">
+                <input type="hidden" name="accion" value="editar_solicitud">
+                
+                <h4 style="color: var(--text); margin: 20px 0 15px 0; padding-bottom: 10px; border-bottom: 1px solid var(--border);">
+                    👤 Datos del Estudiante
+                </h4>
+                
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                    <div class="form-group">
+                        <label>Nombres *</label>
+                        <input type="text" name="nombres" class="form-control" value="<?php echo htmlspecialchars($solicitud['nombres']); ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Apellido Paterno *</label>
+                        <input type="text" name="apellido_paterno" class="form-control" value="<?php echo htmlspecialchars($solicitud['apellido_paterno']); ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Apellido Materno *</label>
+                        <input type="text" name="apellido_materno" class="form-control" value="<?php echo htmlspecialchars($solicitud['apellido_materno']); ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>DNI *</label>
+                        <input type="text" name="dni_estudiante" class="form-control" value="<?php echo htmlspecialchars($solicitud['dni_estudiante']); ?>" maxlength="8" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha de Nacimiento *</label>
+                        <input type="date" name="fecha_nacimiento" class="form-control" value="<?php echo htmlspecialchars($solicitud['fecha_nacimiento']); ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sexo *</label>
+                        <select name="sexo" class="form-control" required>
+                            <option value="Masculino" <?php echo $solicitud['sexo'] == 'Masculino' ? 'selected' : ''; ?>>Masculino</option>
+                            <option value="Femenino" <?php echo $solicitud['sexo'] == 'Femenino' ? 'selected' : ''; ?>>Femenino</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Dirección *</label>
+                    <input type="text" name="direccion" class="form-control" value="<?php echo htmlspecialchars($solicitud['direccion']); ?>" required>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                    <div class="form-group">
+                        <label>Distrito *</label>
+                        <input type="text" name="distrito" class="form-control" value="<?php echo htmlspecialchars($solicitud['distrito']); ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Colegio de Procedencia</label>
+                        <input type="text" name="colegio_procedencia" class="form-control" value="<?php echo htmlspecialchars($solicitud['colegio_procedencia']); ?>">
+                    </div>
+                </div>
+
+                <h4 style="color: var(--text); margin: 20px 0 15px 0; padding-bottom: 10px; border-bottom: 1px solid var(--border);">
+                     Datos del Apoderado
+                </h4>
+
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                    <div class="form-group">
+                        <label>Apoderado Principal *</label>
+                        <select name="apoderado_principal" class="form-control" required>
+                            <option value="Padre" <?php echo $solicitud['apoderado_principal'] == 'Padre' ? 'selected' : ''; ?>>Padre</option>
+                            <option value="Madre" <?php echo $solicitud['apoderado_principal'] == 'Madre' ? 'selected' : ''; ?>>Madre</option>
+                            <option value="Otro" <?php echo $solicitud['apoderado_principal'] == 'Otro' ? 'selected' : ''; ?>>Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Celular del Apoderado *</label>
+                        <input type="tel" name="celular_apoderado" class="form-control" value="<?php echo htmlspecialchars($solicitud['celular_apoderado']); ?>" maxlength="9" required>
+                    </div>
+
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>Email del Apoderado *</label>
+                        <input type="email" name="email_apoderado" class="form-control" value="<?php echo htmlspecialchars($solicitud['email_apoderado']); ?>" required>
+                    </div>
+                </div>
+
+                <div style="padding: 15px; background: rgba(58, 175, 169, 0.1); border-left: 4px solid var(--accent); border-radius: 4px; margin: 20px 0;">
+                    <strong>ℹ️ Nota:</strong> Los documentos adjuntos no se pueden editar desde aquí.
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 25px;">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Guardar Cambios
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="cerrarModalEditar()">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>
