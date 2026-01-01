@@ -11,7 +11,7 @@ class Database {
     
     // Configuración de la base de datos
     private $host = 'localhost';
-    private $dbname = 'trinity_admisiones';
+    private $dbname = 'trinity';
     private $username = 'root';
     private $password = '';
     

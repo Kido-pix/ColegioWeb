@@ -301,6 +301,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="submit" class="btn-login">
                     <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
                 </button>
+                <div style="text-align: center; margin-top: 15px;">
+    <a href="recuperar_password.php" style="color: #3AAFA9; text-decoration: none; font-size: 0.9rem; font-weight: 500;">
+        ¿Olvidaste tu contraseña?
+    </a>
+</div>
             </form>
 
             <div class="login-footer">

@@ -1,2 +1,7 @@
 [26-Dec-2025 04:02:16 Europe/Berlin] Error en procesar.php: El DNI 11111111 ya está registrado. Solicitud: ADM2025S2450 - carlos madan lingua - Estado: Pendiente Pago - Registrado: 22/12/2025
 [26-Dec-2025 04:02:32 Europe/Berlin] Error en procesar.php: El DNI 11111111 ya está registrado. Solicitud: ADM2025S2450 - carlos madan lingua - Estado: Pendiente Pago - Registrado: 22/12/2025
+[31-Dec-2025 00:08:43 Europe/Berlin] Error en procesar.php: Error al subir dni_estudiante_doc
+[31-Dec-2025 00:16:42 Europe/Berlin] Error en procesar.php: El DNI 88888888 ya está registrado. Solicitud: ADM2025S7679 - joe  Julca De la cruz - Estado: Entrevista Agendada - Registrado: 25/11/2025
+[31-Dec-2025 00:19:18 Europe/Berlin] Error en procesar.php: El DNI 88888888 ya está registrado. Solicitud: ADM2025S7679 - joe  Julca De la cruz - Estado: Entrevista Agendada - Registrado: 25/11/2025
+[31-Dec-2025 00:22:19 Europe/Berlin] Error en procesar.php: El DNI 88888888 ya está registrado. Solicitud: ADM2025S7679 - joe  Julca De la cruz - Estado: Entrevista Agendada - Registrado: 25/11/2025
+[31-Dec-2025 01:07:38 Europe/Berlin] Error en procesar.php: El DNI 98647362 ya está registrado. Solicitud: ADM2025P7430 - Joe paredes de la cruz - Estado: Pago Verificado - Registrado: 30/12/2025

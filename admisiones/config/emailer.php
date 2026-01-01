@@ -113,6 +113,33 @@ class Emailer {
     }
     
     /**
+     * EMAIL TIPO 4: Email Personalizado (para recuperación de contraseña, etc)
+     */
+    public function enviarEmailPersonalizado($destinatario, $asunto, $cuerpoHTML) {
+        try {
+            $this->mail->clearAddresses();
+            $this->mail->addAddress($destinatario);
+            $this->mail->Subject = $asunto;
+            $this->mail->isHTML(true);
+            $this->mail->Body = $cuerpoHTML;
+            $this->mail->AltBody = strip_tags($cuerpoHTML);
+            
+            $resultado = $this->mail->send();
+            
+            return [
+                'success' => $resultado,
+                'message' => $resultado ? 'Email enviado correctamente' : 'Error al enviar email'
+            ];
+        } catch (Exception $e) {
+            error_log("Error enviando email personalizado: " . $e->getMessage());
+            return [
+                'success' => false,
+                'message' => $this->mail->ErrorInfo
+            ];
+        }
+    }
+
+    /**
      * Obtener asunto según el estado
      */
     private function obtenerAsuntoPorEstado($estado) {

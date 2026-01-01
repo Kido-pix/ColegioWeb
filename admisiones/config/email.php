@@ -17,7 +17,7 @@ class EmailConfig {
     
     // Credenciales (CAMBIAR cuando subas a hosting)
     const SMTP_USERNAME = 'joe159julca357@gmail.com';
-    const SMTP_PASSWORD = 'femculsaynnpkqre'; // ← Aquí irá tu contraseña de aplicación
+    const SMTP_PASSWORD = 'hrlftzynivododck'; // ← Aquí irá tu contraseña de aplicación
     
     // Remitente
     const FROM_EMAIL = 'joe159julca357@gmail.com';

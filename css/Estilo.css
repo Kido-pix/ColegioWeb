@@ -1315,6 +1315,41 @@ footer {
     padding-top: 25px;
     color: #999;
 }
+/* ============================================
+   BOTÓN ADMIN EN FOOTER
+   ============================================ */
+.btn-admin-footer {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 12px 20px;
+    background: rgba(27, 75, 90, 0.15);
+    border: 1.5px solid rgba(27, 75, 90, 0.4);
+    border-radius: 8px;
+    color: #1B4B5A;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.btn-admin-footer:hover {
+    background: rgba(27, 75, 90, 0.25);
+    border-color: #1B4B5A;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27, 75, 90, 0.2);
+}
+
+/* Dark mode */
+body.dark-mode .btn-admin-footer {
+    background: rgba(58, 175, 169, 0.15);
+    border-color: rgba(58, 175, 169, 0.4);
+    color: #3AAFA9;
+}
+
+body.dark-mode .btn-admin-footer:hover {
+    background: rgba(58, 175, 169, 0.25);
+    border-color: #3AAFA9;
+}
 
 /* ============================================
    ANIMACIONES DE SCROLL
