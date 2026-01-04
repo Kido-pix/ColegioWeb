@@ -166,16 +166,15 @@ try {
     $stmt = $db->query($sql);
     $solicitudes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-    // Estadísticas
-    $stmt = $db->query("
-        SELECT 
-            COUNT(*) as total,
-            SUM(CASE WHEN estado = 'Pendiente Pago' THEN 1 ELSE 0 END) as pendientes,
-            SUM(CASE WHEN pago_verificado = 1 THEN 1 ELSE 0 END) as verificados,
-            SUM(CASE WHEN pago_verificado = 1 THEN monto_pago ELSE 0 END) as monto_recaudado
-        FROM solicitudes_admision
-        WHERE comprobante_pago IS NOT NULL
-    ");
+// Estadísticas
+$stmt = $db->query("
+    SELECT 
+        (SELECT COUNT(*) FROM solicitudes_admision WHERE comprobante_pago IS NOT NULL) as total,
+        (SELECT COUNT(*) FROM solicitudes_admision WHERE estado = 'Pendiente Pago' AND comprobante_pago IS NOT NULL) as pendientes,
+        (SELECT COUNT(*) FROM solicitudes_admision WHERE pago_verificado = 1 AND estado != 'Rechazado') as verificados,
+        (SELECT COALESCE(SUM(monto_pago), 0) FROM solicitudes_admision WHERE pago_verificado = 1 AND estado != 'Rechazado') as monto_recaudado
+");
+
     $stats = $stmt->fetch();
     
 } catch(PDOException $e) {

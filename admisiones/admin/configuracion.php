@@ -38,9 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->execute([$password_hash, $_SESSION['admin_id']]);
                 
                 // Registrar en log
-                $stmt = $db->prepare("INSERT INTO log_actividades (usuario_admin, accion, detalles) VALUES (?, ?, ?)");
+                $stmt = $db->prepare("INSERT INTO log_actividades (usuario_id, accion, detalles) VALUES (?, ?, ?)");
                 $stmt->execute([
-                    $_SESSION['admin_nombre'],
+                    $_SESSION['admin_id'],
                     'Cambio de contraseña',
                     'Usuario cambió su contraseña'
                 ]);
@@ -55,6 +55,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
     
+// Verificar permisos de administrador para acciones de usuarios
+if (isset($_POST['accion']) && in_array($_POST['accion'], ['crear_usuario', 'editar_usuario', 'eliminar_usuario'])) {
+    if ($_SESSION['admin_rol'] !== 'Administrador') {
+        $_SESSION['error'] = "No tienes permisos para realizar esta acción";
+        header('Location: configuracion.php');
+        exit;
+    }
+}
+
     // CREAR USUARIO
     if (isset($_POST['accion']) && $_POST['accion'] === 'crear_usuario') {
         $nombre = trim($_POST['nombre']);
@@ -82,9 +91,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->execute([$nombre, $usuario, $email, $password_hash, $rol]);
                 
                 // Registrar en log
-                $stmt = $db->prepare("INSERT INTO log_actividades (usuario_admin, accion, detalles) VALUES (?, ?, ?)");
+                $stmt = $db->prepare("INSERT INTO log_actividades (usuario_id, accion, detalles) VALUES (?, ?, ?)");
                 $stmt->execute([
-                    $_SESSION['admin_nombre'],
+                    $_SESSION['admin_id'],
                     'Crear usuario',
                     "Creó usuario: $nombre ($usuario)"
                 ]);
@@ -116,9 +125,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$nombre, $email, $rol, $activo, $id]);
             
             // Registrar en log
-            $stmt = $db->prepare("INSERT INTO log_actividades (usuario_admin, accion, detalles) VALUES (?, ?, ?)");
+            $stmt = $db->prepare("INSERT INTO log_actividades (usuario_id, accion, detalles) VALUES (?, ?, ?)");
             $stmt->execute([
-                $_SESSION['admin_nombre'],
+                $_SESSION['admin_id'],
                 'Editar usuario',
                 "Editó usuario ID: $id"
             ]);
@@ -145,9 +154,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->execute([$id]);
                 
                 // Registrar en log
-                $stmt = $db->prepare("INSERT INTO log_actividades (usuario_admin, accion, detalles) VALUES (?, ?, ?)");
+                $stmt = $db->prepare("INSERT INTO log_actividades (usuario_id, accion, detalles) VALUES (?, ?, ?)");
                 $stmt->execute([
-                    $_SESSION['admin_nombre'],
+                    $_SESSION['admin_id'],
                     'Eliminar usuario',
                     "Eliminó usuario ID: $id"
                 ]);
@@ -176,7 +185,7 @@ try {
 try {
     $stmt = $db->query("
         SELECT * FROM log_actividades 
-        ORDER BY fecha_hora DESC 
+        ORDER BY fecha DESC 
         LIMIT 50
     ");
     $actividades = $stmt->fetchAll();
@@ -780,9 +789,11 @@ try {
                 <div class="card-title">
                     <i class="fas fa-users"></i>
                     Gestión de Usuarios
-                    <button class="btn btn-success" onclick="abrirModal('modalCrear')" style="margin-left: auto;">
-                        <i class="fas fa-plus"></i> Crear Usuario
-                    </button>
+<?php if ($_SESSION['admin_rol'] === 'Administrador'): ?>
+<button class="btn btn-success" onclick="abrirModal('modalCrear')" style="margin-left: auto;">
+    <i class="fas fa-plus"></i> Crear Usuario
+</button>
+<?php endif; ?>
                 </div>
 
                 <div class="table-responsive">
@@ -817,24 +828,28 @@ try {
                                         <span class="badge badge-danger">Inactivo</span>
                                     <?php endif; ?>
                                 </td>
-                                <td>
-                                    <div class="action-btns">
-                                        <button class="btn btn-primary btn-sm" 
-                                                onclick="editarUsuario(<?php echo htmlspecialchars(json_encode($usuario)); ?>)">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <?php if ($usuario['id'] != $_SESSION['admin_id']): ?>
-                                        <form method="POST" style="display: inline;" 
-                                              onsubmit="return confirm('¿Eliminar este usuario?')">
-                                            <input type="hidden" name="accion" value="eliminar_usuario">
-                                            <input type="hidden" name="id" value="<?php echo $usuario['id']; ?>">
-                                            <button type="submit" class="btn btn-danger btn-sm">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
+
+<td>
+    <div class="action-btns">
+        <?php if ($_SESSION['admin_rol'] === 'Administrador'): ?>
+        <button class="btn btn-primary btn-sm" 
+                onclick="editarUsuario(<?php echo htmlspecialchars(json_encode($usuario)); ?>)">
+            <i class="fas fa-edit"></i>
+        </button>
+        <?php if ($usuario['id'] != $_SESSION['admin_id']): ?>
+        <form method="POST" style="display: inline;" 
+              onsubmit="return confirm('¿Eliminar este usuario?')">
+            <input type="hidden" name="accion" value="eliminar_usuario">
+            <input type="hidden" name="id" value="<?php echo $usuario['id']; ?>">
+            <button type="submit" class="btn btn-danger btn-sm">
+                <i class="fas fa-trash"></i>
+            </button>
+        </form>
+        <?php endif; ?>
+        <?php endif; ?>
+    </div>
+</td>
+
                             </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -898,8 +913,8 @@ try {
                         <tbody>
                             <?php foreach ($actividades as $actividad): ?>
                             <tr>
-                                <td><?php echo date('d/m/Y H:i', strtotime($actividad['fecha_hora'])); ?></td>
-                                <td><?php echo htmlspecialchars($actividad['usuario_admin']); ?></td>
+                                <td><?php echo date('d/m/Y H:i', strtotime($actividad['fecha'])); ?></td>
+                                <td><?php echo htmlspecialchars($actividad['usuario_id']); ?></td>
                                 <td>
                                     <span class="badge badge-primary">
                                         <?php echo htmlspecialchars($actividad['accion']); ?>
@@ -923,28 +938,28 @@ try {
                 <button class="btn-close" onclick="cerrarModal('modalCrear')">&times;</button>
             </div>
 
-            <form method="POST">
-                <input type="hidden" name="accion" value="crear_usuario">
+<form method="POST" autocomplete="off">
+    <input type="hidden" name="accion" value="crear_usuario">
 
-                <div class="form-group">
-                    <label class="form-label">Nombre Completo *</label>
-                    <input type="text" name="nombre" class="form-input" required>
-                </div>
+    <div class="form-group">
+        <label class="form-label">Nombre Completo *</label>
+        <input type="text" name="nombre" class="form-input" required autocomplete="off">
+    </div>
 
-                <div class="form-group">
-                    <label class="form-label">Nombre de Usuario *</label>
-                    <input type="text" name="usuario" class="form-input" required>
-                </div>
+    <div class="form-group">
+        <label class="form-label">Nombre de Usuario *</label>
+        <input type="text" name="usuario" class="form-input" required autocomplete="new-username">
+    </div>
 
-                <div class="form-group">
-                    <label class="form-label">Email *</label>
-                    <input type="email" name="email" class="form-input" required>
-                </div>
+    <div class="form-group">
+        <label class="form-label">Email *</label>
+        <input type="email" name="email" class="form-input" required autocomplete="new-email">
+    </div>
 
-                <div class="form-group">
-                    <label class="form-label">Contraseña *</label>
-                    <input type="password" name="password" class="form-input" required minlength="6">
-                </div>
+    <div class="form-group">
+        <label class="form-label">Contraseña *</label>
+        <input type="password" name="password" class="form-input" required minlength="6" autocomplete="new-password">
+    </div>
 
                 <div class="form-group">
                     <label class="form-label">Rol *</label>

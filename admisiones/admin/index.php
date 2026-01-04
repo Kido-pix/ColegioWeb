@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['admin_logueado'] = true;
                 $_SESSION['admin_id'] = $admin['id'];
                 $_SESSION['admin_usuario'] = $admin['usuario'];
-                $_SESSION['admin_nombre'] = $admin['nombre_completo'];
+                $_SESSION['admin_nombre'] = $admin['nombre'] ?? $admin['nombre_completo'];
                 $_SESSION['admin_rol'] = $admin['rol'];
                 
                 // Actualizar último acceso

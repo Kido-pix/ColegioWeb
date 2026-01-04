@@ -26,7 +26,7 @@ try {
     $params = [];
     
     if (!empty($filtroNivel)) {
-        $whereConditions[] = "nivel_educativo = ?";
+$whereConditions[] = "nivel_postula = ?";
         $params[] = $filtroNivel;
     }
     
@@ -36,7 +36,7 @@ try {
     }
     
     if (!empty($filtroBusqueda)) {
-        $whereConditions[] = "(codigo_postulante LIKE ? OR CONCAT(nombre_estudiante, ' ', apellido_paterno, ' ', apellido_materno) LIKE ? OR dni_estudiante LIKE ?)";
+        $whereConditions[] = "(codigo_postulante LIKE ? OR CONCAT(nombres, ' ', apellido_paterno, ' ', apellido_materno) LIKE ? OR dni_estudiante LIKE ?)";
         $busquedaParam = "%{$filtroBusqueda}%";
         $params[] = $busquedaParam;
         $params[] = $busquedaParam;

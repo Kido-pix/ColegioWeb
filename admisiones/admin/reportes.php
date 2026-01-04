@@ -105,21 +105,21 @@ if (isset($_GET['exportar'])) {
                     $col++;
                 }
                 
-                // Datos
-                $stmt = $db->query("
-                    SELECT 
-                        codigo_postulante,
-                        CONCAT(nombres, ' ', apellido_paterno, ' ', apellido_materno) as nombre_completo,
-                        nivel_postula,
-                        grado_postula,
-                        metodo_pago,
-                        numero_operacion,
-                        fecha_pago,
-                        monto_pago
-                    FROM solicitudes_admision
-                    WHERE pago_verificado = 1
-                    ORDER BY fecha_pago DESC
-                ");
+ // Datos
+$stmt = $db->query("
+    SELECT 
+        codigo_postulante,
+        CONCAT(nombres, ' ', apellido_paterno, ' ', apellido_materno) as nombre_completo,
+        nivel_postula,
+        grado_postula,
+        metodo_pago,
+        numero_operacion,
+        fecha_pago,
+        monto_pago
+    FROM solicitudes_admision
+    WHERE pago_verificado = 1 AND estado != 'Rechazado'
+    ORDER BY fecha_pago DESC
+");
                 
                 $row = 2;
                 $totalMonto = 0;
@@ -257,16 +257,17 @@ if (isset($_GET['exportar'])) {
 try {
     $db = Database::getInstance()->getConnection();
     
-    $stmt = $db->query("
-        SELECT 
-            COUNT(*) as total,
-            SUM(CASE WHEN estado = 'Pendiente Pago' THEN 1 ELSE 0 END) as pendientes,
-            SUM(CASE WHEN pago_verificado = 1 THEN 1 ELSE 0 END) as pagos_verificados,
-            SUM(CASE WHEN estado = 'Entrevista Agendada' THEN 1 ELSE 0 END) as entrevistas,
-            SUM(CASE WHEN estado = 'Admitido' THEN 1 ELSE 0 END) as admitidos,
-            SUM(CASE WHEN pago_verificado = 1 THEN monto_pago ELSE 0 END) as total_recaudado
-        FROM solicitudes_admision
-    ");
+$stmt = $db->query("
+    SELECT 
+        COUNT(*) as total,
+        SUM(CASE WHEN estado = 'Pendiente Pago' THEN 1 ELSE 0 END) as pendientes,
+        SUM(CASE WHEN pago_verificado = 1 AND estado != 'Rechazado' THEN 1 ELSE 0 END) as pagos_verificados,
+        SUM(CASE WHEN estado = 'Entrevista Agendada' THEN 1 ELSE 0 END) as entrevistas,
+        SUM(CASE WHEN estado = 'Admitido' THEN 1 ELSE 0 END) as admitidos,
+        SUM(CASE WHEN pago_verificado = 1 AND estado != 'Rechazado' THEN monto_pago ELSE 0 END) as total_recaudado
+    FROM solicitudes_admision
+");
+
     $stats = $stmt->fetch();
     
 } catch(PDOException $e) {

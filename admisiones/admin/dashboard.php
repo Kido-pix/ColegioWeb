@@ -132,17 +132,36 @@ try {
     ");
     $solicitudesPorNivel = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-    // GRÁFICO 3: Solicitudes por mes (últimos 6 meses)
-    $stmt = $db->query("
-        SELECT 
-            DATE_FORMAT(fecha_registro, '%Y-%m') as mes,
-            DATE_FORMAT(fecha_registro, '%b %Y') as mes_nombre,
-            COUNT(*) as cantidad
-        FROM solicitudes_admision
-        WHERE fecha_registro >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
-        GROUP BY mes, mes_nombre
-        ORDER BY mes ASC
-    ");
+
+// GRÁFICO 3: Solicitudes por mes (últimos 6 meses)
+$stmt = $db->query("
+    SELECT 
+        DATE_FORMAT(fecha_registro, '%Y-%m') as mes,
+        CONCAT(
+            CASE MONTH(fecha_registro)
+                WHEN 1 THEN 'Ene'
+                WHEN 2 THEN 'Feb'
+                WHEN 3 THEN 'Mar'
+                WHEN 4 THEN 'Abr'
+                WHEN 5 THEN 'May'
+                WHEN 6 THEN 'Jun'
+                WHEN 7 THEN 'Jul'
+                WHEN 8 THEN 'Ago'
+                WHEN 9 THEN 'Sep'
+                WHEN 10 THEN 'Oct'
+                WHEN 11 THEN 'Nov'
+                WHEN 12 THEN 'Dic'
+            END,
+            ' ',
+            YEAR(fecha_registro)
+        ) as mes_nombre,
+        COUNT(*) as cantidad
+    FROM solicitudes_admision
+    WHERE fecha_registro >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+    GROUP BY mes, mes_nombre
+    ORDER BY mes ASC
+");
+
     $solicitudesPorMes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
 } catch(PDOException $e) {
